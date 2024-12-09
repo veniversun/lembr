@@ -11,16 +11,16 @@ const Index = () => {
         <p className="text-xl text-gray-600 mb-8">Seu companheiro de estudo inteligente</p>
       </div>
       
+      <div className="text-center mb-4">
+        <p className="text-lg text-gray-700">Escolha um livro para praticar!</p>
+      </div>
+      
       <div className="flex flex-col space-y-4">
         <Link to="/practice">
           <Button className="w-full">
-            Praticar Flashcards
+            Hábitos Atômicos
           </Button>
         </Link>
-        
-        <Button variant="secondary" className="w-full">
-          <Book className="mr-2" /> Hábitos Atômicos
-        </Button>
       </div>
     </div>
   );
