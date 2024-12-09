@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Check, X } from "lucide-react";
+import { ChevronLeft, Check, X } from "lucide-react";
 
 const Practice = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -42,7 +42,6 @@ const Practice = () => {
 
   const handleIncorrect = () => {
     console.log("Card marked as incorrect:", currentCardIndex);
-    // Add current card to review stack to see it again
     setReviewStack([...reviewStack, currentCardIndex]);
     handleNext();
   };
@@ -91,16 +90,10 @@ const Practice = () => {
           </div>
         </div>
 
-        <div className="flex justify-center gap-4 mt-8">
+        <div className="flex justify-center items-center gap-4 mt-8">
           <Button onClick={handlePrevious} variant="outline">
             <ChevronLeft className="mr-2" /> Previous
           </Button>
-          <Button onClick={handleNext} variant="outline">
-            Next <ChevronRight className="ml-2" />
-          </Button>
-        </div>
-
-        <div className="flex justify-center gap-4 mt-4">
           <Button 
             onClick={handleCorrect} 
             variant="outline"
