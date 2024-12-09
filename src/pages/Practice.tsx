@@ -4,11 +4,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Check, X } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 
 const Practice = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [reviewStack, setReviewStack] = useState<number[]>([]);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
 
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["flashcards"],
@@ -37,11 +40,13 @@ const Practice = () => {
 
   const handleCorrect = () => {
     console.log("Card marked as correct:", currentCardIndex);
+    setCorrectCount(prev => prev + 1);
     handleNext();
   };
 
   const handleIncorrect = () => {
     console.log("Card marked as incorrect:", currentCardIndex);
+    setIncorrectCount(prev => prev + 1);
     setReviewStack([...reviewStack, currentCardIndex]);
     handleNext();
   };
@@ -63,12 +68,24 @@ const Practice = () => {
   }
 
   const currentCard = cards[currentCardIndex];
+  const progressPercentage = ((currentCardIndex + 1) / cards.length) * 100;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Practice</h1>
         
+        <div className="mb-6 space-y-4">
+          <div className="flex justify-between text-sm text-gray-600 mb-2">
+            <span>Acertos: {correctCount}</span>
+            <span>Erros: {incorrectCount}</span>
+          </div>
+          <Progress value={progressPercentage} className="w-full" />
+          <div className="text-center text-sm text-gray-600">
+            Progresso: {Math.round(progressPercentage)}%
+          </div>
+        </div>
+
         <div className="relative perspective-1000">
           <div
             className={`w-full min-h-[300px] cursor-pointer transition-transform duration-500 transform-style-preserve-3d ${
