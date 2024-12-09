@@ -52,31 +52,24 @@ const Practice = () => {
         <h1 className="text-3xl font-bold text-center mb-8">Practice</h1>
         
         <div className="relative perspective-1000">
-          <Card
+          <div
             className={`w-full min-h-[300px] cursor-pointer transition-transform duration-500 transform-style-preserve-3d ${
               isFlipped ? "rotate-y-180" : ""
             }`}
             onClick={() => setIsFlipped(!isFlipped)}
           >
-            <div
-              className={`absolute w-full h-full backface-hidden ${
-                isFlipped ? "invisible" : ""
-              }`}
-            >
+            <Card className="absolute w-full h-full backface-hidden bg-white">
               <div className="flex items-center justify-center h-full p-6 text-xl">
                 {currentCard.Q}
               </div>
-            </div>
-            <div
-              className={`absolute w-full h-full backface-hidden rotate-y-180 ${
-                !isFlipped ? "invisible" : ""
-              }`}
-            >
-              <div className="flex items-center justify-center h-full p-6 text-xl bg-gray-50">
+            </Card>
+            
+            <Card className="absolute w-full h-full backface-hidden rotate-y-180 bg-white">
+              <div className="flex items-center justify-center h-full p-6 text-xl">
                 {currentCard.A}
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
         </div>
 
         <div className="flex justify-center gap-4 mt-8">
