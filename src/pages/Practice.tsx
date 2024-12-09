@@ -12,7 +12,7 @@ const Practice = () => {
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["flashcards"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("hatm").select("Q, A");
+      const { data, error } = await supabase.from("flashcards").select("question, answer");
       if (error) throw error;
       return data;
     },
@@ -60,13 +60,13 @@ const Practice = () => {
           >
             <Card className="absolute w-full h-full backface-hidden bg-white">
               <div className="flex items-center justify-center h-full p-6 text-xl">
-                {currentCard.Q}
+                {currentCard.question}
               </div>
             </Card>
             
             <Card className="absolute w-full h-full backface-hidden rotate-y-180 bg-white">
               <div className="flex items-center justify-center h-full p-6 text-xl">
-                {currentCard.A}
+                {currentCard.answer}
               </div>
             </Card>
           </div>
