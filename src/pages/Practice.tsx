@@ -3,8 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Check, X } from "lucide-react";
+import { ChevronLeft, Check, X, Home } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { Link } from "react-router-dom";
 
 const Practice = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -69,6 +70,28 @@ const Practice = () => {
 
   const currentCard = cards[currentCardIndex];
   const progressPercentage = ((currentCardIndex + 1) / cards.length) * 100;
+  const isCompleted = currentCardIndex >= cards.length && reviewStack.length === 0;
+
+  if (isCompleted) {
+    return (
+      <div className="min-h-screen p-8 bg-gray-50">
+        <div className="max-w-2xl mx-auto text-center space-y-6">
+          <h1 className="text-3xl font-bold mb-8">Parabéns, você terminou sua revisão!</h1>
+          <div className="space-y-4">
+            <div className="text-lg">
+              <p>Acertos: {correctCount}</p>
+              <p>Erros: {incorrectCount}</p>
+            </div>
+            <Link to="/">
+              <Button className="mt-4">
+                <Home className="mr-2" /> Voltar para página inicial
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
