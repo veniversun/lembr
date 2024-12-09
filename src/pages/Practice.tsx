@@ -95,7 +95,14 @@ const Practice = () => {
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">Practice</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold">Practice</h1>
+          <Link to="/">
+            <Button variant="outline">
+              <Home className="mr-2" /> Início
+            </Button>
+          </Link>
+        </div>
         
         <div className="mb-6 space-y-4">
           <div className="flex justify-between text-sm text-gray-600 mb-2">
