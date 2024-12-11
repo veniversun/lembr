@@ -8,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Brain, Coins, GraduationCap, Atom } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -17,7 +18,7 @@ const Index = () => {
         <p className="text-xl text-gray-600 mb-8">Absorva o melhor dos mais vendidos! </p>
       </div>
       
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-4xl bg-[#D3E4FD] p-8 rounded-lg">
         <p className="text-lg text-gray-700 text-center mb-6">Escolha um livro para praticar agora:</p>
         
         <Carousel className="w-full max-w-3xl mx-auto" opts={{ slidesToScroll: 1, align: "start" }}>
@@ -68,27 +69,42 @@ const Index = () => {
 
       <div className="w-full max-w-4xl flex flex-col items-center space-y-4">
         <p className="text-lg text-gray-700 mb-4">Estude por temas:</p>
-        <div className="grid grid-cols-2 gap-4 w-full max-w-xs">
-          <Link to="/practice2" className="w-full">
-            <Button className="w-full">
-              Psicologia
-            </Button>
-          </Link>
-          <Link to="/practice2" className="w-full">
-            <Button className="w-full">
-              Finanças
-            </Button>
-          </Link>
-          <Link to="/practice" className="w-full">
-            <Button className="w-full">
-              Liderança
-            </Button>
-          </Link>
-          <Link to="/practice" className="w-full">
-            <Button className="w-full">
-              Disciplina
-            </Button>
-          </Link>
+        <div className="flex justify-center gap-4 w-full">
+          <div className="flex flex-col items-center gap-2">
+            <Brain className="h-6 w-6 text-gray-600" />
+            <Link to="/practice2">
+              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD]">
+                Psicologia
+              </Button>
+            </Link>
+          </div>
+          
+          <div className="flex flex-col items-center gap-2">
+            <Coins className="h-6 w-6 text-gray-600" />
+            <Link to="/practice2">
+              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD]">
+                Finanças
+              </Button>
+            </Link>
+          </div>
+          
+          <div className="flex flex-col items-center gap-2">
+            <GraduationCap className="h-6 w-6 text-gray-600" />
+            <Link to="/practice">
+              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD]">
+                Liderança
+              </Button>
+            </Link>
+          </div>
+          
+          <div className="flex flex-col items-center gap-2">
+            <Atom className="h-6 w-6 text-gray-600" />
+            <Link to="/practice">
+              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD]">
+                Disciplina
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
