@@ -67,40 +67,40 @@ const Index = () => {
         </Carousel>
       </div>
 
-      <div className="w-full max-w-4xl bg-[#D3E4FD] p-8 rounded-lg">
+      <div className="w-full max-w-4xl bg-white p-8 rounded-lg">
         <p className="text-lg text-gray-700 text-center mb-8">Estude por temas:</p>
         <div className="flex justify-between px-12 w-full">
           <div className="flex flex-col items-center gap-6">
-            <Brain className="h-16 w-16 text-gray-600" />
+            <Brain className="h-16 w-16 text-orange-500" />
             <Link to="/practice2">
-              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD] px-8">
+              <Button className="bg-orange-500 text-white hover:bg-orange-600 px-8">
                 Psicologia
               </Button>
             </Link>
           </div>
           
           <div className="flex flex-col items-center gap-6">
-            <Coins className="h-16 w-16 text-gray-600" />
+            <Coins className="h-16 w-16 text-orange-500" />
             <Link to="/practice2">
-              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD] px-8">
+              <Button className="bg-orange-500 text-white hover:bg-orange-600 px-8">
                 Finanças
               </Button>
             </Link>
           </div>
           
           <div className="flex flex-col items-center gap-6">
-            <GraduationCap className="h-16 w-16 text-gray-600" />
+            <GraduationCap className="h-16 w-16 text-orange-500" />
             <Link to="/practice">
-              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD] px-8">
+              <Button className="bg-orange-500 text-white hover:bg-orange-600 px-8">
                 Liderança
               </Button>
             </Link>
           </div>
           
           <div className="flex flex-col items-center gap-6">
-            <Atom className="h-16 w-16 text-gray-600" />
+            <Atom className="h-16 w-16 text-orange-500" />
             <Link to="/practice">
-              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD] px-8">
+              <Button className="bg-orange-500 text-white hover:bg-orange-600 px-8">
                 Disciplina
               </Button>
             </Link>
