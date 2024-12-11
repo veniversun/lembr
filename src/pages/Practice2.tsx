@@ -15,11 +15,15 @@ const Practice2 = () => {
   const [incorrectCount, setIncorrectCount] = useState(0);
 
   const { data: cards = [], isLoading } = useQuery({
-    queryKey: ["flashcards"],
+    queryKey: ["psifin-cards"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("flashcards").select("question, answer");
+      const { data, error } = await supabase.from("psifin").select("q, a");
       if (error) throw error;
-      return data;
+      // Map the data to match the expected format
+      return data.map(card => ({
+        question: card.q,
+        answer: card.a
+      }));
     },
   });
 

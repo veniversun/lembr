@@ -45,6 +45,21 @@ export type Database = {
         }
         Relationships: []
       }
+      psifin: {
+        Row: {
+          a: string | null
+          q: string | null
+        }
+        Insert: {
+          a?: string | null
+          q?: string | null
+        }
+        Update: {
+          a?: string | null
+          q?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
