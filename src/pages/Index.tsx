@@ -19,6 +19,11 @@ const Index = () => {
               Hábitos Atômicos
             </Button>
           </Link>
+          <Link to="/practice2" className="w-full max-w-xs">
+            <Button className="w-full">
+              Psicologia Financeira
+            </Button>
+          </Link>
         </div>
 
         {/* Right Section */}
