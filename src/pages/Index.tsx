@@ -67,40 +67,40 @@ const Index = () => {
         </Carousel>
       </div>
 
-      <div className="w-full max-w-4xl flex flex-col items-center space-y-4">
-        <p className="text-lg text-gray-700 mb-4">Estude por temas:</p>
-        <div className="flex justify-center gap-4 w-full">
-          <div className="flex flex-col items-center gap-2">
-            <Brain className="h-6 w-6 text-gray-600" />
+      <div className="w-full max-w-4xl bg-[#D3E4FD] p-8 rounded-lg">
+        <p className="text-lg text-gray-700 text-center mb-8">Estude por temas:</p>
+        <div className="flex justify-between px-12 w-full">
+          <div className="flex flex-col items-center gap-6">
+            <Brain className="h-16 w-16 text-gray-600" />
             <Link to="/practice2">
-              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD]">
+              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD] px-8">
                 Psicologia
               </Button>
             </Link>
           </div>
           
-          <div className="flex flex-col items-center gap-2">
-            <Coins className="h-6 w-6 text-gray-600" />
+          <div className="flex flex-col items-center gap-6">
+            <Coins className="h-16 w-16 text-gray-600" />
             <Link to="/practice2">
-              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD]">
+              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD] px-8">
                 Finanças
               </Button>
             </Link>
           </div>
           
-          <div className="flex flex-col items-center gap-2">
-            <GraduationCap className="h-6 w-6 text-gray-600" />
+          <div className="flex flex-col items-center gap-6">
+            <GraduationCap className="h-16 w-16 text-gray-600" />
             <Link to="/practice">
-              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD]">
+              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD] px-8">
                 Liderança
               </Button>
             </Link>
           </div>
           
-          <div className="flex flex-col items-center gap-2">
-            <Atom className="h-6 w-6 text-gray-600" />
+          <div className="flex flex-col items-center gap-6">
+            <Atom className="h-16 w-16 text-gray-600" />
             <Link to="/practice">
-              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD]">
+              <Button className="bg-[#D3E4FD] text-gray-700 hover:bg-[#B3D4FD] px-8">
                 Disciplina
               </Button>
             </Link>
