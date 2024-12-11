@@ -14,7 +14,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 space-y-12 p-4">
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">S U M M A</h1>
-        <p className="text-xl text-gray-600 mb-8">Absorva o melhor dos melhores livros</p>
+        <p className="text-xl text-gray-600 mb-8">Absorva o melhor dos mais vendidos! </p>
       </div>
       
       <div className="w-full max-w-4xl">
