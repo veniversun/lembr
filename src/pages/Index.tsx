@@ -20,9 +20,9 @@ const Index = () => {
       <div className="w-full max-w-4xl">
         <p className="text-lg text-gray-700 text-center mb-6">Escolha um livro para praticar agora:</p>
         
-        <Carousel className="w-full max-w-3xl mx-auto">
-          <CarouselContent>
-            <CarouselItem className="basis-1/2">
+        <Carousel className="w-full max-w-3xl mx-auto" opts={{ slidesToScroll: 1, align: "start" }}>
+          <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselItem className="pl-2 md:pl-4 basis-1/3">
               <Link to="/practice2" className="block">
                 <div className="relative group">
                   <img 
@@ -35,12 +35,25 @@ const Index = () => {
               </Link>
             </CarouselItem>
             
-            <CarouselItem className="basis-1/2">
+            <CarouselItem className="pl-2 md:pl-4 basis-1/3">
               <Link to="/practice" className="block">
                 <div className="relative group">
                   <img 
                     src="/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png"
                     alt="Hábitos Atômicos"
+                    className="w-full h-auto shadow-lg rounded-lg transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 rounded-lg"></div>
+                </div>
+              </Link>
+            </CarouselItem>
+
+            <CarouselItem className="pl-2 md:pl-4 basis-1/3">
+              <Link to="/practice3" className="block">
+                <div className="relative group">
+                  <img 
+                    src="/lovable-uploads/1fdec32a-a0f5-4c0c-b655-f206a8d95c1a.png"
+                    alt="Essencialismo"
                     className="w-full h-auto shadow-lg rounded-lg transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 rounded-lg"></div>
