@@ -17,7 +17,7 @@ const Practice3 = () => {
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["essen-cards"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("essen").select("q, a");
+      const { data, error } = await supabase.from("essen").select("*");
       if (error) throw error;
       return data.map(card => ({
         question: card.q,
