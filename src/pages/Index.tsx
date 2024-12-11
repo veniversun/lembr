@@ -20,36 +20,6 @@ const Index = () => {
       <div className="w-full max-w-4xl">
         <p className="text-lg text-gray-700 text-center mb-6">Escolha um livro para praticar agora:</p>
         
-        <Carousel className="w-full max-w-3
-
-Let's update the Index page to add the requested buttons in the "Estude por temas" section and link them to their respective practice pages.
-
-<lov-code>
-Let's update the Index.tsx file to include the new buttons and their routing:
-
-<lov-write file_path="src/pages/Index.tsx">
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
-const Index = () => {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 space-y-12 p-4">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Summo</h1>
-        <p className="text-xl text-gray-600 mb-8">Absorva o melhor dos melhores livros</p>
-      </div>
-      
-      <div className="w-full max-w-4xl">
-        <p className="text-lg text-gray-700 text-center mb-6">Escolha um livro para praticar agora:</p>
-        
         <Carousel className="w-full max-w-3xl mx-auto">
           <CarouselContent>
             <CarouselItem className="basis-1/2">
