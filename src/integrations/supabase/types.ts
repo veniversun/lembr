@@ -90,6 +90,65 @@ export type Database = {
         }
         Relationships: []
       }
+      user_progress: {
+        Row: {
+          book_type: string
+          correct_count: number | null
+          created_at: string
+          id: number
+          incorrect_count: number | null
+          updated_at: string
+          user_id: number | null
+        }
+        Insert: {
+          book_type: string
+          correct_count?: number | null
+          created_at?: string
+          id?: number
+          incorrect_count?: number | null
+          updated_at?: string
+          user_id?: number | null
+        }
+        Update: {
+          book_type?: string
+          correct_count?: number | null
+          created_at?: string
+          id?: number
+          incorrect_count?: number | null
+          updated_at?: string
+          user_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+          nickname: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+          nickname: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string
+          nickname?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
