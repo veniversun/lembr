@@ -13,13 +13,13 @@ const Practice = () => {
   const [reviewStack, setReviewStack] = useState<number[]>([]);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
+  const [wrongCards, setWrongCards] = useState<number[]>([]);
 
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["habatom"],
     queryFn: async () => {
       const { data, error } = await supabase.from("habatom").select("q, a");
       if (error) throw error;
-      // Map the data to match the expected format
       return data.map(item => ({
         question: item.q,
         answer: item.a
@@ -34,7 +34,8 @@ const Practice = () => {
       setCurrentCardIndex(nextIndex);
       setReviewStack(reviewStack.slice(1));
     } else {
-      setCurrentCardIndex((prev) => (prev + 1) % cards.length);
+      const nextIndex = (currentCardIndex + 1) % cards.length;
+      setCurrentCardIndex(nextIndex);
     }
   };
 
@@ -52,8 +53,9 @@ const Practice = () => {
   const handleIncorrect = () => {
     console.log("Card marked as incorrect:", currentCardIndex);
     setIncorrectCount(prev => prev + 1);
+    setWrongCards([...wrongCards, currentCardIndex]);
+    // Add the current card to the end of the review stack
     setReviewStack([...reviewStack, currentCardIndex]);
-    handleNext();
   };
 
   if (isLoading) {
@@ -72,7 +74,7 @@ const Practice = () => {
     );
   }
 
-  const progressPercentage = ((currentCardIndex + 1) / cards.length) * 100;
+  const progressPercentage = ((correctCount) / cards.length) * 100;
   const isCompleted = currentCardIndex >= cards.length - 1 && reviewStack.length === 0;
 
   if (isCompleted) {
@@ -126,13 +128,21 @@ const Practice = () => {
             }`}
             onClick={() => setIsFlipped(!isFlipped)}
           >
-            <Card className="absolute w-full h-full backface-hidden bg-white">
+            <Card 
+              className={`absolute w-full h-full backface-hidden ${
+                wrongCards.includes(currentCardIndex) ? "bg-red-50" : "bg-white"
+              }`}
+            >
               <div className="flex items-center justify-center h-full p-6 text-xl">
                 {cards[currentCardIndex].question}
               </div>
             </Card>
             
-            <Card className="absolute w-full h-full backface-hidden rotate-y-180 bg-white">
+            <Card 
+              className={`absolute w-full h-full backface-hidden rotate-y-180 ${
+                wrongCards.includes(currentCardIndex) ? "bg-red-50" : "bg-white"
+              }`}
+            >
               <div className="flex items-center justify-center h-full p-6 text-xl">
                 {cards[currentCardIndex].answer}
               </div>
@@ -144,20 +154,24 @@ const Practice = () => {
           <Button onClick={handlePrevious} variant="outline">
             <ChevronLeft className="mr-2" /> Previous
           </Button>
-          <Button 
-            onClick={handleCorrect} 
-            variant="outline"
-            className="bg-green-500 hover:bg-green-600 text-white border-none"
-          >
-            <Check className="mr-2" /> Acertei
-          </Button>
-          <Button 
-            onClick={handleIncorrect} 
-            variant="outline"
-            className="bg-red-500 hover:bg-red-600 text-white border-none"
-          >
-            <X className="mr-2" /> Errei
-          </Button>
+          {isFlipped && (
+            <>
+              <Button 
+                onClick={handleCorrect} 
+                variant="outline"
+                className="bg-green-500 hover:bg-green-600 text-white border-none"
+              >
+                <Check className="mr-2" /> Acertei
+              </Button>
+              <Button 
+                onClick={handleIncorrect} 
+                variant="outline"
+                className="bg-red-500 hover:bg-red-600 text-white border-none"
+              >
+                <X className="mr-2" /> Errei
+              </Button>
+            </>
+          )}
         </div>
 
         <div className="text-center mt-4 text-sm text-gray-500">
