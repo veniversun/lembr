@@ -45,6 +45,21 @@ export type Database = {
         }
         Relationships: []
       }
+      habatom: {
+        Row: {
+          a: string | null
+          q: string | null
+        }
+        Insert: {
+          a?: string | null
+          q?: string | null
+        }
+        Update: {
+          a?: string | null
+          q?: string | null
+        }
+        Relationships: []
+      }
       hatm: {
         Row: {
           A: string | null
