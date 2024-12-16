@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, Check, X, Home } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
+import { CompletionModal } from "@/components/CompletionModal";
+
+const ESSENCIALISMO_URL = "https://www.amazon.com.br/gp/aw/d/8543102146/?_encoding=UTF8&pd_rd_plhdr=t&aaxitk=029c167d676a60ba797f200a14dfb2d3&hsa_cr_id=0&qid=1734359514&sr=1-2-9e67e56a-6f64-441f-a281-df67fc737124&ref_=sbx_be_s_sparkle_lsi4d_asin_1_img&pd_rd_w=VXGnI&content-id=amzn1.sym.0af9561b-236a-4456-ac39-e3caccb7758c%3Aamzn1.sym.0af9561b-236a-4456-ac39-e3caccb7758c&pf_rd_p=0af9561b-236a-4456-ac39-e3caccb7758c&pf_rd_r=RJJ8CM35R1FZ6XK61CH5&pd_rd_wg=YLViT&pd_rd_r=5f6e858d-b7d6-4eb1-9ce7-74c2fa390e67";
 
 const Practice3 = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -75,24 +78,11 @@ const Practice3 = () => {
   const isCompleted = currentCardIndex >= cards.length - 1 && reviewStack.length === 0;
 
   if (isCompleted) {
-    return (
-      <div className="min-h-screen p-8 bg-gray-50 flex items-center justify-center">
-        <div className="max-w-2xl mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold mb-8">Parabéns, você terminou sua revisão!</h1>
-          <div className="space-y-4">
-            <div className="text-lg">
-              <p>Acertos: {correctCount}</p>
-              <p>Erros: {incorrectCount}</p>
-            </div>
-            <Link to="/">
-              <Button className="mt-4">
-                <Home className="mr-2" /> Voltar para página inicial
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
+    return <CompletionModal 
+      correctCount={correctCount} 
+      incorrectCount={incorrectCount}
+      bookUrl={ESSENCIALISMO_URL}
+    />;
   }
 
   return (

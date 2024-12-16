@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Check, X, Home, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
+import { UserRegistrationModal } from "@/components/UserRegistrationModal";
+import { Flashcard } from "@/components/Flashcard";
+import { CompletionModal } from "@/components/CompletionModal";
+
+const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100/ref=sr_1_1_sspa?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1OIFQI0FDHM4J&dib=eyJ2IjoiMSJ9.h3cFgA0rVC_-71yJnkkqbOEKXCba3UK7NnAIR90R9oSDz5myhB-cLEHT-V5ahn4zv0W77nwgBS0Tyqut31cOeO30nvE8oUPeEE_q1NGjtL6TmpL1DjuGKQEw-k2tPMVHokdRs6We8E9wZ1finiBBxN2YgrcNazZGrQdOB9t_vnKd9TYb1U5xn9xGOJI-JtxCRE7sJ8_2kG_lct15kS6FWuBSwjN6fVqbCHMaYU8-ltfvCgcnI5ASqQRKBx5megjyGo77mY-eMuL2BNXqc9_-vfCa_jZ5I3LPzoEhGcE5oak.BA0-cLmDrur3cMfz8-q1edjmFa1WAKN35RkmdOk1cHg&dib_tag=se&keywords=psicologia+financeira+livro&qid=1734359569&sprefix=psicologia+financeirlivro%2Caps%2C250&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1";
 
 const Practice2 = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -24,7 +20,6 @@ const Practice2 = () => {
   const [showUserModal, setShowUserModal] = useState(true);
   const [userName, setUserName] = useState("");
   const [userNickname, setUserNickname] = useState("");
-  const { toast } = useToast();
 
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["psifin-cards"],
@@ -37,47 +32,6 @@ const Practice2 = () => {
       }));
     },
   });
-
-  const handleUserSubmit = async () => {
-    if (!userName || !userNickname) {
-      toast({
-        title: "Erro",
-        description: "Por favor, preencha todos os campos",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from("users")
-        .insert([{ name: userName, nickname: userNickname }])
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      localStorage.setItem("userId", data.id.toString());
-      setShowUserModal(false);
-
-      // Initialize user progress
-      await supabase.from("user_progress").insert([
-        { user_id: data.id, book_type: "psifin" }
-      ]);
-
-      toast({
-        title: "Sucesso",
-        description: "Usuário registrado com sucesso!",
-      });
-    } catch (error) {
-      console.error("Error creating user:", error);
-      toast({
-        title: "Erro",
-        description: "Erro ao criar usuário",
-        variant: "destructive",
-      });
-    }
-  };
 
   const updateProgress = async (isCorrect: boolean) => {
     const userId = localStorage.getItem("userId");
@@ -154,62 +108,23 @@ const Practice2 = () => {
   const isCompleted = currentCardIndex >= cards.length - 1 && reviewStack.length === 0;
 
   if (isCompleted) {
-    return (
-      <div className="min-h-screen p-8 bg-gray-50 flex items-center justify-center">
-        <div className="max-w-2xl mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold mb-8">Parabéns, você terminou sua revisão!</h1>
-          <div className="space-y-4">
-            <div className="text-lg">
-              <p>Acertos: {correctCount}</p>
-              <p>Erros: {incorrectCount}</p>
-            </div>
-            <Link to="/">
-              <Button className="mt-4">
-                <Home className="mr-2" /> Voltar para página inicial
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
+    return <CompletionModal 
+      correctCount={correctCount} 
+      incorrectCount={incorrectCount}
+      bookUrl={PSIFIN_BOOK_URL}
+    />;
   }
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
-      <Dialog open={showUserModal} onOpenChange={setShowUserModal}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Bem-vindo! Por favor, se identifique</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-1">
-                Nome
-              </label>
-              <Input
-                id="name"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                placeholder="Seu nome"
-              />
-            </div>
-            <div>
-              <label htmlFor="nickname" className="block text-sm font-medium mb-1">
-                Apelido
-              </label>
-              <Input
-                id="nickname"
-                value={userNickname}
-                onChange={(e) => setUserNickname(e.target.value)}
-                placeholder="Seu apelido"
-              />
-            </div>
-            <Button onClick={handleUserSubmit} className="w-full">
-              Começar
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <UserRegistrationModal
+        open={showUserModal}
+        onOpenChange={setShowUserModal}
+        userName={userName}
+        userNickname={userNickname}
+        setUserName={setUserName}
+        setUserNickname={setUserNickname}
+      />
 
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-8">
@@ -239,26 +154,12 @@ const Practice2 = () => {
           </div>
         </div>
 
-        <div className="relative perspective-1000">
-          <div
-            className={`w-full min-h-[300px] cursor-pointer transition-transform duration-500 transform-style-preserve-3d ${
-              isFlipped ? "rotate-y-180" : ""
-            }`}
-            onClick={() => setIsFlipped(!isFlipped)}
-          >
-            <Card className="absolute w-full h-full backface-hidden bg-white">
-              <div className="flex items-center justify-center h-full p-6 text-xl">
-                {cards[currentCardIndex].question}
-              </div>
-            </Card>
-            
-            <Card className="absolute w-full h-full backface-hidden rotate-y-180 bg-white">
-              <div className="flex items-center justify-center h-full p-6 text-xl">
-                {cards[currentCardIndex].answer}
-              </div>
-            </Card>
-          </div>
-        </div>
+        <Flashcard
+          question={cards[currentCardIndex].question}
+          answer={cards[currentCardIndex].answer}
+          isFlipped={isFlipped}
+          onClick={() => setIsFlipped(!isFlipped)}
+        />
 
         <div className="flex justify-center items-center gap-4 mt-8">
           <Button onClick={handlePrevious} variant="outline">
@@ -286,7 +187,6 @@ const Practice2 = () => {
             <span className="ml-2">({reviewStack.length} cards to review)</span>
           )}
         </div>
-
       </div>
     </div>
   );

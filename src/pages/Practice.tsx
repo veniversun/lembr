@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, Check, X, Home } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
+import { CompletionModal } from "@/components/CompletionModal";
+
+const HABITOS_ATOMICOS_URL = "https://www.amazon.com.br/H%C3%A1bitos-At%C3%B4micos-M%C3%A9todo-Comprovado-Livrar/dp/8550807567/ref=sr_1_1?crid=1E0PVCLDRDUTN&dib=eyJ2IjoiMSJ9.W7NUz9nWGiI-J7WD8adtYpMSwikMW3vZH13nssD9yUMSXQLNRmBvEOyWIjTLyUdQUTiNdxXg1-eR4fqpzos-xBQm1TMPZQfqNxYNdAljYNwvFNy16X3oIVfNM_abiDugHJrlfipeDZIO4Lrm_dTtGRcYMZ_cTE3K5UeFYr3wZIJDpqE3mwHUFnN_FDxck3TX85wROs9vmYUpjII1FdiTN5ZI_r2SJWsaDsbUqzKMtoBl_zHwo8mHhvt4CY9fHWGqAtCkj4gxYpCVCYPPhkRtLiK4jWhdOjqZypLZh6hJ0H_hu51jtB3AA6jbZSJPC60X04yORkULhZPws6NoiPKMz7C-F01S8HP1Y8pcX1sjXHku1LSiV7DIno6viU8yxC-DaEJtYcPpu-BlMnHCkvIWvZvD8L8chc3cEhsAnfzgtENL74eRZ6ICLfTUvq4PNMfS.4B1pfCNBeaUzKB7C5Hduk2OwFyR4VYPLA2oUW8mdHkY&dib_tag=se&keywords=habitos+atomicos+livro&qid=1734359514&sprefix=habitos+a%2Caps%2C309&sr=8-1";
 
 const Practice = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -13,8 +16,6 @@ const Practice = () => {
   const [reviewStack, setReviewStack] = useState<number[]>([]);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
-  const [wrongCards, setWrongCards] = useState<number[]>([]);
-
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["habatom"],
     queryFn: async () => {
@@ -53,10 +54,10 @@ const Practice = () => {
   const handleIncorrect = () => {
     console.log("Card marked as incorrect:", currentCardIndex);
     setIncorrectCount(prev => prev + 1);
-    setWrongCards([...wrongCards, currentCardIndex]);
-    // Add the current card to the end of the review stack
     setReviewStack([...reviewStack, currentCardIndex]);
   };
+
+  const isCompleted = currentCardIndex >= cards.length - 1 && reviewStack.length === 0;
 
   if (isLoading) {
     return (
@@ -74,28 +75,12 @@ const Practice = () => {
     );
   }
 
-  const progressPercentage = ((correctCount) / cards.length) * 100;
-  const isCompleted = currentCardIndex >= cards.length - 1 && reviewStack.length === 0;
-
   if (isCompleted) {
-    return (
-      <div className="min-h-screen p-8 bg-gray-50 flex items-center justify-center">
-        <div className="max-w-2xl mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold mb-8">Parabéns, você terminou sua revisão!</h1>
-          <div className="space-y-4">
-            <div className="text-lg">
-              <p>Acertos: {correctCount}</p>
-              <p>Erros: {incorrectCount}</p>
-            </div>
-            <Link to="/">
-              <Button className="mt-4">
-                <Home className="mr-2" /> Voltar para página inicial
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
+    return <CompletionModal 
+      correctCount={correctCount} 
+      incorrectCount={incorrectCount}
+      bookUrl={HABITOS_ATOMICOS_URL}
+    />;
   }
 
   return (
@@ -115,9 +100,9 @@ const Practice = () => {
             <span>Acertos: {correctCount}</span>
             <span>Erros: {incorrectCount}</span>
           </div>
-          <Progress value={progressPercentage} className="w-full" />
+          <Progress value={((correctCount) / cards.length) * 100} className="w-full" />
           <div className="text-center text-sm text-gray-600">
-            Progresso: {Math.round(progressPercentage)}%
+            Progresso: {Math.round(((currentCardIndex + 1) / cards.length) * 100)}%
           </div>
         </div>
 
@@ -128,21 +113,13 @@ const Practice = () => {
             }`}
             onClick={() => setIsFlipped(!isFlipped)}
           >
-            <Card 
-              className={`absolute w-full h-full backface-hidden ${
-                wrongCards.includes(currentCardIndex) ? "bg-red-50" : "bg-white"
-              }`}
-            >
+            <Card className="absolute w-full h-full backface-hidden bg-white">
               <div className="flex items-center justify-center h-full p-6 text-xl">
                 {cards[currentCardIndex].question}
               </div>
             </Card>
             
-            <Card 
-              className={`absolute w-full h-full backface-hidden rotate-y-180 ${
-                wrongCards.includes(currentCardIndex) ? "bg-red-50" : "bg-white"
-              }`}
-            >
+            <Card className="absolute w-full h-full backface-hidden rotate-y-180 bg-white">
               <div className="flex items-center justify-center h-full p-6 text-xl">
                 {cards[currentCardIndex].answer}
               </div>
@@ -154,24 +131,20 @@ const Practice = () => {
           <Button onClick={handlePrevious} variant="outline">
             <ChevronLeft className="mr-2" /> Previous
           </Button>
-          {isFlipped && (
-            <>
-              <Button 
-                onClick={handleCorrect} 
-                variant="outline"
-                className="bg-green-500 hover:bg-green-600 text-white border-none"
-              >
-                <Check className="mr-2" /> Acertei
-              </Button>
-              <Button 
-                onClick={handleIncorrect} 
-                variant="outline"
-                className="bg-red-500 hover:bg-red-600 text-white border-none"
-              >
-                <X className="mr-2" /> Errei
-              </Button>
-            </>
-          )}
+          <Button 
+            onClick={handleCorrect} 
+            variant="outline"
+            className="bg-green-500 hover:bg-green-600 text-white border-none"
+          >
+            <Check className="mr-2" /> Acertei
+          </Button>
+          <Button 
+            onClick={handleIncorrect} 
+            variant="outline"
+            className="bg-red-500 hover:bg-red-600 text-white border-none"
+          >
+            <X className="mr-2" /> Errei
+          </Button>
         </div>
 
         <div className="text-center mt-4 text-sm text-gray-500">
