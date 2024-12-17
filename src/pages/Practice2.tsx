@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,8 @@ import { CompletionModal } from "@/components/CompletionModal";
 
 const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100/ref=sr_1_1_sspa?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1OIFQI0FDHM4J&dib=eyJ2IjoiMSJ9.h3cFgA0rVC_-71yJnkkqbOEKXCba3UK7NnAIR90R9oSDz5myhB-cLEHT-V5ahn4zv0W77nwgBS0Tyqut31cOeO30nvE8oUPeEE_q1NGjtL6TmpL1DjuGKQEw-k2tPMVHokdRs6We8E9wZ1finiBBxN2YgrcNazZGrQdOB9t_vnKd9TYb1U5xn9xGOJI-JtxCRE7sJ8_2kG_lct15kS6FWuBSwjN6fVqbCHMaYU8-ltfvCgcnI5ASqQRKBx5megjyGo77mY-eMuL2BNXqc9_-vfCa_jZ5I3LPzoEhGcE5oak.BA0-cLmDrur3cMfz8-q1edjmFa1WAKN35RkmdOk1cHg&dib_tag=se&keywords=psicologia+financeira+livro&qid=1734359569&sprefix=psicologia+financeirlivro%2Caps%2C250&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1";
 
+const CARD_COOLDOWN = 30 * 60 * 1000; // 30 minutes in milliseconds
+
 const Practice2 = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -20,6 +22,9 @@ const Practice2 = () => {
   const [showUserModal, setShowUserModal] = useState(true);
   const [userName, setUserName] = useState("");
   const [userNickname, setUserNickname] = useState("");
+  const [completedCards, setCompletedCards] = useState<Set<number>>(new Set());
+  const [cardCooldowns, setCardCooldowns] = useState<{ [key: number]: number }>({});
+  const [isCardError, setIsCardError] = useState(false);
 
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["psifin-cards"],
@@ -32,6 +37,20 @@ const Practice2 = () => {
       }));
     },
   });
+
+  useEffect(() => {
+    const now = Date.now();
+    // Remove expired cooldowns
+    setCardCooldowns(prev => {
+      const updated = { ...prev };
+      Object.entries(updated).forEach(([key, timestamp]) => {
+        if (now - timestamp >= CARD_COOLDOWN) {
+          delete updated[Number(key)];
+        }
+      });
+      return updated;
+    });
+  }, [currentCardIndex]);
 
   const updateProgress = async (isCorrect: boolean) => {
     const userId = localStorage.getItem("userId");
@@ -61,31 +80,57 @@ const Practice2 = () => {
 
   const handleNext = () => {
     setIsFlipped(false);
+    setIsCardError(false);
+    
     if (reviewStack.length > 0) {
       const nextIndex = reviewStack[0];
       setCurrentCardIndex(nextIndex);
       setReviewStack(reviewStack.slice(1));
-    } else {
-      setCurrentCardIndex((prev) => (prev + 1) % cards.length);
+      return;
     }
+
+    let nextIndex = currentCardIndex;
+    do {
+      nextIndex = (nextIndex + 1) % cards.length;
+      // Skip cards in cooldown
+      if (!cardCooldowns[nextIndex]) break;
+    } while (nextIndex !== currentCardIndex);
+
+    setCurrentCardIndex(nextIndex);
   };
 
   const handlePrevious = () => {
     setIsFlipped(false);
-    setCurrentCardIndex((prev) => (prev - 1 + cards.length) % cards.length);
+    setIsCardError(false);
+    let prevIndex = currentCardIndex;
+    do {
+      prevIndex = (prevIndex - 1 + cards.length) % cards.length;
+      if (!cardCooldowns[prevIndex]) break;
+    } while (prevIndex !== currentCardIndex);
+    
+    setCurrentCardIndex(prevIndex);
   };
 
   const handleCorrect = async () => {
+    if (!isFlipped) return;
+    
     setCorrectCount(prev => prev + 1);
+    setCompletedCards(prev => new Set(prev).add(currentCardIndex));
+    setCardCooldowns(prev => ({
+      ...prev,
+      [currentCardIndex]: Date.now()
+    }));
     await updateProgress(true);
     handleNext();
   };
 
   const handleIncorrect = async () => {
+    if (!isFlipped) return;
+    
     setIncorrectCount(prev => prev + 1);
-    await updateProgress(false);
+    setIsCardError(true);
     setReviewStack([...reviewStack, currentCardIndex]);
-    handleNext();
+    await updateProgress(false);
   };
 
   if (isLoading) {
@@ -104,8 +149,9 @@ const Practice2 = () => {
     );
   }
 
-  const progressPercentage = ((currentCardIndex + 1) / cards.length) * 100;
-  const isCompleted = currentCardIndex >= cards.length - 1 && reviewStack.length === 0;
+  // Calculate progress based on completed cards (only counted when marked correct)
+  const progressPercentage = (completedCards.size / cards.length) * 100;
+  const isCompleted = completedCards.size === cards.length && reviewStack.length === 0;
 
   if (isCompleted) {
     return <CompletionModal 
@@ -159,26 +205,31 @@ const Practice2 = () => {
           answer={cards[currentCardIndex].answer}
           isFlipped={isFlipped}
           onClick={() => setIsFlipped(!isFlipped)}
+          isError={isCardError}
         />
 
         <div className="flex justify-center items-center gap-4 mt-8">
           <Button onClick={handlePrevious} variant="outline">
             <ChevronLeft className="mr-2" /> Previous
           </Button>
-          <Button 
-            onClick={handleCorrect} 
-            variant="outline"
-            className="bg-green-500 hover:bg-green-600 text-white border-none"
-          >
-            <Check className="mr-2" /> Acertei
-          </Button>
-          <Button 
-            onClick={handleIncorrect} 
-            variant="outline"
-            className="bg-red-500 hover:bg-red-600 text-white border-none"
-          >
-            <X className="mr-2" /> Errei
-          </Button>
+          {isFlipped && (
+            <>
+              <Button 
+                onClick={handleCorrect} 
+                variant="outline"
+                className="bg-green-500 hover:bg-green-600 text-white border-none"
+              >
+                <Check className="mr-2" /> Acertei
+              </Button>
+              <Button 
+                onClick={handleIncorrect} 
+                variant="outline"
+                className="bg-red-500 hover:bg-red-600 text-white border-none"
+              >
+                <X className="mr-2" /> Errei
+              </Button>
+            </>
+          )}
         </div>
 
         <div className="text-center mt-4 text-sm text-gray-500">

@@ -5,9 +5,10 @@ interface FlashcardProps {
   answer: string;
   isFlipped: boolean;
   onClick: () => void;
+  isError?: boolean;
 }
 
-export const Flashcard = ({ question, answer, isFlipped, onClick }: FlashcardProps) => {
+export const Flashcard = ({ question, answer, isFlipped, onClick, isError = false }: FlashcardProps) => {
   return (
     <div className="relative perspective-1000">
       <div
@@ -16,13 +17,13 @@ export const Flashcard = ({ question, answer, isFlipped, onClick }: FlashcardPro
         }`}
         onClick={onClick}
       >
-        <Card className="absolute w-full h-full backface-hidden bg-white">
+        <Card className={`absolute w-full h-full backface-hidden ${isError ? "bg-red-50" : "bg-white"}`}>
           <div className="flex items-center justify-center h-full p-6 text-xl">
             {question}
           </div>
         </Card>
         
-        <Card className="absolute w-full h-full backface-hidden rotate-y-180 bg-white">
+        <Card className={`absolute w-full h-full backface-hidden rotate-y-180 ${isError ? "bg-red-50" : "bg-white"}`}>
           <div className="flex items-center justify-center h-full p-6 text-xl">
             {answer}
           </div>
