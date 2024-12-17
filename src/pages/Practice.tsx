@@ -16,6 +16,10 @@ const Practice = () => {
   const [reviewStack, setReviewStack] = useState<number[]>([]);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
+  const [processedCards, setProcessedCards] = useState<Set<number>>(new Set());
+  const [isCardError, setIsCardError] = useState(false);
+  const [completedCards, setCompletedCards] = useState<Set<number>>(new Set());
+
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["habatom"],
     queryFn: async () => {
@@ -30,34 +34,51 @@ const Practice = () => {
 
   const handleNext = () => {
     setIsFlipped(false);
-    if (reviewStack.length > 0) {
+    setIsCardError(false);
+    
+    // If we have cards in the review stack and all other cards have been processed
+    if (reviewStack.length > 0 && processedCards.size === cards.length) {
       const nextIndex = reviewStack[0];
       setCurrentCardIndex(nextIndex);
-      setReviewStack(reviewStack.slice(1));
-    } else {
-      const nextIndex = (currentCardIndex + 1) % cards.length;
-      setCurrentCardIndex(nextIndex);
+      setReviewStack(prev => prev.slice(1));
+      return;
     }
+
+    // Find the next unprocessed card
+    let nextIndex = currentCardIndex;
+    do {
+      nextIndex = (nextIndex + 1) % cards.length;
+    } while (processedCards.has(nextIndex) && nextIndex !== currentCardIndex);
+
+    setCurrentCardIndex(nextIndex);
   };
 
   const handlePrevious = () => {
     setIsFlipped(false);
+    setIsCardError(false);
     setCurrentCardIndex((prev) => (prev - 1 + cards.length) % cards.length);
   };
 
   const handleCorrect = () => {
+    if (!isFlipped) return;
+    
     console.log("Card marked as correct:", currentCardIndex);
     setCorrectCount(prev => prev + 1);
+    setCompletedCards(prev => new Set(prev).add(currentCardIndex));
+    setProcessedCards(prev => new Set(prev).add(currentCardIndex));
     handleNext();
   };
 
   const handleIncorrect = () => {
+    if (!isFlipped) return;
+    
     console.log("Card marked as incorrect:", currentCardIndex);
     setIncorrectCount(prev => prev + 1);
-    setReviewStack([...reviewStack, currentCardIndex]);
+    setIsCardError(true);
+    setProcessedCards(prev => new Set(prev).add(currentCardIndex));
+    setReviewStack(prev => [...prev, currentCardIndex]);
+    handleNext();
   };
-
-  const isCompleted = currentCardIndex >= cards.length - 1 && reviewStack.length === 0;
 
   if (isLoading) {
     return (
@@ -75,6 +96,8 @@ const Practice = () => {
     );
   }
 
+  const isCompleted = completedCards.size === cards.length && reviewStack.length === 0;
+
   if (isCompleted) {
     return <CompletionModal 
       correctCount={correctCount} 
@@ -82,6 +105,8 @@ const Practice = () => {
       bookUrl={HABITOS_ATOMICOS_URL}
     />;
   }
+
+  const progressPercentage = (completedCards.size / cards.length) * 100;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
@@ -100,9 +125,9 @@ const Practice = () => {
             <span>Acertos: {correctCount}</span>
             <span>Erros: {incorrectCount}</span>
           </div>
-          <Progress value={((correctCount) / cards.length) * 100} className="w-full" />
+          <Progress value={progressPercentage} className="w-full" />
           <div className="text-center text-sm text-gray-600">
-            Progresso: {Math.round(((currentCardIndex + 1) / cards.length) * 100)}%
+            Progresso: {Math.round(progressPercentage)}%
           </div>
         </div>
 
@@ -113,13 +138,13 @@ const Practice = () => {
             }`}
             onClick={() => setIsFlipped(!isFlipped)}
           >
-            <Card className="absolute w-full h-full backface-hidden bg-white">
+            <Card className={`absolute w-full h-full backface-hidden ${isCardError ? "bg-red-50" : "bg-white"}`}>
               <div className="flex items-center justify-center h-full p-6 text-xl">
                 {cards[currentCardIndex].question}
               </div>
             </Card>
             
-            <Card className="absolute w-full h-full backface-hidden rotate-y-180 bg-white">
+            <Card className={`absolute w-full h-full backface-hidden rotate-y-180 ${isCardError ? "bg-red-50" : "bg-white"}`}>
               <div className="flex items-center justify-center h-full p-6 text-xl">
                 {cards[currentCardIndex].answer}
               </div>
@@ -131,20 +156,24 @@ const Practice = () => {
           <Button onClick={handlePrevious} variant="outline">
             <ChevronLeft className="mr-2" /> Previous
           </Button>
-          <Button 
-            onClick={handleCorrect} 
-            variant="outline"
-            className="bg-green-500 hover:bg-green-600 text-white border-none"
-          >
-            <Check className="mr-2" /> Acertei
-          </Button>
-          <Button 
-            onClick={handleIncorrect} 
-            variant="outline"
-            className="bg-red-500 hover:bg-red-600 text-white border-none"
-          >
-            <X className="mr-2" /> Errei
-          </Button>
+          {isFlipped && (
+            <>
+              <Button 
+                onClick={handleCorrect} 
+                variant="outline"
+                className="bg-green-500 hover:bg-green-600 text-white border-none"
+              >
+                <Check className="mr-2" /> Acertei
+              </Button>
+              <Button 
+                onClick={handleIncorrect} 
+                variant="outline"
+                className="bg-red-500 hover:bg-red-600 text-white border-none"
+              >
+                <X className="mr-2" /> Errei
+              </Button>
+            </>
+          )}
         </div>
 
         <div className="text-center mt-4 text-sm text-gray-500">
