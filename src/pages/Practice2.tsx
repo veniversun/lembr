@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, Check, X, Home, Trophy } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
-import { Link } from "react-router-dom";
 import { UserRegistrationModal } from "@/components/UserRegistrationModal";
 import { Flashcard } from "@/components/Flashcard";
 import { CompletionModal } from "@/components/CompletionModal";
+import { PracticeHeader } from "@/components/practice/PracticeHeader";
+import { ProgressBar } from "@/components/practice/ProgressBar";
+import { CardControls } from "@/components/practice/CardControls";
 
 const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100/ref=sr_1_1_sspa?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1OIFQI0FDHM4J&dib=eyJ2IjoiMSJ9.h3cFgA0rVC_-71yJnkkqbOEKXCba3UK7NnAIR90R9oSDz5myhB-cLEHT-V5ahn4zv0W77nwgBS0Tyqut31cOeO30nvE8oUPeEE_q1NGjtL6TmpL1DjuGKQEw-k2tPMVHokdRs6We8E9wZ1finiBBxN2YgrcNazZGrQdOB9t_vnKd9TYb1U5xn9xGOJI-JtxCRE7sJ8_2kG_lct15kS6FWuBSwjN6fVqbCHMaYU8-ltfvCgcnI5ASqQRKBx5megjyGo77mY-eMuL2BNXqc9_-vfCa_jZ5I3LPzoEhGcE5oak.BA0-cLmDrur3cMfz8-q1edjmFa1WAKN35RkmdOk1cHg&dib_tag=se&keywords=psicologia+financeira+livro&qid=1734359569&sprefix=psicologia+financeirlivro%2Caps%2C250&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1";
 
@@ -25,6 +24,7 @@ const Practice2 = () => {
   const [completedCards, setCompletedCards] = useState<Set<number>>(new Set());
   const [cardCooldowns, setCardCooldowns] = useState<{ [key: number]: number }>({});
   const [isCardError, setIsCardError] = useState(false);
+  const [processedCards, setProcessedCards] = useState<Set<number>>(new Set());
 
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["psifin-cards"],
@@ -40,7 +40,6 @@ const Practice2 = () => {
 
   useEffect(() => {
     const now = Date.now();
-    // Remove expired cooldowns
     setCardCooldowns(prev => {
       const updated = { ...prev };
       Object.entries(updated).forEach(([key, timestamp]) => {
@@ -82,19 +81,19 @@ const Practice2 = () => {
     setIsFlipped(false);
     setIsCardError(false);
     
-    if (reviewStack.length > 0) {
+    // If we have cards in the review stack and all other cards have been processed
+    if (reviewStack.length > 0 && processedCards.size === cards.length) {
       const nextIndex = reviewStack[0];
       setCurrentCardIndex(nextIndex);
       setReviewStack(reviewStack.slice(1));
       return;
     }
 
+    // Find the next unprocessed card
     let nextIndex = currentCardIndex;
     do {
       nextIndex = (nextIndex + 1) % cards.length;
-      // Skip cards in cooldown
-      if (!cardCooldowns[nextIndex]) break;
-    } while (nextIndex !== currentCardIndex);
+    } while (processedCards.has(nextIndex) && nextIndex !== currentCardIndex);
 
     setCurrentCardIndex(nextIndex);
   };
@@ -116,6 +115,7 @@ const Practice2 = () => {
     
     setCorrectCount(prev => prev + 1);
     setCompletedCards(prev => new Set(prev).add(currentCardIndex));
+    setProcessedCards(prev => new Set(prev).add(currentCardIndex));
     setCardCooldowns(prev => ({
       ...prev,
       [currentCardIndex]: Date.now()
@@ -129,8 +129,10 @@ const Practice2 = () => {
     
     setIncorrectCount(prev => prev + 1);
     setIsCardError(true);
-    setReviewStack([...reviewStack, currentCardIndex]);
+    setProcessedCards(prev => new Set(prev).add(currentCardIndex));
+    setReviewStack(prev => [...prev, currentCardIndex]);
     await updateProgress(false);
+    handleNext();
   };
 
   if (isLoading) {
@@ -149,8 +151,6 @@ const Practice2 = () => {
     );
   }
 
-  // Calculate progress based on completed cards (only counted when marked correct)
-  const progressPercentage = (completedCards.size / cards.length) * 100;
   const isCompleted = completedCards.size === cards.length && reviewStack.length === 0;
 
   if (isCompleted) {
@@ -173,32 +173,14 @@ const Practice2 = () => {
       />
 
       <div className="max-w-2xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Pratique Psicologia Financeira</h1>
-          <div className="flex gap-4">
-            <Link to="/profile">
-              <Button variant="outline" className="bg-orange-500 text-white hover:bg-orange-600">
-                <Trophy className="mr-2" /> Conquistas
-              </Button>
-            </Link>
-            <Link to="/">
-              <Button variant="outline">
-                <Home className="mr-2" /> Início
-              </Button>
-            </Link>
-          </div>
-        </div>
+        <PracticeHeader title="Pratique Psicologia Financeira" />
         
-        <div className="mb-6 space-y-4">
-          <div className="flex justify-between text-sm text-gray-600 mb-2">
-            <span>Acertos: {correctCount}</span>
-            <span>Erros: {incorrectCount}</span>
-          </div>
-          <Progress value={progressPercentage} className="w-full" />
-          <div className="text-center text-sm text-gray-600">
-            Progresso: {Math.round(progressPercentage)}%
-          </div>
-        </div>
+        <ProgressBar 
+          correctCount={correctCount}
+          incorrectCount={incorrectCount}
+          totalCards={cards.length}
+          completedCards={completedCards}
+        />
 
         <Flashcard
           question={cards[currentCardIndex].question}
@@ -208,29 +190,12 @@ const Practice2 = () => {
           isError={isCardError}
         />
 
-        <div className="flex justify-center items-center gap-4 mt-8">
-          <Button onClick={handlePrevious} variant="outline">
-            <ChevronLeft className="mr-2" /> Previous
-          </Button>
-          {isFlipped && (
-            <>
-              <Button 
-                onClick={handleCorrect} 
-                variant="outline"
-                className="bg-green-500 hover:bg-green-600 text-white border-none"
-              >
-                <Check className="mr-2" /> Acertei
-              </Button>
-              <Button 
-                onClick={handleIncorrect} 
-                variant="outline"
-                className="bg-red-500 hover:bg-red-600 text-white border-none"
-              >
-                <X className="mr-2" /> Errei
-              </Button>
-            </>
-          )}
-        </div>
+        <CardControls 
+          onPrevious={handlePrevious}
+          onCorrect={handleCorrect}
+          onIncorrect={handleIncorrect}
+          showAnswerButtons={isFlipped}
+        />
 
         <div className="text-center mt-4 text-sm text-gray-500">
           Card {currentCardIndex + 1} of {cards.length}
