@@ -31,25 +31,19 @@ export const RegistrationModal = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const checkFirstVisit = async () => {
-      const hasVisited = localStorage.getItem("hasVisited");
-      if (!hasVisited) {
-        setOpen(true);
-        // Increment numero_acessos
-        try {
-          const { error } = await supabase
-            .from("acessos")
-            .update({ numero_acessos: 1 })
-            .eq('id', 1)
-            .select();
-            
-          if (error) throw error;
-        } catch (error) {
-          console.error("Error updating acessos:", error);
-        }
-      }
-    };
-    checkFirstVisit();
+    setOpen(true);
+    // Increment numero_acessos
+    try {
+      const { error } = supabase
+        .from("acessos")
+        .update({ numero_acessos: 1 })
+        .eq('id', 1)
+        .select();
+        
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error updating acessos:", error);
+    }
   }, []);
 
   const handleSubmit = async () => {
@@ -84,7 +78,6 @@ export const RegistrationModal = () => {
 
       if (acessosError) throw acessosError;
 
-      localStorage.setItem("hasVisited", "true");
       setOpen(false);
       
       toast({

@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { UserRegistrationModal } from "@/components/UserRegistrationModal";
 import { Flashcard } from "@/components/Flashcard";
 import { CompletionModal } from "@/components/CompletionModal";
 import { PracticeHeader } from "@/components/practice/PracticeHeader";
 import { ProgressBar } from "@/components/practice/ProgressBar";
 import { CardControls } from "@/components/practice/CardControls";
+import { RegistrationModal } from "@/components/RegistrationModal";
 
 const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100/ref=sr_1_1_sspa?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1OIFQI0FDHM4J&dib=eyJ2IjoiMSJ9.h3cFgA0rVC_-71yJnkkqbOEKXCba3UK7NnAIR90R9oSDz5myhB-cLEHT-V5ahn4zv0W77nwgBS0Tyqut31cOeO30nvE8oUPeEE_q1NGjtL6TmpL1DjuGKQEw-k2tPMVHokdRs6We8E9wZ1finiBBxN2YgrcNazZGrQdOB9t_vnKd9TYb1U5xn9xGOJI-JtxCRE7sJ8_2kG_lct15kS6FWuBSwjN6fVqbCHMaYU8-ltfvCgcnI5ASqQRKBx5megjyGo77mY-eMuL2BNXqc9_-vfCa_jZ5I3LPzoEhGcE5oak.BA0-cLmDrur3cMfz8-q1edjmFa1WAKN35RkmdOk1cHg&dib_tag=se&keywords=psicologia+financeira+livro&qid=1734359569&sprefix=psicologia+financeirlivro%2Caps%2C250&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1";
 
@@ -18,9 +18,6 @@ const Practice2 = () => {
   const [reviewStack, setReviewStack] = useState<number[]>([]);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
-  const [showUserModal, setShowUserModal] = useState(true);
-  const [userName, setUserName] = useState("");
-  const [userNickname, setUserNickname] = useState("");
   const [completedCards, setCompletedCards] = useState<Set<number>>(new Set());
   const [cardCooldowns, setCardCooldowns] = useState<{ [key: number]: number }>({});
   const [isCardError, setIsCardError] = useState(false);
@@ -163,14 +160,7 @@ const Practice2 = () => {
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
-      <UserRegistrationModal
-        open={showUserModal}
-        onOpenChange={setShowUserModal}
-        userName={userName}
-        userNickname={userNickname}
-        setUserName={setUserName}
-        setUserNickname={setUserNickname}
-      />
+      <RegistrationModal />
 
       <div className="max-w-2xl mx-auto">
         <PracticeHeader title="Pratique Psicologia Financeira" />
