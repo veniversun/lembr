@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -9,13 +9,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Brain, Coins, GraduationCap, Atom } from 'lucide-react';
-import { RegistrationModal } from '@/components/RegistrationModal';
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const handleBookClick = (path: string) => {
+    localStorage.removeItem("hasVisited"); // Reset the registration check
+    navigate(path);
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 p-4 md:p-8">
-      <RegistrationModal />
-      
       {/* Header Section */}
       <div className="text-center mb-8 md:mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
@@ -47,7 +51,7 @@ const Index = () => {
         }}>
           <CarouselContent className="-ml-2 md:-ml-4">
             <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/3">
-              <Link to="/practice2" className="block">
+              <div onClick={() => handleBookClick('/practice2')} className="cursor-pointer">
                 <div className="relative group transition-all duration-300">
                   <div className="overflow-hidden rounded-xl">
                     <img 
@@ -60,11 +64,11 @@ const Index = () => {
                     <span className="text-white font-medium">Começar</span>
                   </div>
                 </div>
-              </Link>
+              </div>
             </CarouselItem>
             
             <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/3">
-              <Link to="/practice" className="block">
+              <div onClick={() => handleBookClick('/practice')} className="cursor-pointer">
                 <div className="relative group transition-all duration-300">
                   <div className="overflow-hidden rounded-xl">
                     <img 
@@ -77,11 +81,11 @@ const Index = () => {
                     <span className="text-white font-medium">Começar</span>
                   </div>
                 </div>
-              </Link>
+              </div>
             </CarouselItem>
 
             <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/3">
-              <Link to="/practice3" className="block">
+              <div onClick={() => handleBookClick('/practice3')} className="cursor-pointer">
                 <div className="relative group transition-all duration-300">
                   <div className="overflow-hidden rounded-xl">
                     <img 
@@ -94,7 +98,7 @@ const Index = () => {
                     <span className="text-white font-medium">Começar</span>
                   </div>
                 </div>
-              </Link>
+              </div>
             </CarouselItem>
           </CarouselContent>
           <CarouselPrevious className="hidden md:flex" />

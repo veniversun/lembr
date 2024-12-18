@@ -37,10 +37,13 @@ export const RegistrationModal = () => {
         setOpen(true);
         // Increment numero_acessos
         try {
-          await supabase
+          const { error } = await supabase
             .from("acessos")
-            .update({ numero_acessos: supabase.raw('numero_acessos + 1') })
-            .eq('id', 1);
+            .update({ numero_acessos: 1 })
+            .eq('id', 1)
+            .select();
+            
+          if (error) throw error;
         } catch (error) {
           console.error("Error updating acessos:", error);
         }
@@ -61,17 +64,25 @@ export const RegistrationModal = () => {
     }
 
     try {
-      await supabase.from("registros").insert([{
-        ...formData,
-        idade: parseInt(formData.idade),
-        leu_livro: formData.leu_livro === "sim"
-      }]);
+      // Insert new registration
+      const { error: registroError } = await supabase
+        .from("registros")
+        .insert([{
+          ...formData,
+          idade: parseInt(formData.idade),
+          leu_livro: formData.leu_livro === "sim"
+        }]);
+
+      if (registroError) throw registroError;
 
       // Increment numero_registros
-      await supabase
+      const { error: acessosError } = await supabase
         .from("acessos")
-        .update({ numero_registros: supabase.raw('numero_registros + 1') })
-        .eq('id', 1);
+        .update({ numero_registros: 1 })
+        .eq('id', 1)
+        .select();
+
+      if (acessosError) throw acessosError;
 
       localStorage.setItem("hasVisited", "true");
       setOpen(false);
