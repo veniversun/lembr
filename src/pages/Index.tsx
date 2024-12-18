@@ -8,11 +8,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Brain, Coins, GraduationCap, Atom, BookOpen } from 'lucide-react';
+import { Brain, Coins, GraduationCap, Atom } from 'lucide-react';
+import { RegistrationModal } from '@/components/RegistrationModal';
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 p-4 md:p-8">
+      <RegistrationModal />
+      
       {/* Header Section */}
       <div className="text-center mb-8 md:mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">

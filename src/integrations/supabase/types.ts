@@ -9,6 +9,24 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      acessos: {
+        Row: {
+          id: number
+          numero_acessos: number | null
+          numero_registros: number | null
+        }
+        Insert: {
+          id?: number
+          numero_acessos?: number | null
+          numero_registros?: number | null
+        }
+        Update: {
+          id?: number
+          numero_acessos?: number | null
+          numero_registros?: number | null
+        }
+        Relationships: []
+      }
       essen: {
         Row: {
           a: string | null
@@ -87,6 +105,42 @@ export type Database = {
         Update: {
           a?: string | null
           q?: string | null
+        }
+        Relationships: []
+      }
+      registros: {
+        Row: {
+          cidade: string
+          created_at: string
+          email: string
+          id: number
+          idade: number
+          leu_livro: boolean
+          nome: string
+          ocupacao: string
+          sexo: string
+        }
+        Insert: {
+          cidade: string
+          created_at?: string
+          email: string
+          id?: number
+          idade: number
+          leu_livro: boolean
+          nome: string
+          ocupacao: string
+          sexo: string
+        }
+        Update: {
+          cidade?: string
+          created_at?: string
+          email?: string
+          id?: number
+          idade?: number
+          leu_livro?: boolean
+          nome?: string
+          ocupacao?: string
+          sexo?: string
         }
         Relationships: []
       }
