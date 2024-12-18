@@ -33,17 +33,21 @@ export const RegistrationModal = () => {
   useEffect(() => {
     setOpen(true);
     // Increment numero_acessos
-    try {
-      const { error } = supabase
-        .from("acessos")
-        .update({ numero_acessos: 1 })
-        .eq('id', 1)
-        .select();
-        
-      if (error) throw error;
-    } catch (error) {
-      console.error("Error updating acessos:", error);
-    }
+    const updateAcessos = async () => {
+      try {
+        const { data, error: updateError } = await supabase
+          .from("acessos")
+          .update({ numero_acessos: 1 })
+          .eq('id', 1)
+          .select();
+          
+        if (updateError) throw updateError;
+      } catch (error) {
+        console.error("Error updating acessos:", error);
+      }
+    };
+    
+    updateAcessos();
   }, []);
 
   const handleSubmit = async () => {
