@@ -22,6 +22,15 @@ const Index = () => {
           Absorva o melhor dos mais vendidos!
         </p>
       </div>
+
+      {/* New Message Box */}
+      <div className="w-full max-w-4xl bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg mb-8 md:mb-12">
+        <p className="text-gray-700 text-center leading-relaxed">
+          Não basta ler livros ótimos. É preciso aprender com eles. Somente praticando os conceitos é possível crescer de verdade!<br /><br />
+          O inSuma utiliza IA para absorver os mais potentes conceitos dos melhores livros de desenvolvimento pessoal e manter você em forma!<br /><br />
+          Aprenda, cresca e multiplique com o inSuma!
+        </p>
+      </div>
       
       {/* Books Carousel Section */}
       <div className="w-full max-w-4xl bg-white/80 backdrop-blur-sm p-4 md:p-8 rounded-2xl shadow-lg mb-8 md:mb-12">
