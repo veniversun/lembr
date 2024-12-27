@@ -16,7 +16,12 @@ export const ProgressBar = ({ correctCount, incorrectCount, totalCards, complete
         <span>Acertos: {correctCount}</span>
         <span>Erros: {incorrectCount}</span>
       </div>
-      <Progress value={progressPercentage} className="w-full" />
+      <div className="relative w-full h-4 bg-gray-100 rounded-full overflow-hidden">
+        <div 
+          className="h-full transition-all duration-500 ease-out rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500"
+          style={{ width: `${progressPercentage}%` }}
+        />
+      </div>
       <div className="text-center text-sm text-gray-600">
         Progresso: {Math.round(progressPercentage)}%
       </div>
