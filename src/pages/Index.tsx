@@ -23,7 +23,7 @@ const Index = () => {
       {/* Header Section */}
       <div className="text-center mb-8 md:mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-          I N S U M A
+          I N S U M M A
         </h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-md mx-auto px-4">
           Absorva o melhor dos mais vendidos!
