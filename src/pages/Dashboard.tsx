@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Home } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -84,9 +87,18 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-7xl mx-auto space-y-8">
+        {/* Header with Home button */}
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold">Dashboard</h1>
+          <Link to="/">
+            <Button variant="outline">
+              <Home className="mr-2" /> Início
+            </Button>
+          </Link>
+        </div>
+
         {/* Profile Information */}
         <Card className="p-6">
-          <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
           <div className="space-y-2">
             <p className="text-lg">Nome: {profileData?.first_name} {profileData?.last_name}</p>
             <p className="text-lg">Email: {profileData?.email}</p>
