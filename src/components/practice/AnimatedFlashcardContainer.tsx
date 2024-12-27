@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 interface AnimatedFlashcardContainerProps {
   children: ReactNode;
-  slideDirection: 'left' | 'right' | null;
+  slideDirection: 'up' | 'down' | null;
 }
 
 export const AnimatedFlashcardContainer = ({ 
@@ -12,10 +12,10 @@ export const AnimatedFlashcardContainer = ({
   return (
     <div 
       className={`transition-all duration-300 ${
-        slideDirection === 'left' 
-          ? 'animate-slide-left' 
-          : slideDirection === 'right' 
-            ? 'animate-slide-right' 
+        slideDirection === 'up' 
+          ? 'animate-slide-up' 
+          : slideDirection === 'down' 
+            ? 'animate-slide-down' 
             : ''
       }`}
     >

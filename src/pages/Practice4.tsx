@@ -21,7 +21,7 @@ const Practice4 = () => {
   const [cardCooldowns, setCardCooldowns] = useState<{ [key: number]: number }>({});
   const [isCardError, setIsCardError] = useState(false);
   const [processedCards, setProcessedCards] = useState<Set<number>>(new Set());
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+  const [slideDirection, setSlideDirection] = useState<'up' | 'down' | null>(null);
 
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["generalista-cards"],
@@ -77,7 +77,7 @@ const Practice4 = () => {
   const handleNext = () => {
     setIsFlipped(false);
     setIsCardError(false);
-    setSlideDirection('left');
+    setSlideDirection('up');
     
     if (reviewStack.length > 0 && processedCards.size === cards.length) {
       const nextIndex = reviewStack[0];
@@ -97,7 +97,7 @@ const Practice4 = () => {
   const handlePrevious = () => {
     setIsFlipped(false);
     setIsCardError(false);
-    setSlideDirection('right');
+    setSlideDirection('down');
     
     let prevIndex = currentCardIndex;
     do {
