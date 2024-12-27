@@ -20,6 +20,7 @@ const Practice4 = () => {
   const [cardCooldowns, setCardCooldowns] = useState<{ [key: number]: number }>({});
   const [isCardError, setIsCardError] = useState(false);
   const [processedCards, setProcessedCards] = useState<Set<number>>(new Set());
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
 
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["generalista-cards"],
@@ -75,6 +76,7 @@ const Practice4 = () => {
   const handleNext = () => {
     setIsFlipped(false);
     setIsCardError(false);
+    setSlideDirection('left');
     
     if (reviewStack.length > 0 && processedCards.size === cards.length) {
       const nextIndex = reviewStack[0];
@@ -89,11 +91,15 @@ const Practice4 = () => {
     } while (processedCards.has(nextIndex) && nextIndex !== currentCardIndex);
 
     setCurrentCardIndex(nextIndex);
+    
+    setTimeout(() => setSlideDirection(null), 300);
   };
 
   const handlePrevious = () => {
     setIsFlipped(false);
     setIsCardError(false);
+    setSlideDirection('right');
+    
     let prevIndex = currentCardIndex;
     do {
       prevIndex = (prevIndex - 1 + cards.length) % cards.length;
@@ -101,6 +107,8 @@ const Practice4 = () => {
     } while (prevIndex !== currentCardIndex);
     
     setCurrentCardIndex(prevIndex);
+    
+    setTimeout(() => setSlideDirection(null), 300);
   };
 
   const handleCorrect = async () => {
@@ -126,6 +134,10 @@ const Practice4 = () => {
     setReviewStack(prev => [...prev, currentCardIndex]);
     await updateProgress(false);
     handleNext();
+  };
+
+  const handleCardClick = () => {
+    setIsFlipped(!isFlipped);
   };
 
   if (isLoading) {
@@ -168,13 +180,15 @@ const Practice4 = () => {
           completedCards={completedCards}
         />
 
-        <Flashcard
-          question={cards[currentCardIndex].question}
-          answer={cards[currentCardIndex].answer}
-          isFlipped={isFlipped}
-          onClick={() => setIsFlipped(!isFlipped)}
-          isError={isCardError}
-        />
+        <div className={slideDirection ? `slide-${slideDirection}` : ''}>
+          <Flashcard
+            question={cards[currentCardIndex].question}
+            answer={cards[currentCardIndex].answer}
+            isFlipped={isFlipped}
+            onClick={handleCardClick}
+            isError={isCardError}
+          />
+        </div>
 
         <CardControls 
           onPrevious={handlePrevious}
