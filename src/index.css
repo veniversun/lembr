@@ -94,7 +94,8 @@
   }
 
   .backface-hidden {
-    backfaceVisibility: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .transform-style-preserve-3d {
@@ -105,34 +106,34 @@
     transform: rotateY(180deg);
   }
 
-  .slide-left {
-    animation: slideLeft 0.3s ease-out;
-  }
-
-  .slide-right {
-    animation: slideRight 0.3s ease-out;
-  }
-
   @keyframes slideLeft {
-    from {
+    0% {
       transform: translateX(100%);
       opacity: 0;
     }
-    to {
+    100% {
       transform: translateX(0);
       opacity: 1;
     }
   }
 
   @keyframes slideRight {
-    from {
+    0% {
       transform: translateX(-100%);
       opacity: 0;
     }
-    to {
+    100% {
       transform: translateX(0);
       opacity: 1;
     }
+  }
+
+  .animate-slide-left {
+    animation: slideLeft 0.3s ease-out forwards;
+  }
+
+  .animate-slide-right {
+    animation: slideRight 0.3s ease-out forwards;
   }
 }
 
@@ -140,7 +141,6 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
