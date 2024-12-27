@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Brain, Coins, GraduationCap, Atom } from 'lucide-react';
+import { Brain, Coins, GraduationCap, Atom, Youtube } from 'lucide-react';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -124,6 +124,27 @@ const Index = () => {
           <CarouselPrevious className="hidden md:flex" />
           <CarouselNext className="hidden md:flex" />
         </Carousel>
+      </div>
+
+      {/* New YouTube Section */}
+      <div className="w-full max-w-4xl bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg mt-8 text-center">
+        <div className="flex flex-col items-center gap-6">
+          <Youtube className="w-16 h-16 text-red-600" />
+          <p className="text-lg md:text-xl text-gray-700">
+            Para ir além, ouça nosso podcast com análise em detalhes do livros:
+          </p>
+          <a 
+            href="https://www.youtube.com/@inSummaPodCast" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <Button 
+              className="bg-red-600 hover:bg-red-700 text-white px-8 py-2 text-lg"
+            >
+              Podcast inSumma
+            </Button>
+          </a>
+        </div>
       </div>
 
       {/* Categories Section */}
