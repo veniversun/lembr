@@ -7,10 +7,9 @@ import { PracticeHeader } from "@/components/practice/PracticeHeader";
 import { ProgressBar } from "@/components/practice/ProgressBar";
 import { CardControls } from "@/components/practice/CardControls";
 import { RegistrationModal } from "@/components/RegistrationModal";
+import { AnimatedFlashcardContainer } from "@/components/practice/AnimatedFlashcardContainer";
 
-const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100/ref=sr_1_1_sspa?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1OIFQI0FDHM4J&dib=eyJ2IjoiMSJ9.h3cFgA0rVC_-71yJnkkqbOEKXCba3UK7NnAIR90R9oSDz5myhB-cLEHT-V5ahn4zv0W77nwgBS0Tyqut31cOeO30nvE8oUPeEE_q1NGjtL6TmpL1DjuGKQEw-k2tPMVHokdRs6We8E9wZ1finiBBxN2YgrcNazZGrQdOB9t_vnKd9TYb1U5xn9xGOJI-JtxCRE7sJ8_2kG_lct15kS6FWuBSwjN6fVqbCHMaYU8-ltfvCgcnI5ASqQRKBx5megjyGo77mY-eMuL2BNXqc9_-vfCa_jZ5I3LPzoEhGcE5oak.BA0-cLmDrur3cMfz8-q1edjmFa1WAKN35RkmdOk1cHg&dib_tag=se&keywords=psicologia+financeira+livro&qid=1734359569&sprefix=psicologia+financeirlivro%2Caps%2C250&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1";
-
-const CARD_COOLDOWN = 30 * 60 * 1000; // 30 minutes in milliseconds
+const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100";
 
 const Practice2 = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -22,6 +21,7 @@ const Practice2 = () => {
   const [cardCooldowns, setCardCooldowns] = useState<{ [key: number]: number }>({});
   const [isCardError, setIsCardError] = useState(false);
   const [processedCards, setProcessedCards] = useState<Set<number>>(new Set());
+  const [slideDirection, setSlideDirection] = useState<'up' | 'down' | null>(null);
 
   const { data: cards = [], isLoading } = useQuery({
     queryKey: ["psifin-cards"],
@@ -40,13 +40,70 @@ const Practice2 = () => {
     setCardCooldowns(prev => {
       const updated = { ...prev };
       Object.entries(updated).forEach(([key, timestamp]) => {
-        if (now - timestamp >= CARD_COOLDOWN) {
+        if (now - timestamp >= 30 * 60 * 1000) {
           delete updated[Number(key)];
         }
       });
       return updated;
     });
   }, [currentCardIndex]);
+
+  const handleNext = () => {
+    setIsFlipped(false);
+    setIsCardError(false);
+    setSlideDirection('up');
+    
+    if (reviewStack.length > 0 && processedCards.size === cards.length) {
+      const nextIndex = reviewStack[0];
+      setCurrentCardIndex(nextIndex);
+      setReviewStack(reviewStack.slice(1));
+      return;
+    }
+
+    let nextIndex = currentCardIndex;
+    do {
+      nextIndex = (nextIndex + 1) % cards.length;
+    } while (processedCards.has(nextIndex) && nextIndex !== currentCardIndex);
+
+    setCurrentCardIndex(nextIndex);
+    setTimeout(() => setSlideDirection(null), 300);
+  };
+
+  const handlePrevious = () => {
+    setIsFlipped(false);
+    setIsCardError(false);
+    setSlideDirection('down');
+    
+    let prevIndex = currentCardIndex;
+    do {
+      prevIndex = (prevIndex - 1 + cards.length) % cards.length;
+      if (!cardCooldowns[prevIndex]) break;
+    } while (prevIndex !== currentCardIndex);
+    
+    setCurrentCardIndex(prevIndex);
+    setTimeout(() => setSlideDirection(null), 300);
+  };
+
+  const handleCorrect = async () => {
+    if (!isFlipped) return;
+    
+    setCorrectCount(prev => prev + 1);
+    setCompletedCards(prev => new Set(prev).add(currentCardIndex));
+    setProcessedCards(prev => new Set(prev).add(currentCardIndex));
+    await updateProgress(true);
+    handleNext();
+  };
+
+  const handleIncorrect = async () => {
+    if (!isFlipped) return;
+    
+    setIncorrectCount(prev => prev + 1);
+    setIsCardError(true);
+    setProcessedCards(prev => new Set(prev).add(currentCardIndex));
+    setReviewStack(prev => [...prev, currentCardIndex]);
+    await updateProgress(false);
+    handleNext();
+  };
 
   const updateProgress = async (isCorrect: boolean) => {
     const userId = localStorage.getItem("userId");
@@ -74,94 +131,15 @@ const Practice2 = () => {
     }
   };
 
-  const handleNext = () => {
-    setIsFlipped(false);
-    setIsCardError(false);
-    
-    // If we have cards in the review stack and all other cards have been processed
-    if (reviewStack.length > 0 && processedCards.size === cards.length) {
-      const nextIndex = reviewStack[0];
-      setCurrentCardIndex(nextIndex);
-      setReviewStack(reviewStack.slice(1));
-      return;
-    }
-
-    // Find the next unprocessed card
-    let nextIndex = currentCardIndex;
-    do {
-      nextIndex = (nextIndex + 1) % cards.length;
-    } while (processedCards.has(nextIndex) && nextIndex !== currentCardIndex);
-
-    setCurrentCardIndex(nextIndex);
-  };
-
-  const handlePrevious = () => {
-    setIsFlipped(false);
-    setIsCardError(false);
-    let prevIndex = currentCardIndex;
-    do {
-      prevIndex = (prevIndex - 1 + cards.length) % cards.length;
-      if (!cardCooldowns[prevIndex]) break;
-    } while (prevIndex !== currentCardIndex);
-    
-    setCurrentCardIndex(prevIndex);
-  };
-
-  const handleCorrect = async () => {
-    if (!isFlipped) return;
-    
-    setCorrectCount(prev => prev + 1);
-    setCompletedCards(prev => new Set(prev).add(currentCardIndex));
-    setProcessedCards(prev => new Set(prev).add(currentCardIndex));
-    setCardCooldowns(prev => ({
-      ...prev,
-      [currentCardIndex]: Date.now()
-    }));
-    await updateProgress(true);
-    handleNext();
-  };
-
-  const handleIncorrect = async () => {
-    if (!isFlipped) return;
-    
-    setIncorrectCount(prev => prev + 1);
-    setIsCardError(true);
-    setProcessedCards(prev => new Set(prev).add(currentCardIndex));
-    setReviewStack(prev => [...prev, currentCardIndex]);
-    await updateProgress(false);
-    handleNext();
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p>Loading cards...</p>
-      </div>
-    );
-  }
-
-  if (!cards.length) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p>No flashcards available.</p>
-      </div>
-    );
-  }
+  if (isLoading) return <div className="flex items-center justify-center min-h-screen"><p>Loading cards...</p></div>;
+  if (!cards.length) return <div className="flex items-center justify-center min-h-screen"><p>No flashcards available.</p></div>;
 
   const isCompleted = completedCards.size === cards.length && reviewStack.length === 0;
-
-  if (isCompleted) {
-    return <CompletionModal 
-      correctCount={correctCount} 
-      incorrectCount={incorrectCount}
-      bookUrl={PSIFIN_BOOK_URL}
-    />;
-  }
+  if (isCompleted) return <CompletionModal correctCount={correctCount} incorrectCount={incorrectCount} bookUrl={PSIFIN_BOOK_URL} />;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       <RegistrationModal />
-
       <div className="max-w-2xl mx-auto">
         <PracticeHeader title="Pratique Psicologia Financeira" />
         
@@ -172,13 +150,15 @@ const Practice2 = () => {
           completedCards={completedCards}
         />
 
-        <Flashcard
-          question={cards[currentCardIndex].question}
-          answer={cards[currentCardIndex].answer}
-          isFlipped={isFlipped}
-          onClick={() => setIsFlipped(!isFlipped)}
-          isError={isCardError}
-        />
+        <AnimatedFlashcardContainer slideDirection={slideDirection}>
+          <Flashcard
+            question={cards[currentCardIndex].question}
+            answer={cards[currentCardIndex].answer}
+            isFlipped={isFlipped}
+            onClick={() => setIsFlipped(!isFlipped)}
+            isError={isCardError}
+          />
+        </AnimatedFlashcardContainer>
 
         <CardControls 
           onPrevious={handlePrevious}
