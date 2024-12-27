@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Home, Trophy } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthModal } from "@/components/AuthModal";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -14,6 +14,7 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -24,11 +25,12 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
           title: "Login realizado com sucesso!",
           description: "Bem-vindo ao sistema.",
         });
+        navigate('/dashboard');
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [toast]);
+  }, [toast, navigate]);
 
   const handleAchievementsClick = (e: React.MouseEvent) => {
     if (!isAuthenticated) {
@@ -42,7 +44,7 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">{title}</h1>
         <div className="flex gap-4">
-          <Link to="/profile" onClick={handleAchievementsClick}>
+          <Link to="/dashboard" onClick={handleAchievementsClick}>
             <Button variant="outline" className="bg-orange-500 text-white hover:bg-orange-600">
               <Trophy className="mr-2" /> Conquistas
             </Button>
