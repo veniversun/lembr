@@ -63,6 +63,27 @@ export type Database = {
         }
         Relationships: []
       }
+      generalista: {
+        Row: {
+          a: string
+          created_at: string
+          id: number
+          q: string
+        }
+        Insert: {
+          a: string
+          created_at?: string
+          id?: number
+          q: string
+        }
+        Update: {
+          a?: string
+          created_at?: string
+          id?: number
+          q?: string
+        }
+        Relationships: []
+      }
       habatom: {
         Row: {
           a: string | null
