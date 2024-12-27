@@ -8,7 +8,7 @@ import { ProgressBar } from "@/components/practice/ProgressBar";
 import { CardControls } from "@/components/practice/CardControls";
 import { RegistrationModal } from "@/components/RegistrationModal";
 
-const GENERALISTA_BOOK_URL = "https://www.amazon.com.br/Por-que-generalistas-vencem-especialistas/dp/6550800982";
+const GENERALISTA_BOOK_URL = "https://www.amazon.com.br/Por-generalistas-vencem-mundo-especialistas/dp/6580634340/ref=sr_1_1?crid=YZYTTVP3TIVJ&dib=eyJ2IjoiMSJ9.NAK2-P7ERbvLusqjesNCX25AKeJnAP8Nuty1lOHGnLsUyihbpBa1K9RwqFHzjMp7lFZWUwMTn0Xj3A3iLgOYjT50Vw2-9sA2NiAO67pG7BvuRzVHyLpylPYKdeGosP177CLhroxaQzm158s9tL4_KLI4hUmAextP3EhtzRHbkNTwCwji0OccXNHoe2LYGswcLKy6J2-KAxl0kV-W5itUZjMDAxd6xyr846M7kB33CM9TDgwZfrNvK1AxhLsVqWhVkrWv7GLJI_TuiUcPLA0Ymw.NOIb3823II9fT_H6A1LV8iYOmHPDrIzwOLYHHfXnz3o&dib_tag=se&keywords=porque+os+generalistas+vencem+em+um+mundo+de+especialistas&qid=1735320405&sprefix=generalis%2Caps%2C331&sr=8-1&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9";
 
 const Practice4 = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);

@@ -26,7 +26,7 @@ const Index = () => {
           I N S U M M A
         </h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-md mx-auto px-4">
-          Absorva o melhor dos mais vendidos!
+          Absorva mais dos melhores livros!
         </p>
       </div>
 
@@ -50,6 +50,24 @@ const Index = () => {
           loop: true,
         }}>
           <CarouselContent className="-ml-2 md:-ml-4">
+            
+          <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/3">
+              <div onClick={() => handleBookClick('/practice4')} className="cursor-pointer">
+                <div className="relative group transition-all duration-300">
+                  <div className="overflow-hidden rounded-xl">
+                    <img 
+                      src="/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png"
+                      alt="Generalista"
+                      className="w-full h-auto transform transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-end justify-center pb-4">
+                    <span className="text-white font-medium">Começar</span>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
+            
             <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/3">
               <div onClick={() => handleBookClick('/practice2')} className="cursor-pointer">
                 <div className="relative group transition-all duration-300">
@@ -101,22 +119,7 @@ const Index = () => {
               </div>
             </CarouselItem>
 
-            <CarouselItem className="pl-2 md:pl-4 basis-full md:basis-1/3">
-              <div onClick={() => handleBookClick('/practice4')} className="cursor-pointer">
-                <div className="relative group transition-all duration-300">
-                  <div className="overflow-hidden rounded-xl">
-                    <img 
-                      src="/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png"
-                      alt="Generalista"
-                      className="w-full h-auto transform transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-end justify-center pb-4">
-                    <span className="text-white font-medium">Começar</span>
-                  </div>
-                </div>
-              </div>
-            </CarouselItem>
+            
           </CarouselContent>
           <CarouselPrevious className="hidden md:flex" />
           <CarouselNext className="hidden md:flex" />
