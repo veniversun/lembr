@@ -25,7 +25,7 @@ const Index = () => {
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
           I N S U M M A
         </h1>
-        <p className="text-lg md:text-xl text-gray-700 max-w-md mx-auto px-4">
+        <p className="text-lg md:text-xl text-gray-700 max-w-md mx-auto px-4 font-['Caveat'] font-bold">
           Absorva mais dos melhores livros!
         </p>
       </div>
@@ -45,7 +45,7 @@ const Index = () => {
           Escolha um livro para praticar agora:
         </p>
         
-        <Carousel className="w-full max-w-3xl mx-auto" opts={{ 
+        <Carousel className="w-full max-w-3xl mx-auto relative" opts={{ 
           align: "center",
           loop: true,
         }}>
@@ -119,8 +119,8 @@ const Index = () => {
               </div>
             </CarouselItem>
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
+          <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
+          <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
         </Carousel>
       </div>
 
