@@ -27,7 +27,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
     queryFn: async () => {
       const { data, error } = await supabase
         .from(tableName)
-        .select<"*", CardData>("q, a");
+        .select("*");
       if (error) throw error;
       return data.map(item => ({
         question: item.q,
