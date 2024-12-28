@@ -1,11 +1,14 @@
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BookCard } from "@/components/dashboard/BookCard";
 import { StatsCard } from "@/components/dashboard/StatsCard";
 import { ProfileCard } from "@/components/dashboard/ProfileCard";
+import { AuthModal } from "@/components/AuthModal";
+import { useState } from "react";
 
 const BOOKS = [
   { 
@@ -35,11 +38,24 @@ const BOOKS = [
 ];
 
 const Dashboard = () => {
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setShowAuthModal(true);
+      }
+    };
+    checkAuth();
+  }, []);
+
   const { data: profileData } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Not authenticated");
+      if (!user) return null;
 
       const { data, error } = await supabase
         .from("profiles")
@@ -59,7 +75,7 @@ const Dashboard = () => {
     queryKey: ["userProgress"],
     queryFn: async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Not authenticated");
+      if (!user) return null;
 
       const { data, error } = await supabase
         .from("user_progress")
@@ -70,7 +86,7 @@ const Dashboard = () => {
         console.error("Error fetching progress:", error);
         throw error;
       }
-      console.log("Progress data:", data); // Debug log
+      console.log("Progress data:", data);
       return data;
     },
   });
@@ -79,7 +95,7 @@ const Dashboard = () => {
     queryKey: ["dailyUsage"],
     queryFn: async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Not authenticated");
+      if (!user) return null;
 
       const { data, error } = await supabase
         .from("daily_usage")
@@ -90,13 +106,13 @@ const Dashboard = () => {
         console.error("Error fetching usage days:", error);
         throw error;
       }
-      console.log("Usage days data:", data); // Debug log
+      console.log("Usage days data:", data);
       return data;
     },
   });
 
-  const totalCorrect = progressData?.reduce((sum, item) => sum + (item.correct_count || 0), 0) || 0;
-  const totalIncorrect = progressData?.reduce((sum, item) => sum + (item.incorrect_count || 0), 0) || 0;
+  const totalCorrect = progressData?.reduce((sum, item) => sum + (item?.correct_count || 0), 0) || 0;
+  const totalIncorrect = progressData?.reduce((sum, item) => sum + (item?.incorrect_count || 0), 0) || 0;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
@@ -143,6 +159,11 @@ const Dashboard = () => {
           })}
         </div>
       </div>
+
+      <AuthModal 
+        open={showAuthModal} 
+        onOpenChange={setShowAuthModal}
+      />
     </div>
   );
 };

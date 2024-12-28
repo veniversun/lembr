@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Home, Trophy } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthModal } from "@/components/AuthModal";
+import { FirstVisitModal } from "@/components/FirstVisitModal";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -12,6 +13,7 @@ interface PracticeHeaderProps {
 
 export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showFirstVisitModal, setShowFirstVisitModal] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -29,6 +31,13 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
       }
     });
 
+    // Check if it's the first visit
+    const hasVisited = localStorage.getItem('hasVisited');
+    if (!hasVisited) {
+      setShowFirstVisitModal(true);
+      localStorage.setItem('hasVisited', 'true');
+    }
+
     return () => subscription.unsubscribe();
   }, [toast, navigate]);
 
@@ -37,6 +46,11 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
       e.preventDefault();
       setShowAuthModal(true);
     }
+  };
+
+  const handleLoginFromFirstVisit = () => {
+    setShowFirstVisitModal(false);
+    setShowAuthModal(true);
   };
 
   const updatedTitle = title.replace("Pratique", "Treine");
@@ -62,6 +76,12 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
       <AuthModal 
         open={showAuthModal} 
         onOpenChange={setShowAuthModal}
+      />
+
+      <FirstVisitModal
+        open={showFirstVisitModal}
+        onOpenChange={setShowFirstVisitModal}
+        onLogin={handleLoginFromFirstVisit}
       />
     </>
   );
