@@ -226,7 +226,7 @@ export type Database = {
           id: number
           incorrect_count: number | null
           updated_at: string
-          user_id: number | null
+          user_id: string | null
         }
         Insert: {
           book_type: string
@@ -235,7 +235,7 @@ export type Database = {
           id?: number
           incorrect_count?: number | null
           updated_at?: string
-          user_id?: number | null
+          user_id?: string | null
         }
         Update: {
           book_type?: string
@@ -244,14 +244,14 @@ export type Database = {
           id?: number
           incorrect_count?: number | null
           updated_at?: string
-          user_id?: number | null
+          user_id?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "user_progress_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
