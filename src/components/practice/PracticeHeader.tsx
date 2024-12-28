@@ -39,10 +39,12 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
     }
   };
 
+  const updatedTitle = title.replace("Pratique", "Treine");
+
   return (
     <>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">{title}</h1>
+      <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
+        <h1 className="text-3xl font-bold">{updatedTitle}</h1>
         <div className="flex gap-4">
           <Link to="/dashboard" onClick={handleAchievementsClick}>
             <Button variant="outline" className="bg-orange-500 text-white hover:bg-orange-600">

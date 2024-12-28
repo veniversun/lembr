@@ -11,8 +11,8 @@ interface CardControlsProps {
 export const CardControls = ({ onPrevious, onCorrect, onIncorrect, showAnswerButtons }: CardControlsProps) => {
   return (
     <div className="flex justify-center items-center gap-4 mt-8">
-      <Button onClick={onPrevious} variant="outline">
-        <ChevronLeft className="mr-2" /> Previous
+      <Button onClick={onPrevious} variant="outline" className="sm:flex hidden">
+        <ChevronLeft className="mr-2" /> Voltar
       </Button>
       {showAnswerButtons && (
         <>

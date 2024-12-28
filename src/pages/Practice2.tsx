@@ -7,6 +7,7 @@ import { PracticeHeader } from "@/components/practice/PracticeHeader";
 import { ProgressBar } from "@/components/practice/ProgressBar";
 import { CardControls } from "@/components/practice/CardControls";
 import { AnimatedFlashcardContainer } from "@/components/practice/AnimatedFlashcardContainer";
+import { usePracticeShortcuts } from "@/hooks/use-practice-shortcuts";
 
 const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100";
 
@@ -117,8 +118,8 @@ const Practice2 = () => {
     do {
       nextIndex = (nextIndex + 1) % cards.length;
     } while (processedCards.has(nextIndex) && nextIndex !== currentCardIndex);
-
     setCurrentCardIndex(nextIndex);
+    
     setTimeout(() => setSlideDirection(null), 300);
   };
 
@@ -143,6 +144,10 @@ const Practice2 = () => {
     setCorrectCount(prev => prev + 1);
     setCompletedCards(prev => new Set(prev).add(currentCardIndex));
     setProcessedCards(prev => new Set(prev).add(currentCardIndex));
+    setCardCooldowns(prev => ({
+      ...prev,
+      [currentCardIndex]: Date.now()
+    }));
     await updateProgress(true);
     handleNext();
   };
@@ -157,6 +162,14 @@ const Practice2 = () => {
     await updateProgress(false);
     handleNext();
   };
+
+  // Add keyboard shortcuts
+  usePracticeShortcuts({
+    onCorrect: handleCorrect,
+    onIncorrect: handleIncorrect,
+    onPrevious: handlePrevious,
+    isFlipped,
+  });
 
   if (isLoading) return <div className="flex items-center justify-center min-h-screen"><p>Loading cards...</p></div>;
   if (!cards.length) return <div className="flex items-center justify-center min-h-screen"><p>No flashcards available.</p></div>;
