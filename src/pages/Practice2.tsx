@@ -53,11 +53,11 @@ const Practice2 = () => {
     if (!userId) return;
 
     try {
-      // First get the user's UUID from the profiles table
+      // First get the user from the users table using the integer ID
       const { data: userData, error: userError } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("id", userId)
+        .from("users")
+        .select("*")
+        .eq("id", parseInt(userId))
         .single();
 
       if (userError) {
@@ -65,11 +65,11 @@ const Practice2 = () => {
         return;
       }
 
-      // Then get the progress using the UUID
+      // Then get or create progress using the user's ID
       const { data: progressData, error: progressError } = await supabase
         .from("user_progress")
         .select("*")
-        .eq("user_id", userData.id)
+        .eq("user_id", userId)
         .eq("book_type", "psifin")
         .maybeSingle();
 
@@ -79,26 +79,35 @@ const Practice2 = () => {
       }
 
       if (progressData) {
-        await supabase
+        // Update existing progress
+        const { error: updateError } = await supabase
           .from("user_progress")
           .update({
             correct_count: isCorrect ? (progressData.correct_count || 0) + 1 : progressData.correct_count,
             incorrect_count: !isCorrect ? (progressData.incorrect_count || 0) + 1 : progressData.incorrect_count,
           })
           .eq("id", progressData.id);
+
+        if (updateError) {
+          console.error("Error updating progress:", updateError);
+        }
       } else {
-        // If no progress exists yet, create a new record
-        await supabase
+        // Create new progress record
+        const { error: insertError } = await supabase
           .from("user_progress")
           .insert({
-            user_id: userData.id,
+            user_id: userId,
             book_type: "psifin",
             correct_count: isCorrect ? 1 : 0,
             incorrect_count: !isCorrect ? 1 : 0,
           });
+
+        if (insertError) {
+          console.error("Error creating progress:", insertError);
+        }
       }
     } catch (error) {
-      console.error("Error updating progress:", error);
+      console.error("Error in updateProgress:", error);
     }
   };
 
