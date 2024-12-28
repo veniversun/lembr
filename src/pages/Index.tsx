@@ -35,7 +35,7 @@ const Index = () => {
         <p className="text-gray-700 text-center leading-relaxed">
           Não basta ler livros ótimos. É preciso aprender com eles. Somente praticando é possível crescer de verdade!<br /><br />
           O inSumma utiliza IA para absorver os mais potentes conceitos dos melhores livros de desenvolvimento pessoal.<br /><br />
-          Aprenda, cresca e multiplique com o inSuma!
+          Aprenda, cresca e multiplique com o inSumma!
         </p>
       </div>
       
