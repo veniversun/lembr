@@ -12,15 +12,22 @@ import { usePracticeShortcuts } from "@/hooks/use-practice-shortcuts";
 interface PracticePageProps {
   title: string;
   bookType: string;
-  tableName: string;
+  tableName: "essen" | "psifin" | "habatom" | "hatm" | "generalista";
   bookUrl: string;
+}
+
+interface CardData {
+  q: string;
+  a: string;
 }
 
 export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
   const { data: cards = [], isLoading } = useQuery({
     queryKey: [tableName],
     queryFn: async () => {
-      const { data, error } = await supabase.from(tableName).select("q, a");
+      const { data, error } = await supabase
+        .from(tableName)
+        .select<"*", CardData>("q, a");
       if (error) throw error;
       return data.map(item => ({
         question: item.q,
