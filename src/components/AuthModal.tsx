@@ -16,7 +16,7 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
           theme="light"
-          providers={["google", "apple", "facebook"]}
+          providers={[]} // Removed OAuth providers
           redirectTo={`${window.location.origin}/profile`}
         />
       </DialogContent>
