@@ -6,7 +6,6 @@ import { CompletionModal } from "@/components/CompletionModal";
 import { PracticeHeader } from "@/components/practice/PracticeHeader";
 import { ProgressBar } from "@/components/practice/ProgressBar";
 import { CardControls } from "@/components/practice/CardControls";
-import { RegistrationModal } from "@/components/RegistrationModal";
 import { AnimatedFlashcardContainer } from "@/components/practice/AnimatedFlashcardContainer";
 
 const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100";
@@ -133,13 +132,12 @@ const Practice2 = () => {
 
   if (isLoading) return <div className="flex items-center justify-center min-h-screen"><p>Loading cards...</p></div>;
   if (!cards.length) return <div className="flex items-center justify-center min-h-screen"><p>No flashcards available.</p></div>;
-
+  
   const isCompleted = completedCards.size === cards.length && reviewStack.length === 0;
   if (isCompleted) return <CompletionModal correctCount={correctCount} incorrectCount={incorrectCount} bookUrl={PSIFIN_BOOK_URL} />;
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
-      <RegistrationModal />
       <div className="max-w-2xl mx-auto">
         <PracticeHeader title="Pratique Psicologia Financeira" />
         

@@ -6,7 +6,6 @@ import { CompletionModal } from "@/components/CompletionModal";
 import { PracticeHeader } from "@/components/practice/PracticeHeader";
 import { ProgressBar } from "@/components/practice/ProgressBar";
 import { CardControls } from "@/components/practice/CardControls";
-import { RegistrationModal } from "@/components/RegistrationModal";
 import { AnimatedFlashcardContainer } from "@/components/practice/AnimatedFlashcardContainer";
 
 const GENERALISTA_BOOK_URL = "https://www.amazon.com.br/Por-generalistas-vencem-mundo-especialistas/dp/6580634340";
@@ -145,7 +144,6 @@ const Practice4 = () => {
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
-      <RegistrationModal />
       <div className="max-w-2xl mx-auto">
         <PracticeHeader title="Pratique Por Que Os Generalistas Vencem" />
         
