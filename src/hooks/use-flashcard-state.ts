@@ -19,9 +19,13 @@ export const useFlashcardState = ({ bookType, cards }: UseFlashcardStateProps) =
 
   const updateProgress = async (isCorrect: boolean) => {
     const userId = localStorage.getItem("userId");
-    if (!userId) return;
+    if (!userId) {
+      console.log("No user ID found in localStorage");
+      return;
+    }
 
     try {
+      // First get the user's UUID from the users table
       const { data: userData, error: userError } = await supabase
         .from("users")
         .select("*")
@@ -33,10 +37,10 @@ export const useFlashcardState = ({ bookType, cards }: UseFlashcardStateProps) =
         return;
       }
 
+      // Then get or create progress record using the user's profile ID
       const { data: progressData, error: progressError } = await supabase
         .from("user_progress")
         .select("*")
-        .eq("user_id", userId)
         .eq("book_type", bookType)
         .maybeSingle();
 
@@ -46,6 +50,7 @@ export const useFlashcardState = ({ bookType, cards }: UseFlashcardStateProps) =
       }
 
       if (progressData) {
+        // Update existing progress
         const { error: updateError } = await supabase
           .from("user_progress")
           .update({
@@ -58,10 +63,10 @@ export const useFlashcardState = ({ bookType, cards }: UseFlashcardStateProps) =
           console.error("Error updating progress:", updateError);
         }
       } else {
+        // Create new progress record
         const { error: insertError } = await supabase
           .from("user_progress")
           .insert({
-            user_id: userId,
             book_type: bookType,
             correct_count: isCorrect ? 1 : 0,
             incorrect_count: !isCorrect ? 1 : 0,
