@@ -47,6 +47,60 @@ const Practice2 = () => {
     });
   }, [currentCardIndex]);
 
+  const updateProgress = async (isCorrect: boolean) => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) return;
+
+    try {
+      // First get the user's UUID from the profiles table
+      const { data: userData, error: userError } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("id", userId)
+        .single();
+
+      if (userError) {
+        console.error("Error fetching user:", userError);
+        return;
+      }
+
+      // Then get the progress using the UUID
+      const { data: progressData, error: progressError } = await supabase
+        .from("user_progress")
+        .select("*")
+        .eq("user_id", userData.id)
+        .eq("book_type", "psifin")
+        .maybeSingle();
+
+      if (progressError) {
+        console.error("Error fetching progress:", progressError);
+        return;
+      }
+
+      if (progressData) {
+        await supabase
+          .from("user_progress")
+          .update({
+            correct_count: isCorrect ? (progressData.correct_count || 0) + 1 : progressData.correct_count,
+            incorrect_count: !isCorrect ? (progressData.incorrect_count || 0) + 1 : progressData.incorrect_count,
+          })
+          .eq("id", progressData.id);
+      } else {
+        // If no progress exists yet, create a new record
+        await supabase
+          .from("user_progress")
+          .insert({
+            user_id: userData.id,
+            book_type: "psifin",
+            correct_count: isCorrect ? 1 : 0,
+            incorrect_count: !isCorrect ? 1 : 0,
+          });
+      }
+    } catch (error) {
+      console.error("Error updating progress:", error);
+    }
+  };
+
   const handleNext = () => {
     setIsFlipped(false);
     setIsCardError(false);
@@ -102,32 +156,6 @@ const Practice2 = () => {
     setReviewStack(prev => [...prev, currentCardIndex]);
     await updateProgress(false);
     handleNext();
-  };
-
-  const updateProgress = async (isCorrect: boolean) => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) return;
-
-    try {
-      const { data } = await supabase
-        .from("user_progress")
-        .select("*")
-        .eq("user_id", userId)
-        .eq("book_type", "psifin")
-        .single();
-
-      if (data) {
-        await supabase
-          .from("user_progress")
-          .update({
-            correct_count: isCorrect ? (data.correct_count || 0) + 1 : data.correct_count,
-            incorrect_count: !isCorrect ? (data.incorrect_count || 0) + 1 : data.incorrect_count,
-          })
-          .eq("id", data.id);
-      }
-    } catch (error) {
-      console.error("Error updating progress:", error);
-    }
   };
 
   if (isLoading) return <div className="flex items-center justify-center min-h-screen"><p>Loading cards...</p></div>;
