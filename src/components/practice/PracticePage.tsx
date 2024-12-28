@@ -16,23 +16,41 @@ interface PracticePageProps {
   bookUrl: string;
 }
 
-interface CardData {
-  q: string;
-  a: string;
+type TableRow = {
+  q?: string;
+  a?: string;
+  Q?: string;
+  A?: string;
+  id?: number;
+  created_at?: string;
 }
+
+interface CardData {
+  question: string;
+  answer: string;
+}
+
+const mapRowToCardData = (row: TableRow): CardData => ({
+  question: row.q || row.Q || '',
+  answer: row.a || row.A || ''
+});
 
 export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
   const { data: cards = [], isLoading } = useQuery({
     queryKey: [tableName],
     queryFn: async () => {
+      console.log('Fetching data from table:', tableName);
       const { data, error } = await supabase
         .from(tableName)
         .select("*");
-      if (error) throw error;
-      return data.map(item => ({
-        question: item.q,
-        answer: item.a
-      }));
+      
+      if (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+      }
+      
+      console.log('Fetched data:', data);
+      return (data as TableRow[]).map(mapRowToCardData);
     },
   });
 
