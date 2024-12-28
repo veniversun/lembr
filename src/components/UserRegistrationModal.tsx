@@ -47,12 +47,15 @@ export const UserRegistrationModal = ({
 
       if (error) throw error;
 
-      localStorage.setItem("userId", data.id.toString());
-      onOpenChange(false);
+      const userId = data.id.toString();
+      localStorage.setItem("userId", userId);
 
-      await supabase.from("user_progress").insert([
-        { user_id: data.id, book_type: "psifin" }
-      ]);
+      await supabase.from("user_progress").insert({
+        user_id: userId,
+        book_type: "psifin"
+      });
+
+      onOpenChange(false);
 
       toast({
         title: "Sucesso",
