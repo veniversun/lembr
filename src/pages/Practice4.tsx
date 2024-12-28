@@ -52,21 +52,39 @@ const Practice4 = () => {
     if (!userId) return;
 
     try {
-      const { data } = await supabase
-        .from("user_progress")
-        .select("*")
-        .eq("user_id", userId)
-        .eq("book_type", "generalista")
+      // First get the user's UUID from the users table
+      const { data: userData, error: userError } = await supabase
+        .from("users")
+        .select("id")
+        .eq("id", parseInt(userId))
         .single();
 
-      if (data) {
+      if (userError) {
+        console.error("Error fetching user:", userError);
+        return;
+      }
+
+      // Then get the progress using the user's ID
+      const { data: progressData, error: progressError } = await supabase
+        .from("user_progress")
+        .select("*")
+        .eq("user_id", userData.id)
+        .eq("book_type", "generalista")
+        .maybeSingle();
+
+      if (progressError) {
+        console.error("Error fetching progress:", progressError);
+        return;
+      }
+
+      if (progressData) {
         await supabase
           .from("user_progress")
           .update({
-            correct_count: isCorrect ? (data.correct_count || 0) + 1 : data.correct_count,
-            incorrect_count: !isCorrect ? (data.incorrect_count || 0) + 1 : data.incorrect_count,
+            correct_count: isCorrect ? (progressData.correct_count || 0) + 1 : progressData.correct_count,
+            incorrect_count: !isCorrect ? (progressData.incorrect_count || 0) + 1 : progressData.incorrect_count,
           })
-          .eq("id", data.id);
+          .eq("id", progressData.id);
       }
     } catch (error) {
       console.error("Error updating progress:", error);
@@ -159,7 +177,7 @@ const Practice4 = () => {
             question={cards[currentCardIndex].question}
             answer={cards[currentCardIndex].answer}
             isFlipped={isFlipped}
-            onClick={handleCardClick}
+            onClick={() => setIsFlipped(!isFlipped)}
             isError={isCardError}
           />
         </AnimatedFlashcardContainer>
