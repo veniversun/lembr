@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Home } from "lucide-react";
+import { Home, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { BookCarousel } from "@/components/BookCarousel";
 
 interface CompletionModalProps {
   correctCount: number;
@@ -18,7 +19,15 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
   return (
     <div className="min-h-screen p-8 bg-gray-50 flex items-center justify-center">
       <div className="max-w-2xl mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-8">Parabéns, você terminou sua revisão!</h1>
+        <Link to="/" className="block mb-8">
+          <Button variant="outline" className="w-full sm:w-auto">
+            <Home className="mr-2" /> Página Inicial
+          </Button>
+        </Link>
+
+        <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white p-6 rounded-lg mb-8">
+          <h1 className="text-3xl font-bold">Parabéns, você terminou seu treino!</h1>
+        </div>
         
         <div className="space-y-6">
           <div className="text-lg space-y-2">
@@ -28,12 +37,26 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
           </div>
 
           <div className="w-full max-w-md mx-auto">
-            <Progress value={successPercentage} className="h-4" />
+            <div className="h-4 bg-gray-100 rounded-full overflow-hidden">
+              <div 
+                className="h-full transition-all duration-500 ease-out rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500"
+                style={{ width: `${successPercentage}%` }}
+              />
+            </div>
           </div>
 
           <p className="text-green-600 font-semibold text-lg">
             Você está melhor que 90% dos usuários!
           </p>
+
+          <div className="space-y-4 mt-8">
+            <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
+            <Link to="/dashboard">
+              <Button className="bg-purple-600 hover:bg-purple-700">
+                <Trophy className="mr-2" /> Conquistas
+              </Button>
+            </Link>
+          </div>
 
           <div className="space-y-4 mt-8 border-t pt-6">
             <p className="text-lg font-medium text-orange-600">
@@ -51,11 +74,10 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
             </a>
           </div>
 
-          <Link to="/">
-            <Button variant="outline" className="mt-4">
-              <Home className="mr-2" /> Voltar para página inicial
-            </Button>
-          </Link>
+          <div className="space-y-4 mt-8 border-t pt-6">
+            <h2 className="text-xl font-semibold">Vamos treinar outro livro?</h2>
+            <BookCarousel />
+          </div>
         </div>
       </div>
     </div>
