@@ -1,50 +1,36 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Home, BookOpen } from "lucide-react";
+import { Home } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  Legend,
-} from "recharts";
-
-const COLORS = ["#22c55e", "#ef4444"];
+import { BookCard } from "@/components/dashboard/BookCard";
+import { StatsCard } from "@/components/dashboard/StatsCard";
+import { ProfileCard } from "@/components/dashboard/ProfileCard";
 
 const BOOKS = [
   { 
     id: 'essen',
     title: 'Essencialismo',
     url: 'https://www.amazon.com.br/Essencialismo-Greg-McKeown/dp/8543102146',
-    icon: '🎯'
+    image: '/lovable-uploads/1fdec32a-a0f5-4c0c-b655-f206a8d95c1a.png'
   },
   {
     id: 'psifin',
     title: 'Psicologia Financeira',
     url: 'https://www.amazon.com.br/Psicologia-financeira-Morgan-Housel/dp/6555603577',
-    icon: '💰'
+    image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png'
   },
   {
     id: 'habatom',
     title: 'Hábitos Atômicos',
     url: 'https://www.amazon.com.br/H%C3%A1bitos-At%C3%B4micos-M%C3%A9todo-Comprovado-Livrar/dp/8550807567',
-    icon: '⚛️'
-  },
-  {
-    id: 'hatm',
-    title: 'How to Meet People',
-    url: 'https://www.amazon.com.br/How-Meet-People-English-Edition-ebook/dp/B0C3KXVF1F',
-    icon: '👥'
+    image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png'
   },
   {
     id: 'generalista',
     title: 'Generalista',
     url: 'https://www.amazon.com.br/generalista-David-Epstein/dp/6580634125',
-    icon: '🌟'
+    image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png'
   }
 ];
 
@@ -61,7 +47,10 @@ const Dashboard = () => {
         .eq("id", user.id)
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching profile:", error);
+        throw error;
+      }
       return data;
     },
   });
@@ -77,7 +66,11 @@ const Dashboard = () => {
         .select("*")
         .eq("user_id", user.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching progress:", error);
+        throw error;
+      }
+      console.log("Progress data:", data); // Debug log
       return data;
     },
   });
@@ -93,18 +86,17 @@ const Dashboard = () => {
         .select("*")
         .eq("user_id", user.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching usage days:", error);
+        throw error;
+      }
+      console.log("Usage days data:", data); // Debug log
       return data;
     },
   });
 
   const totalCorrect = progressData?.reduce((sum, item) => sum + (item.correct_count || 0), 0) || 0;
   const totalIncorrect = progressData?.reduce((sum, item) => sum + (item.incorrect_count || 0), 0) || 0;
-
-  const pieData = [
-    { name: "Acertos", value: totalCorrect },
-    { name: "Erros", value: totalIncorrect },
-  ];
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
@@ -120,40 +112,18 @@ const Dashboard = () => {
         </div>
 
         {/* Profile Information */}
-        <Card className="p-6">
-          <div className="space-y-2">
-            <p className="text-lg">Nome: {profileData?.first_name} {profileData?.last_name}</p>
-            <p className="text-lg">Email: {profileData?.email}</p>
-            <p className="text-lg">Dias de uso: {usageDays?.length || 0}</p>
-          </div>
-        </Card>
+        <ProfileCard 
+          firstName={profileData?.first_name}
+          lastName={profileData?.last_name}
+          email={profileData?.email}
+          usageDays={usageDays?.length || 0}
+        />
 
         {/* Overall Statistics */}
-        <Card className="p-6">
-          <h2 className="text-2xl font-bold mb-6">Estatísticas Gerais</h2>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={pieData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
+        <StatsCard 
+          totalCorrect={totalCorrect}
+          totalIncorrect={totalIncorrect}
+        />
 
         {/* Book Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -163,58 +133,12 @@ const Dashboard = () => {
               incorrect_count: 0
             };
             
-            const bookPieData = [
-              { name: "Acertos", value: bookProgress.correct_count || 0 },
-              { name: "Erros", value: bookProgress.incorrect_count || 0 }
-            ];
-
             return (
-              <Card key={book.id} className="p-6">
-                <div className="text-center mb-4">
-                  <div className="text-4xl mb-2">{book.icon}</div>
-                  <h3 className="text-xl font-semibold">{book.title}</h3>
-                </div>
-
-                <div className="h-[200px] mb-4">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={bookPieData}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={({ name, percent }) => 
-                          `${name} ${(percent * 100).toFixed(0)}%`
-                        }
-                        outerRadius={60}
-                        fill="#8884d8"
-                        dataKey="value"
-                      >
-                        {bookPieData.map((entry, index) => (
-                          <Cell 
-                            key={`cell-${index}`} 
-                            fill={COLORS[index % COLORS.length]} 
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-
-                <div className="text-center">
-                  <a 
-                    href={book.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <Button className="w-full">
-                      <BookOpen className="mr-2" />
-                      Comprar Livro
-                    </Button>
-                  </a>
-                </div>
-              </Card>
+              <BookCard 
+                key={book.id} 
+                book={book}
+                progress={bookProgress}
+              />
             );
           })}
         </div>
