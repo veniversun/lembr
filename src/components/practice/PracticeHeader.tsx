@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Home, Trophy } from "lucide-react";
+import { Home } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthModal } from "@/components/AuthModal";
 import { FirstVisitModal } from "@/components/FirstVisitModal";
@@ -41,13 +41,6 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
     return () => subscription.unsubscribe();
   }, [toast, navigate]);
 
-  const handleAchievementsClick = (e: React.MouseEvent) => {
-    if (!isAuthenticated) {
-      e.preventDefault();
-      setShowAuthModal(true);
-    }
-  };
-
   const handleLoginFromFirstVisit = () => {
     setShowFirstVisitModal(false);
     setShowAuthModal(true);
@@ -60,11 +53,6 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
       <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
         <h1 className="text-3xl font-bold">{updatedTitle}</h1>
         <div className="flex gap-4">
-          <Link to="/dashboard" onClick={handleAchievementsClick}>
-            <Button variant="outline" className="bg-orange-500 text-white hover:bg-orange-600">
-              <Trophy className="mr-2" /> Conquistas
-            </Button>
-          </Link>
           <Link to="/">
             <Button variant="outline">
               <Home className="mr-2" /> Início
