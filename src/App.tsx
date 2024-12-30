@@ -9,7 +9,6 @@ import Practice2 from "./pages/Practice2";
 import Practice3 from "./pages/Practice3";
 import Practice4 from "./pages/Practice4";
 import Profile from "./pages/Profile";
-import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +25,6 @@ const App = () => (
           <Route path="/practice3" element={<Practice3 />} />
           <Route path="/practice4" element={<Practice4 />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

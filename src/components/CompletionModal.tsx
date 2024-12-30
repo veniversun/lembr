@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Home, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { BookCarousel } from "@/components/BookCarousel";
+import { useState } from "react";
+import { PremiumModal } from "./PremiumModal";
 
 interface CompletionModalProps {
   correctCount: number;
@@ -11,6 +13,7 @@ interface CompletionModalProps {
 }
 
 export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: CompletionModalProps) => {
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const totalAttempts = correctCount + incorrectCount;
   const successPercentage = totalAttempts > 0 
     ? Math.round((correctCount / totalAttempts) * 100) 
@@ -51,11 +54,12 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
 
           <div className="space-y-4 mt-8">
             <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
-            <Link to="/dashboard">
-              <Button className="bg-purple-600 hover:bg-purple-700">
-                <Trophy className="mr-2" /> Conquistas
-              </Button>
-            </Link>
+            <Button 
+              className="bg-purple-600 hover:bg-purple-700"
+              onClick={() => setShowPremiumModal(true)}
+            >
+              <Trophy className="mr-2" /> Conquistas
+            </Button>
           </div>
 
           <div className="space-y-4 mt-8 border-t pt-6">
@@ -80,6 +84,11 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
           </div>
         </div>
       </div>
+
+      <PremiumModal 
+        open={showPremiumModal} 
+        onOpenChange={setShowPremiumModal}
+      />
     </div>
   );
 };

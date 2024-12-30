@@ -8,6 +8,8 @@ import { CardControls } from "@/components/practice/CardControls";
 import { AnimatedFlashcardContainer } from "@/components/practice/AnimatedFlashcardContainer";
 import { useFlashcardState } from "@/hooks/use-flashcard-state";
 import { usePracticeShortcuts } from "@/hooks/use-practice-shortcuts";
+import { useState } from "react";
+import { PremiumModal } from "@/components/PremiumModal";
 
 interface PracticePageProps {
   title: string;
@@ -36,6 +38,8 @@ const mapRowToCardData = (row: TableRow): CardData => ({
 });
 
 export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
+
   const { data: cards = [], isLoading } = useQuery({
     queryKey: [tableName],
     queryFn: async () => {
@@ -119,6 +123,11 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
           )}
         </div>
       </div>
+
+      <PremiumModal 
+        open={showPremiumModal} 
+        onOpenChange={setShowPremiumModal}
+      />
     </div>
   );
 };
