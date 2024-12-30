@@ -17,7 +17,7 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
           appearance={{ theme: ThemeSupa }}
           theme="light"
           providers={[]} // Removed OAuth providers
-          redirectTo={`${window.location.origin}/profile`}
+          redirectTo={`${window.location.origin}/`}
         />
       </DialogContent>
     </Dialog>
