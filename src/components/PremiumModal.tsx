@@ -12,27 +12,31 @@ interface PremiumModalProps {
 export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="text-lg font-semibold mb-2">
-              Quer ter acesso a todas as funcionalidades do inSumma?
-            </h2>
-            <p className="text-sm text-gray-600 mb-6">
-              Inscreva-se para receber nosso convite de acesso antes de todos!
-            </p>
+      <DialogContent className="sm:max-w-[800px]">
+        <div className="text-center mb-4">
+          <h2 className="text-lg font-semibold">
+            Quer ter acesso a todas as funcionalidades do inSumma?
+          </h2>
+          <p className="text-sm text-gray-600">
+            Inscreva-se para receber nosso convite de acesso antes de todos!
+          </p>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Auth Form Section */}
+          <div className="flex-1">
+            <Auth
+              supabaseClient={supabase}
+              appearance={{ theme: ThemeSupa }}
+              theme="light"
+              providers={[]}
+              redirectTo={`${window.location.origin}/`}
+            />
           </div>
 
-          <Auth
-            supabaseClient={supabase}
-            appearance={{ theme: ThemeSupa }}
-            theme="light"
-            providers={[]}
-            redirectTo={`${window.location.origin}/profile`}
-          />
-
-          <div className="mt-8 space-y-4">
-            <h3 className="text-center text-base font-medium text-gray-700">
+          {/* Analytics Section */}
+          <div className="flex-1">
+            <h3 className="text-center text-base font-medium text-gray-700 mb-4">
               Assine e tenha análise detalhada!
             </h3>
             <div className="grid grid-cols-2 gap-4">
