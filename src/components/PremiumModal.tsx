@@ -32,25 +32,25 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
           />
 
           <div className="mt-8 space-y-4">
-            <h3 className="text-center text-sm font-medium text-gray-600">
+            <h3 className="text-center text-base font-medium text-gray-700">
               Assine e tenha análise detalhada!
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
-                <BarChart className="w-12 h-12 text-purple-500" />
-                <span className="text-xs mt-2">Progresso por livro</span>
+                <BarChart className="w-16 h-16 text-purple-500" />
+                <span className="text-sm mt-2 font-medium">Progresso por livro</span>
               </div>
               <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
-                <PieChart className="w-12 h-12 text-orange-500" />
-                <span className="text-xs mt-2">Taxa de acertos</span>
+                <PieChart className="w-16 h-16 text-orange-500" />
+                <span className="text-sm mt-2 font-medium">Taxa de acertos</span>
               </div>
               <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
-                <LineChart className="w-12 h-12 text-green-500" />
-                <span className="text-xs mt-2">Evolução diária</span>
+                <LineChart className="w-16 h-16 text-green-500" />
+                <span className="text-sm mt-2 font-medium">Evolução diária</span>
               </div>
               <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
-                <Target className="w-12 h-12 text-blue-500" />
-                <span className="text-xs mt-2">Domínio de temas</span>
+                <Target className="w-16 h-16 text-blue-500" />
+                <span className="text-sm mt-2 font-medium">Domínio de temas</span>
               </div>
             </div>
           </div>
