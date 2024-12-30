@@ -41,7 +41,6 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
                     email_input_placeholder: "Seu e-mail",
                     password_input_placeholder: "Sua senha",
                     link_text: "Já tem uma conta? Entre",
-                    forgotten_password_text: "Esqueceu sua senha?",
                   },
                   sign_up: {
                     email_label: "E-mail",
