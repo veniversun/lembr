@@ -4,6 +4,7 @@ import { MessageBox } from '@/components/home/MessageBox';
 import { BooksCarousel } from '@/components/home/BooksCarousel';
 import { YouTubeSection } from '@/components/home/YouTubeSection';
 import { CategoriesSection } from '@/components/home/CategoriesSection';
+import { AnalyticsExamplesSection } from '@/components/home/AnalyticsExamplesSection';
 
 const Index = () => {
   return (
@@ -13,6 +14,7 @@ const Index = () => {
       <BooksCarousel />
       <YouTubeSection />
       <CategoriesSection />
+      <AnalyticsExamplesSection />
     </div>
   );
 };
