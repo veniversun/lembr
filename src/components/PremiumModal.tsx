@@ -31,6 +31,36 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
               theme="light"
               providers={[]}
               redirectTo={`${window.location.origin}/`}
+              localization={{
+                variables: {
+                  sign_in: {
+                    email_label: "E-mail",
+                    password_label: "Senha",
+                    button_label: "Entrar",
+                    loading_button_label: "Entrando...",
+                    email_input_placeholder: "Seu e-mail",
+                    password_input_placeholder: "Sua senha",
+                    link_text: "Já tem uma conta? Entre",
+                    forgotten_password_text: "Esqueceu sua senha?",
+                  },
+                  sign_up: {
+                    email_label: "E-mail",
+                    password_label: "Senha",
+                    button_label: "Cadastrar",
+                    loading_button_label: "Cadastrando...",
+                    email_input_placeholder: "Seu e-mail",
+                    password_input_placeholder: "Sua senha",
+                    link_text: "Não tem uma conta? Cadastre-se",
+                  },
+                  forgotten_password: {
+                    email_label: "E-mail",
+                    button_label: "Enviar instruções",
+                    loading_button_label: "Enviando instruções...",
+                    link_text: "Esqueceu sua senha?",
+                    confirmation_text: "Verifique seu e-mail para redefinir sua senha",
+                  },
+                },
+              }}
             />
           </div>
 
