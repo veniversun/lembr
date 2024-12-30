@@ -19,6 +19,11 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
     ? Math.round((correctCount / totalAttempts) * 100) 
     : 0;
 
+  const handleConquistasClick = () => {
+    console.log("Opening premium modal");
+    setShowPremiumModal(true);
+  };
+
   return (
     <div className="min-h-screen p-8 bg-gray-50 flex items-center justify-center">
       <div className="max-w-2xl mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg">
@@ -56,7 +61,7 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
             <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
             <Button 
               className="bg-purple-600 hover:bg-purple-700"
-              onClick={() => setShowPremiumModal(true)}
+              onClick={handleConquistasClick}
             >
               <Trophy className="mr-2" /> Conquistas
             </Button>
