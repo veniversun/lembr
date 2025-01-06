@@ -46,9 +46,36 @@ export const SignUpForm = ({ onSignUp, onCancel }: SignUpFormProps) => {
       return;
     }
 
+    // Validate required fields
+    const requiredFields = {
+      email: "E-mail",
+      password: "Senha",
+      fullName: "Nome Completo",
+      gender: "Sexo",
+      occupation: "Ocupação",
+      age: "Idade",
+      city: "Cidade",
+      state: "Estado"
+    };
+
+    for (const [field, label] of Object.entries(requiredFields)) {
+      if (!formData[field as keyof SignUpFormData]) {
+        toast({
+          title: "Campo obrigatório",
+          description: `Por favor, preencha o campo ${label}`,
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
     try {
       setIsLoading(true);
       await onSignUp(formData);
+      toast({
+        title: "Cadastro realizado",
+        description: "Por favor, verifique seu e-mail para confirmar o cadastro.",
+      });
     } catch (error: any) {
       console.error("Error signing up:", error);
       
@@ -84,7 +111,7 @@ export const SignUpForm = ({ onSignUp, onCancel }: SignUpFormProps) => {
   return (
     <div className="space-y-4">
       <div>
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">E-mail</Label>
         <Input
           id="email"
           type="email"

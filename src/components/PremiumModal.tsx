@@ -1,10 +1,7 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { SignUpForm, SignUpFormData } from "./premium/SignUpForm";
 import { AnalyticsPreview } from "./premium/AnalyticsPreview";
 
@@ -15,7 +12,7 @@ interface PremiumModalProps {
 
 export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
   const navigate = useNavigate();
-  const [showSignUpForm, setShowSignUpForm] = useState(false);
+  const [showSignUpForm, setShowSignUpForm] = useState(true);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -56,47 +53,13 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[800px]">
-        <div className="text-center mb-4">
-          <h2 className="text-lg font-semibold">
-            Acesse todas as funcionalidades do inSumma
-          </h2>
-        </div>
+        <DialogTitle className="text-center text-lg font-semibold">
+          Acesse todas as funcionalidades do inSumma
+        </DialogTitle>
 
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1">
-            {showSignUpForm ? (
-              <SignUpForm onSignUp={handleSignUp} onCancel={() => setShowSignUpForm(false)} />
-            ) : (
-              <>
-                <Auth
-                  supabaseClient={supabase}
-                  appearance={{ theme: ThemeSupa }}
-                  theme="light"
-                  providers={[]}
-                  redirectTo={window.location.origin}
-                  localization={{
-                    variables: {
-                      sign_in: {
-                        email_label: "E-mail",
-                        password_label: "Senha",
-                        button_label: "Entrar",
-                        loading_button_label: "Entrando...",
-                        email_input_placeholder: "Seu e-mail",
-                        password_input_placeholder: "Sua senha",
-                      },
-                    },
-                  }}
-                  view="sign_in"
-                />
-                <Button
-                  variant="link"
-                  className="w-full mt-4"
-                  onClick={() => setShowSignUpForm(true)}
-                >
-                  Não tem uma conta? Cadastre-se
-                </Button>
-              </>
-            )}
+            <SignUpForm onSignUp={handleSignUp} onCancel={() => onOpenChange(false)} />
           </div>
           <AnalyticsPreview />
         </div>
