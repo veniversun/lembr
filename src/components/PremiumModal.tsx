@@ -49,7 +49,7 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
               appearance={{ theme: ThemeSupa }}
               theme="light"
               providers={[]}
-              redirectTo={`${window.location.origin}/`}
+              redirectTo={window.location.origin}
               localization={{
                 variables: {
                   sign_in: {
