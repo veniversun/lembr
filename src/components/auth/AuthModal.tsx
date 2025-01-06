@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -16,6 +17,12 @@ interface AuthModalProps {
 
 export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
   const [activeTab, setActiveTab] = useState("login");
+  const navigate = useNavigate();
+
+  const handleSuccess = () => {
+    onOpenChange(false);
+    navigate('/registrado');
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -31,10 +38,10 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
             <TabsTrigger value="signup">Criar Conta</TabsTrigger>
           </TabsList>
           <TabsContent value="login">
-            <LoginForm onSuccess={() => onOpenChange(false)} />
+            <LoginForm onSuccess={handleSuccess} />
           </TabsContent>
           <TabsContent value="signup">
-            <SignUpForm onSuccess={() => onOpenChange(false)} />
+            <SignUpForm onSuccess={handleSuccess} />
           </TabsContent>
         </Tabs>
       </DialogContent>
