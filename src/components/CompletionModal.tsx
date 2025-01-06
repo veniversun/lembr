@@ -4,7 +4,6 @@ import { Home, Trophy, BookOpen } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { BookCarousel } from "@/components/BookCarousel";
 import { useState } from "react";
-import { PremiumModal } from "./PremiumModal";
 
 interface CompletionModalProps {
   correctCount: number;
@@ -13,16 +12,10 @@ interface CompletionModalProps {
 }
 
 export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: CompletionModalProps) => {
-  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const totalAttempts = correctCount + incorrectCount;
   const successPercentage = totalAttempts > 0 
     ? Math.round((correctCount / totalAttempts) * 100) 
     : 0;
-
-  const handleConquistasClick = () => {
-    console.log("Opening premium modal");
-    setShowPremiumModal(true);
-  };
 
   return (
     <div className="min-h-screen p-8 bg-gray-50 flex items-center justify-center">
@@ -57,20 +50,16 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
             Você está melhor que 90% dos usuários!
           </p>
 
-          {/* Grid layout for the two sections */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-            {/* Evolution section */}
             <div className="space-y-4 p-6 bg-purple-50 rounded-lg">
               <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
               <Button 
                 className="bg-purple-600 hover:bg-purple-700 w-full"
-                onClick={handleConquistasClick}
               >
                 <Trophy className="mr-2" /> Conquistas
               </Button>
             </div>
 
-            {/* Book promotion section */}
             <div className="space-y-4 p-6 bg-orange-50 rounded-lg">
               <p className="text-lg font-medium text-orange-600">
                 Adquira o livro completo na promoção
@@ -95,11 +84,6 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
           </div>
         </div>
       </div>
-
-      <PremiumModal 
-        open={showPremiumModal} 
-        onOpenChange={setShowPremiumModal}
-      />
     </div>
   );
 };
