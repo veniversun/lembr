@@ -23,7 +23,6 @@ const AuthCallback = () => {
     const handleAuthCallback = async () => {
       console.log("Handling auth callback with hash:", location.hash);
       
-      // If there's no hash, return early
       if (!location.hash) {
         console.log("No hash found in URL");
         navigate('/');
