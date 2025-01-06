@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Home, Trophy } from "lucide-react";
+import { Home, Trophy, BookOpen } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { BookCarousel } from "@/components/BookCarousel";
 import { useState } from "react";
@@ -26,7 +26,7 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
 
   return (
     <div className="min-h-screen p-8 bg-gray-50 flex items-center justify-center">
-      <div className="max-w-2xl mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg">
+      <div className="max-w-4xl mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg">
         <Link to="/" className="block mb-8">
           <Button variant="outline" className="w-full sm:w-auto">
             <Home className="mr-2" /> Página Inicial
@@ -57,30 +57,36 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
             Você está melhor que 90% dos usuários!
           </p>
 
-          <div className="space-y-4 mt-8">
-            <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
-            <Button 
-              className="bg-purple-600 hover:bg-purple-700"
-              onClick={handleConquistasClick}
-            >
-              <Trophy className="mr-2" /> Conquistas
-            </Button>
-          </div>
-
-          <div className="space-y-4 mt-8 border-t pt-6">
-            <p className="text-lg font-medium text-orange-600">
-              Adquira o livro completo na promoção
-            </p>
-            <a 
-              href={bookUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block"
-            >
-              <Button className="bg-orange-500 hover:bg-orange-600">
-                Comprar agora
+          {/* Grid layout for the two sections */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            {/* Evolution section */}
+            <div className="space-y-4 p-6 bg-purple-50 rounded-lg">
+              <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
+              <Button 
+                className="bg-purple-600 hover:bg-purple-700 w-full"
+                onClick={handleConquistasClick}
+              >
+                <Trophy className="mr-2" /> Conquistas
               </Button>
-            </a>
+            </div>
+
+            {/* Book promotion section */}
+            <div className="space-y-4 p-6 bg-orange-50 rounded-lg">
+              <p className="text-lg font-medium text-orange-600">
+                Adquira o livro completo na promoção
+              </p>
+              <a 
+                href={bookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <Button className="bg-orange-500 hover:bg-orange-600 w-full">
+                  <BookOpen className="mr-2" />
+                  Comprar agora
+                </Button>
+              </a>
+            </div>
           </div>
 
           <div className="space-y-4 mt-8 border-t pt-6">
