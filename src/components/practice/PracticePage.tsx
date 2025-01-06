@@ -14,7 +14,7 @@ import { PremiumModal } from "@/components/PremiumModal";
 interface PracticePageProps {
   title: string;
   bookType: string;
-  tableName: "essen" | "psifin" | "habatom" | "hatm" | "generalista";
+  tableName: "essen" | "psifin" | "habatom" | "generalista";
   bookUrl: string;
 }
 
