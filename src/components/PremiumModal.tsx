@@ -84,7 +84,6 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
                         loading_button_label: "Entrando...",
                         email_input_placeholder: "Seu e-mail",
                         password_input_placeholder: "Sua senha",
-                        link_text: "Já tem uma conta? Entre",
                       },
                       sign_up: {
                         email_label: "E-mail",
@@ -93,7 +92,6 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
                         loading_button_label: "Cadastrando...",
                         email_input_placeholder: "Seu e-mail",
                         password_input_placeholder: "Sua senha",
-                        link_text: "Não tem uma conta? Cadastre-se",
                       },
                     },
                   }}
