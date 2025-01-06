@@ -12,26 +12,41 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const formSchema = z.object({
-  email: z.string().email("Email inválido"),
+  email: z.string().email("Email inválido").min(1, "Email é obrigatório"),
   password: z.string().min(6, "A senha deve ter no mínimo 6 caracteres"),
   firstName: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
   lastName: z.string().min(2, "Sobrenome deve ter no mínimo 2 caracteres"),
   city: z.string().min(2, "Cidade deve ter no mínimo 2 caracteres"),
-  age: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-    message: "Idade deve ser um número válido",
-  }),
+  age: z.string().min(1, "Faixa etária é obrigatória"),
   occupation: z.string().min(2, "Ocupação deve ter no mínimo 2 caracteres"),
 });
 
+const ageRanges = [
+  "18-24",
+  "25-34",
+  "35-44",
+  "45-54",
+  "55-64",
+  "65+"
+];
+
 interface SignUpFormProps {
   onSuccess: () => void;
+  onBack: () => void;
 }
 
-export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
+export const SignUpForm = ({ onSuccess, onBack }: SignUpFormProps) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,7 +74,7 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
             last_name: values.lastName,
             full_name: `${values.firstName} ${values.lastName}`,
             city: values.city,
-            age: parseInt(values.age),
+            age: values.age,
             occupation: values.occupation,
           },
         },
@@ -92,7 +107,7 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Email *</FormLabel>
               <FormControl>
                 <Input placeholder="seu@email.com" {...field} />
               </FormControl>
@@ -105,7 +120,7 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Senha</FormLabel>
+              <FormLabel>Senha *</FormLabel>
               <FormControl>
                 <Input type="password" placeholder="******" {...field} />
               </FormControl>
@@ -118,7 +133,7 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
           name="firstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nome</FormLabel>
+              <FormLabel>Nome *</FormLabel>
               <FormControl>
                 <Input placeholder="João" {...field} />
               </FormControl>
@@ -131,7 +146,7 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
           name="lastName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Sobrenome</FormLabel>
+              <FormLabel>Sobrenome *</FormLabel>
               <FormControl>
                 <Input placeholder="Silva" {...field} />
               </FormControl>
@@ -144,7 +159,7 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
           name="city"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Cidade</FormLabel>
+              <FormLabel>Cidade *</FormLabel>
               <FormControl>
                 <Input placeholder="São Paulo" {...field} />
               </FormControl>
@@ -157,10 +172,21 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
           name="age"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Idade</FormLabel>
-              <FormControl>
-                <Input type="number" placeholder="25" {...field} />
-              </FormControl>
+              <FormLabel>Faixa Etária *</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione sua faixa etária" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {ageRanges.map((range) => (
+                    <SelectItem key={range} value={range}>
+                      {range} anos
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
@@ -170,7 +196,7 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
           name="occupation"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Ocupação</FormLabel>
+              <FormLabel>Ocupação *</FormLabel>
               <FormControl>
                 <Input placeholder="Desenvolvedor" {...field} />
               </FormControl>
@@ -178,9 +204,14 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Criando conta..." : "Criar conta"}
-        </Button>
+        <div className="flex gap-2">
+          <Button type="button" variant="outline" className="w-full" onClick={onBack}>
+            Voltar
+          </Button>
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Criando conta..." : "Concluir"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

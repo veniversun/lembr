@@ -24,6 +24,10 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
     navigate('/registrado');
   };
 
+  const handleBack = () => {
+    setActiveTab("login");
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
@@ -41,7 +45,7 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
             <LoginForm onSuccess={handleSuccess} />
           </TabsContent>
           <TabsContent value="signup">
-            <SignUpForm onSuccess={handleSuccess} />
+            <SignUpForm onSuccess={handleSuccess} onBack={handleBack} />
           </TabsContent>
         </Tabs>
       </DialogContent>
