@@ -67,43 +67,36 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
             {showAdditionalFields ? (
               <SignUpForm onSignUp={handleSignUp} />
             ) : (
-              <>
-                <Auth
-                  supabaseClient={supabase}
-                  appearance={{ theme: ThemeSupa }}
-                  theme="light"
-                  providers={[]}
-                  redirectTo={window.location.origin}
-                  view="sign_in"
-                  localization={{
-                    variables: {
-                      sign_in: {
-                        email_label: "E-mail",
-                        password_label: "Senha",
-                        button_label: "Entrar",
-                        loading_button_label: "Entrando...",
-                        email_input_placeholder: "Seu e-mail",
-                        password_input_placeholder: "Sua senha",
-                      },
-                      sign_up: {
-                        email_label: "E-mail",
-                        password_label: "Senha",
-                        button_label: "Cadastrar",
-                        loading_button_label: "Cadastrando...",
-                        email_input_placeholder: "Seu e-mail",
-                        password_input_placeholder: "Sua senha",
-                      },
+              <Auth
+                supabaseClient={supabase}
+                appearance={{ theme: ThemeSupa }}
+                theme="light"
+                providers={[]}
+                redirectTo={window.location.origin}
+                localization={{
+                  variables: {
+                    sign_in: {
+                      email_label: "E-mail",
+                      password_label: "Senha",
+                      button_label: "Entrar",
+                      loading_button_label: "Entrando...",
+                      email_input_placeholder: "Seu e-mail",
+                      password_input_placeholder: "Sua senha",
+                      link_text: "Não tem uma conta? Cadastre-se",
                     },
-                  }}
-                />
-                <Button 
-                  variant="link" 
-                  onClick={() => setShowAdditionalFields(true)}
-                  className="w-full mt-4"
-                >
-                  Não tem uma conta? Cadastre-se
-                </Button>
-              </>
+                    sign_up: {
+                      email_label: "E-mail",
+                      password_label: "Senha",
+                      button_label: "Cadastrar",
+                      loading_button_label: "Cadastrando...",
+                      email_input_placeholder: "Seu e-mail",
+                      password_input_placeholder: "Sua senha",
+                      link_text: "Já tem uma conta? Entre",
+                    },
+                  },
+                }}
+                view="sign_in"
+              />
             )}
           </div>
 
