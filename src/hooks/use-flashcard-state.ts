@@ -25,39 +25,30 @@ export const useFlashcardState = ({ bookType, cards }: UseFlashcardStateProps) =
     }
 
     try {
-      // First get the user's UUID from the users table
-      const { data: userData, error: userError } = await supabase
-        .from("users")
-        .select("*")
-        .eq("id", parseInt(userId))
-        .single();
-
-      if (userError) {
-        console.error("Error fetching user:", userError);
-        return;
-      }
-
-      // Then get or create progress record using the user's profile ID
-      const { data: progressData, error: progressError } = await supabase
+      console.log('Updating progress for user:', userId, 'book:', bookType);
+      
+      // First check if a progress record exists
+      const { data: existingProgress, error: fetchError } = await supabase
         .from("user_progress")
         .select("*")
+        .eq("user_id", userId)
         .eq("book_type", bookType)
-        .maybeSingle();
+        .single();
 
-      if (progressError) {
-        console.error("Error fetching progress:", progressError);
+      if (fetchError && fetchError.code !== 'PGRST116') {
+        console.error("Error fetching progress:", fetchError);
         return;
       }
 
-      if (progressData) {
+      if (existingProgress) {
         // Update existing progress
         const { error: updateError } = await supabase
           .from("user_progress")
           .update({
-            correct_count: isCorrect ? (progressData.correct_count || 0) + 1 : progressData.correct_count,
-            incorrect_count: !isCorrect ? (progressData.incorrect_count || 0) + 1 : progressData.incorrect_count,
+            correct_count: isCorrect ? (existingProgress.correct_count || 0) + 1 : existingProgress.correct_count,
+            incorrect_count: !isCorrect ? (existingProgress.incorrect_count || 0) + 1 : existingProgress.incorrect_count,
           })
-          .eq("id", progressData.id);
+          .eq("id", existingProgress.id);
 
         if (updateError) {
           console.error("Error updating progress:", updateError);
@@ -67,6 +58,7 @@ export const useFlashcardState = ({ bookType, cards }: UseFlashcardStateProps) =
         const { error: insertError } = await supabase
           .from("user_progress")
           .insert({
+            user_id: userId,
             book_type: bookType,
             correct_count: isCorrect ? 1 : 0,
             incorrect_count: !isCorrect ? 1 : 0,
