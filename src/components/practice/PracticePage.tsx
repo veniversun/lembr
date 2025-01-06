@@ -78,6 +78,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
     onCorrect: handleCorrect,
     onIncorrect: handleIncorrect,
     onPrevious: handlePrevious,
+    onShowAnswer: () => setIsFlipped(true),
     isFlipped,
   });
 
@@ -113,7 +114,9 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
           onPrevious={handlePrevious}
           onCorrect={handleCorrect}
           onIncorrect={handleIncorrect}
+          onShowAnswer={() => setIsFlipped(true)}
           showAnswerButtons={isFlipped}
+          isFlipped={isFlipped}
         />
 
         <div className="text-center mt-4 text-sm text-gray-500">
