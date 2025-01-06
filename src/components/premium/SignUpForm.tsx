@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 
 interface SignUpFormProps {
   onSignUp: (formData: SignUpFormData) => Promise<void>;
+  onCancel: () => void;
 }
 
 export interface SignUpFormData {
@@ -17,9 +18,10 @@ export interface SignUpFormData {
   occupation: string;
   age: string;
   city: string;
+  state: string;
 }
 
-export const SignUpForm = ({ onSignUp }: SignUpFormProps) => {
+export const SignUpForm = ({ onSignUp, onCancel }: SignUpFormProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
@@ -31,6 +33,7 @@ export const SignUpForm = ({ onSignUp }: SignUpFormProps) => {
     occupation: "",
     age: "",
     city: "",
+    state: "",
   });
 
   const handleSubmit = async () => {
@@ -121,11 +124,19 @@ export const SignUpForm = ({ onSignUp }: SignUpFormProps) => {
       </div>
       <div>
         <Label htmlFor="occupation">Ocupação</Label>
-        <Input
-          id="occupation"
-          value={formData.occupation}
-          onChange={(e) => setFormData({ ...formData, occupation: e.target.value })}
-        />
+        <Select value={formData.occupation} onValueChange={(value) => setFormData({ ...formData, occupation: value })}>
+          <SelectTrigger>
+            <SelectValue placeholder="Selecione" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="empresario">Empresário</SelectItem>
+            <SelectItem value="autonomo">Autônomo</SelectItem>
+            <SelectItem value="servidor">Servidor</SelectItem>
+            <SelectItem value="estudante">Estudante</SelectItem>
+            <SelectItem value="clt">CLT</SelectItem>
+            <SelectItem value="outros">Outros</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <div>
         <Label htmlFor="age">Idade</Label>
@@ -144,13 +155,30 @@ export const SignUpForm = ({ onSignUp }: SignUpFormProps) => {
           onChange={(e) => setFormData({ ...formData, city: e.target.value })}
         />
       </div>
-      <Button 
-        onClick={handleSubmit} 
-        className="w-full"
-        disabled={isLoading || cooldownSeconds > 0}
-      >
-        {isLoading ? "Cadastrando..." : cooldownSeconds > 0 ? `Aguarde ${cooldownSeconds}s` : "Cadastrar"}
-      </Button>
+      <div>
+        <Label htmlFor="state">Estado</Label>
+        <Input
+          id="state"
+          value={formData.state}
+          onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+        />
+      </div>
+      <div className="flex gap-2">
+        <Button 
+          onClick={handleSubmit} 
+          className="flex-1"
+          disabled={isLoading || cooldownSeconds > 0}
+        >
+          {isLoading ? "Cadastrando..." : cooldownSeconds > 0 ? `Aguarde ${cooldownSeconds}s` : "Cadastrar"}
+        </Button>
+        <Button 
+          variant="outline" 
+          onClick={onCancel}
+          disabled={isLoading}
+        >
+          Voltar
+        </Button>
+      </div>
     </div>
   );
 };

@@ -90,6 +90,7 @@ export type Database = {
           id: string
           last_name: string | null
           occupation: string | null
+          state: string | null
         }
         Insert: {
           age?: number | null
@@ -102,6 +103,7 @@ export type Database = {
           id: string
           last_name?: string | null
           occupation?: string | null
+          state?: string | null
         }
         Update: {
           age?: number | null
@@ -114,6 +116,7 @@ export type Database = {
           id?: string
           last_name?: string | null
           occupation?: string | null
+          state?: string | null
         }
         Relationships: []
       }

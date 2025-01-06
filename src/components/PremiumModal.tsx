@@ -15,7 +15,7 @@ interface PremiumModalProps {
 
 export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
   const navigate = useNavigate();
-  const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -44,6 +44,7 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
           occupation: formData.occupation,
           age: parseInt(formData.age),
           city: formData.city,
+          state: formData.state,
         }
       }
     });
@@ -62,45 +63,41 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Auth Form Section */}
           <div className="flex-1">
-            {showAdditionalFields ? (
-              <SignUpForm onSignUp={handleSignUp} />
+            {showSignUpForm ? (
+              <SignUpForm onSignUp={handleSignUp} onCancel={() => setShowSignUpForm(false)} />
             ) : (
-              <Auth
-                supabaseClient={supabase}
-                appearance={{ theme: ThemeSupa }}
-                theme="light"
-                providers={[]}
-                redirectTo={window.location.origin}
-                localization={{
-                  variables: {
-                    sign_in: {
-                      email_label: "E-mail",
-                      password_label: "Senha",
-                      button_label: "Entrar",
-                      loading_button_label: "Entrando...",
-                      email_input_placeholder: "Seu e-mail",
-                      password_input_placeholder: "Sua senha",
-                      link_text: "Não tem uma conta? Cadastre-se",
+              <>
+                <Auth
+                  supabaseClient={supabase}
+                  appearance={{ theme: ThemeSupa }}
+                  theme="light"
+                  providers={[]}
+                  redirectTo={window.location.origin}
+                  localization={{
+                    variables: {
+                      sign_in: {
+                        email_label: "E-mail",
+                        password_label: "Senha",
+                        button_label: "Entrar",
+                        loading_button_label: "Entrando...",
+                        email_input_placeholder: "Seu e-mail",
+                        password_input_placeholder: "Sua senha",
+                      },
                     },
-                    sign_up: {
-                      email_label: "E-mail",
-                      password_label: "Senha",
-                      button_label: "Cadastrar",
-                      loading_button_label: "Cadastrando...",
-                      email_input_placeholder: "Seu e-mail",
-                      password_input_placeholder: "Sua senha",
-                      link_text: "Já tem uma conta? Entre",
-                    },
-                  },
-                }}
-                view="sign_in"
-              />
+                  }}
+                  view="sign_in"
+                />
+                <Button
+                  variant="link"
+                  className="w-full mt-4"
+                  onClick={() => setShowSignUpForm(true)}
+                >
+                  Não tem uma conta? Cadastre-se
+                </Button>
+              </>
             )}
           </div>
-
-          {/* Analytics Preview Section */}
           <AnalyticsPreview />
         </div>
       </DialogContent>
