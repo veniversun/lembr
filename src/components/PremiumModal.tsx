@@ -42,7 +42,7 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
           full_name: formData.fullName,
           gender: formData.gender,
           occupation: formData.occupation,
-          age: parseInt(formData.age),
+          age: formData.age,
           city: formData.city,
           state: formData.state,
         }

@@ -140,12 +140,19 @@ export const SignUpForm = ({ onSignUp, onCancel }: SignUpFormProps) => {
       </div>
       <div>
         <Label htmlFor="age">Idade</Label>
-        <Input
-          id="age"
-          type="number"
-          value={formData.age}
-          onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-        />
+        <Select value={formData.age} onValueChange={(value) => setFormData({ ...formData, age: value })}>
+          <SelectTrigger>
+            <SelectValue placeholder="Selecione" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="ate18">Até 18</SelectItem>
+            <SelectItem value="19a25">19 a 25</SelectItem>
+            <SelectItem value="26a30">26 a 30</SelectItem>
+            <SelectItem value="31a35">31 a 35</SelectItem>
+            <SelectItem value="36a40">36 a 40</SelectItem>
+            <SelectItem value="acima40">Acima de 40</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <div>
         <Label htmlFor="city">Cidade</Label>
