@@ -18,9 +18,9 @@ export const PremiumModal = ({ open, onOpenChange }: PremiumModalProps) => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       console.log("Auth state changed:", event, session);
       if (event === 'SIGNED_IN') {
-        console.log("User signed in, closing modal and redirecting");
+        console.log("User signed in, closing modal and redirecting to registrado page");
         onOpenChange(false);
-        navigate('/');
+        navigate('/registrado');
       }
     });
 
