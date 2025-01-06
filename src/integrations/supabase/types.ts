@@ -27,35 +27,6 @@ export type Database = {
         }
         Relationships: []
       }
-      daily_usage: {
-        Row: {
-          created_at: string
-          id: number
-          usage_date: string | null
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          usage_date?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          usage_date?: string | null
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "daily_usage_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       essen: {
         Row: {
           a: string | null
@@ -68,27 +39,6 @@ export type Database = {
         Update: {
           a?: string | null
           q?: string | null
-        }
-        Relationships: []
-      }
-      flashcards: {
-        Row: {
-          answer: string
-          created_at: string
-          id: number
-          question: string
-        }
-        Insert: {
-          answer: string
-          created_at?: string
-          id?: number
-          question: string
-        }
-        Update: {
-          answer?: string
-          created_at?: string
-          id?: number
-          question?: string
         }
         Relationships: []
       }
@@ -125,21 +75,6 @@ export type Database = {
         Update: {
           a?: string | null
           q?: string | null
-        }
-        Relationships: []
-      }
-      hatm: {
-        Row: {
-          A: string | null
-          Q: string | null
-        }
-        Insert: {
-          A?: string | null
-          Q?: string | null
-        }
-        Update: {
-          A?: string | null
-          Q?: string | null
         }
         Relationships: []
       }
