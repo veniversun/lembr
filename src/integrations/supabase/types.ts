@@ -146,9 +146,11 @@ export type Database = {
       profiles: {
         Row: {
           age: number | null
+          city: string | null
           created_at: string
           email: string | null
           first_name: string | null
+          full_name: string | null
           gender: string | null
           id: string
           last_name: string | null
@@ -156,9 +158,11 @@ export type Database = {
         }
         Insert: {
           age?: number | null
+          city?: string | null
           created_at?: string
           email?: string | null
           first_name?: string | null
+          full_name?: string | null
           gender?: string | null
           id: string
           last_name?: string | null
@@ -166,9 +170,11 @@ export type Database = {
         }
         Update: {
           age?: number | null
+          city?: string | null
           created_at?: string
           email?: string | null
           first_name?: string | null
+          full_name?: string | null
           gender?: string | null
           id?: string
           last_name?: string | null
