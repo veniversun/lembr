@@ -29,7 +29,7 @@ const formSchema = z.object({
   lastName: z.string().min(2, "Sobrenome deve ter no mínimo 2 caracteres"),
   city: z.string().min(2, "Cidade deve ter no mínimo 2 caracteres"),
   age: z.string().min(1, "Faixa etária é obrigatória"),
-  occupation: z.string().min(2, "Ocupação deve ter no mínimo 2 caracteres"),
+  occupation: z.string().min(1, "Ocupação é obrigatória"),
 });
 
 const ageRanges = [
@@ -39,6 +39,21 @@ const ageRanges = [
   "45-54",
   "55-64",
   "65+"
+];
+
+const occupationOptions = [
+  "Estudante",
+  "Professor(a)",
+  "Psicólogo(a)",
+  "Médico(a)",
+  "Enfermeiro(a)",
+  "Engenheiro(a)",
+  "Advogado(a)",
+  "Administrador(a)",
+  "Empresário(a)",
+  "Autônomo(a)",
+  "Aposentado(a)",
+  "Outro"
 ];
 
 interface SignUpFormProps {
@@ -197,9 +212,20 @@ export const SignUpForm = ({ onSuccess, onBack }: SignUpFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Ocupação *</FormLabel>
-              <FormControl>
-                <Input placeholder="Desenvolvedor" {...field} />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione sua ocupação" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {occupationOptions.map((occupation) => (
+                    <SelectItem key={occupation} value={occupation}>
+                      {occupation}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
