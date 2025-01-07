@@ -78,48 +78,6 @@ export type Database = {
         }
         Relationships: []
       }
-      profiles: {
-        Row: {
-          age: number | null
-          city: string | null
-          created_at: string
-          email: string | null
-          first_name: string | null
-          full_name: string | null
-          gender: string | null
-          id: string
-          last_name: string | null
-          occupation: string | null
-          state: string | null
-        }
-        Insert: {
-          age?: number | null
-          city?: string | null
-          created_at?: string
-          email?: string | null
-          first_name?: string | null
-          full_name?: string | null
-          gender?: string | null
-          id: string
-          last_name?: string | null
-          occupation?: string | null
-          state?: string | null
-        }
-        Update: {
-          age?: number | null
-          city?: string | null
-          created_at?: string
-          email?: string | null
-          first_name?: string | null
-          full_name?: string | null
-          gender?: string | null
-          id?: string
-          last_name?: string | null
-          occupation?: string | null
-          state?: string | null
-        }
-        Relationships: []
-      }
       psifin: {
         Row: {
           a: string | null
@@ -132,42 +90,6 @@ export type Database = {
         Update: {
           a?: string | null
           q?: string | null
-        }
-        Relationships: []
-      }
-      registros: {
-        Row: {
-          cidade: string
-          created_at: string
-          email: string
-          id: number
-          idade: number
-          leu_livro: boolean
-          nome: string
-          ocupacao: string
-          sexo: string
-        }
-        Insert: {
-          cidade: string
-          created_at?: string
-          email: string
-          id?: number
-          idade: number
-          leu_livro: boolean
-          nome: string
-          ocupacao: string
-          sexo: string
-        }
-        Update: {
-          cidade?: string
-          created_at?: string
-          email?: string
-          id?: number
-          idade?: number
-          leu_livro?: boolean
-          nome?: string
-          ocupacao?: string
-          sexo?: string
         }
         Relationships: []
       }
