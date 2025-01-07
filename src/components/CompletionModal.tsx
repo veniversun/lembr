@@ -57,33 +57,40 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="text-center space-y-4">
-              <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
-              <Button 
-                className="bg-purple-600 hover:bg-purple-700 w-full"
-                onClick={handleConquistasClick}
-              >
-                <Trophy className="mr-2" /> Conquistas
+          {/* Grid container for the two sections */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Evolution section */}
+            <div className="space-y-4">
+              <div className="text-center space-y-4">
+                <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
+                <Button 
+                  className="bg-purple-600 hover:bg-purple-700 w-full"
+                  onClick={handleConquistasClick}
+                >
+                  <Trophy className="mr-2" /> Conquistas
+                </Button>
+              </div>
+            </div>
+
+            {/* Continue practicing section */}
+            <div className="space-y-4">
+              <div className="text-center space-y-4">
+                <p className="text-xl font-semibold">Continue praticando</p>
+                <Link to={bookUrl}>
+                  <Button className="bg-blue-600 hover:bg-blue-700 w-full">
+                    <BookOpen className="mr-2" /> Continuar Praticando
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link to="/">
+              <Button variant="outline" className="w-full">
+                <Home className="mr-2" /> Voltar para Início
               </Button>
-            </div>
-
-            <div className="text-center space-y-4">
-              <p className="text-xl font-semibold">Continue praticando</p>
-              <Link to={bookUrl}>
-                <Button className="bg-blue-600 hover:bg-blue-700 w-full">
-                  <BookOpen className="mr-2" /> Continuar Praticando
-                </Button>
-              </Link>
-            </div>
-
-            <div className="text-center">
-              <Link to="/">
-                <Button variant="outline" className="w-full">
-                  <Home className="mr-2" /> Voltar para Início
-                </Button>
-              </Link>
-            </div>
+            </Link>
           </div>
 
           <div>
