@@ -40,10 +40,6 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
       setIsAuthenticated(!!session);
       
       if (session) {
-        toast({
-          title: "Login realizado com sucesso!",
-          description: "Bem-vindo de volta!",
-        });
         onOpenChange(false);
       }
 
