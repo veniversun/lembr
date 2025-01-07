@@ -38,13 +38,11 @@ const Profile = () => {
       const storedUserId = localStorage.getItem("userId");
       if (!storedUserId) return [];
       
-      const userId = parseInt(storedUserId, 10); // Convert string to number
-      if (isNaN(userId)) return []; // Handle invalid number conversion
-      
+      // Don't convert to number for user_progress table since it expects a string
       const { data, error } = await supabase
         .from("user_progress")
         .select("*")
-        .eq("user_id", userId);
+        .eq("user_id", storedUserId);
         
       if (error) throw error;
       return data;
