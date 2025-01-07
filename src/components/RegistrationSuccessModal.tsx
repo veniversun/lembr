@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Clap } from "lucide-react";
+import { HandClap, BarChart2, PieChart, LineChart, Target } from "lucide-react";
 
 interface RegistrationSuccessModalProps {
   open: boolean;
@@ -23,9 +23,9 @@ export const RegistrationSuccessModal = ({
       <DialogContent className="sm:max-w-[800px]">
         <DialogHeader>
           <div className="flex justify-center gap-4 mb-8">
-            <Clap className="h-8 w-8 text-yellow-500" />
-            <Clap className="h-8 w-8 text-yellow-500" />
-            <Clap className="h-8 w-8 text-yellow-500" />
+            <HandClap className="h-8 w-8 text-yellow-500" />
+            <HandClap className="h-8 w-8 text-yellow-500" />
+            <HandClap className="h-8 w-8 text-yellow-500" />
           </div>
         </DialogHeader>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -56,7 +56,7 @@ export const RegistrationSuccessModal = ({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
-              <BarChart className="w-16 h-16 text-purple-500" />
+              <BarChart2 className="w-16 h-16 text-purple-500" />
               <span className="text-sm mt-2 font-medium">Progresso por livro</span>
             </div>
             <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
