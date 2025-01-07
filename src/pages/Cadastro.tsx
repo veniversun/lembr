@@ -22,6 +22,7 @@ import * as z from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
@@ -263,18 +264,18 @@ export default function Cadastro() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <GradientButton 
-                  type="button" 
-                  variant="outline"
-                  onClick={() => navigate("/")}
-                  className="w-full bg-white hover:bg-gray-50"
-                >
-                  Início
-                </GradientButton>
-                <GradientButton type="submit" className="w-full">
+              <div className="space-y-4">
+                <GradientButton type="submit" className="w-full max-w-md mx-auto block">
                   Quero mais!
                 </GradientButton>
+                <Button
+                  type="button"
+                  variant="link"
+                  onClick={() => navigate("/")}
+                  className="w-full text-muted-foreground hover:text-primary"
+                >
+                  Voltar ao início
+                </Button>
               </div>
             </form>
           </Form>
