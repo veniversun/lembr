@@ -6,7 +6,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { AnalyticsPreview } from "@/components/premium/AnalyticsPreview";
@@ -31,6 +30,7 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
       setIsAuthenticated(!!session);
       if (session) {
         onOpenChange(false);
+        navigate('/registrado');
       }
     };
 
