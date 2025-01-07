@@ -22,10 +22,13 @@ export const RegistrationSuccessModal = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[800px]">
         <DialogHeader>
-          <div className="flex justify-center gap-4 mb-8">
-            <PartyPopper className="h-8 w-8 text-yellow-500" />
-            <PartyPopper className="h-8 w-8 text-yellow-500" />
-            <PartyPopper className="h-8 w-8 text-yellow-500" />
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex gap-4">
+              <PartyPopper className="h-8 w-8 text-yellow-500" />
+              <PartyPopper className="h-8 w-8 text-yellow-500" />
+              <PartyPopper className="h-8 w-8 text-yellow-500" />
+            </div>
+            <h2 className="text-2xl font-bold">Parabéns!</h2>
           </div>
         </DialogHeader>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
