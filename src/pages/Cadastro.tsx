@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Header } from "@/components/home/Header";
 import {
   Form,
@@ -23,6 +24,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { RegistrationSuccessModal } from "@/components/RegistrationSuccessModal";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
@@ -50,6 +52,8 @@ const genderOptions = ["Masculino", "Feminino", "Outro", "Prefiro não informar"
 export default function Cadastro() {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -78,11 +82,7 @@ export default function Cadastro() {
 
       if (error) throw error;
 
-      toast({
-        title: "Registro realizado com sucesso!",
-        description: "Obrigado pelo seu interesse.",
-      });
-
+      setShowSuccessModal(true);
       form.reset();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -281,6 +281,11 @@ export default function Cadastro() {
           </Form>
         </div>
       </div>
+
+      <RegistrationSuccessModal 
+        open={showSuccessModal}
+        onOpenChange={setShowSuccessModal}
+      />
     </div>
   );
 }
