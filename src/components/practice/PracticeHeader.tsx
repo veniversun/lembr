@@ -15,7 +15,6 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
   const updatedTitle = title.replace("Pratique", "Treine");
 
   const handleConquistasClick = () => {
-    // Temporarily disabled
     console.log("Conquistas clicked - auth disabled");
   };
 
@@ -41,7 +40,7 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
         </div>
       </div>
       <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
-      <RegistradoModal open={showRegistradoModal} onOpenChange={setShowRegistradoModal} />
+      <RegistradoModal open={false} onOpenChange={setShowRegistradoModal} />
     </>
   );
 };

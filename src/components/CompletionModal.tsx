@@ -15,6 +15,7 @@ interface CompletionModalProps {
 
 export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: CompletionModalProps) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
+  // Keep the state but don't use it
   const [showRegistradoModal, setShowRegistradoModal] = useState(false);
   const totalAttempts = correctCount + incorrectCount;
   const successPercentage = totalAttempts > 0 
@@ -22,7 +23,6 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
     : 0;
 
   const handleConquistasClick = () => {
-    // Temporarily disabled
     console.log("Conquistas clicked - auth disabled");
   };
 
@@ -97,7 +97,8 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
         </div>
       </div>
       <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
-      <RegistradoModal open={showRegistradoModal} onOpenChange={setShowRegistradoModal} />
+      {/* Keep the component but don't display it */}
+      <RegistradoModal open={false} onOpenChange={setShowRegistradoModal} />
     </>
   );
 };
