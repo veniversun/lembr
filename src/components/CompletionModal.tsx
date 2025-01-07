@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Home, Trophy, BookOpen } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { BookCarousel } from "@/components/BookCarousel";
 import { AuthModal } from "@/components/auth/AuthModal";
+import { RegistradoModal } from "@/components/auth/RegistradoModal";
+import { supabase } from "@/integrations/supabase/client";
 
 interface CompletionModalProps {
   correctCount: number;
@@ -14,10 +16,38 @@ interface CompletionModalProps {
 
 export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: CompletionModalProps) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showRegistradoModal, setShowRegistradoModal] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const totalAttempts = correctCount + incorrectCount;
   const successPercentage = totalAttempts > 0 
     ? Math.round((correctCount / totalAttempts) * 100) 
     : 0;
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+    };
+
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session);
+      if (session && event === 'SIGNED_IN') {
+        setShowRegistradoModal(true);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleConquistasClick = () => {
+    if (isAuthenticated) {
+      setShowRegistradoModal(true);
+    } else {
+      setShowAuthModal(true);
+    }
+  };
 
   return (
     <>
@@ -58,7 +88,7 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
                 <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
                 <Button 
                   className="bg-purple-600 hover:bg-purple-700 w-full"
-                  onClick={() => setShowAuthModal(true)}
+                  onClick={handleConquistasClick}
                 >
                   <Trophy className="mr-2" /> Conquistas
                 </Button>
@@ -90,6 +120,7 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
         </div>
       </div>
       <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
+      <RegistradoModal open={showRegistradoModal} onOpenChange={setShowRegistradoModal} />
     </>
   );
 };
