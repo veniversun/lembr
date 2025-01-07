@@ -18,10 +18,13 @@ const Profile = () => {
       const storedUserId = localStorage.getItem("userId");
       if (!storedUserId) return null;
       
+      const userId = parseInt(storedUserId, 10); // Convert string to number
+      if (isNaN(userId)) return null; // Handle invalid number conversion
+      
       const { data, error } = await supabase
         .from("users")
         .select("*")
-        .eq("id", storedUserId)
+        .eq("id", userId)
         .single();
         
       if (error) throw error;
@@ -35,10 +38,13 @@ const Profile = () => {
       const storedUserId = localStorage.getItem("userId");
       if (!storedUserId) return [];
       
+      const userId = parseInt(storedUserId, 10); // Convert string to number
+      if (isNaN(userId)) return []; // Handle invalid number conversion
+      
       const { data, error } = await supabase
         .from("user_progress")
         .select("*")
-        .eq("user_id", storedUserId);
+        .eq("user_id", userId);
         
       if (error) throw error;
       return data;
