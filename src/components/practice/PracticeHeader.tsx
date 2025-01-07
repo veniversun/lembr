@@ -14,20 +14,52 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showRegistradoModal, setShowRegistradoModal] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
   const updatedTitle = title.replace("Pratique", "Treine");
 
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setIsAuthenticated(!!session);
+      
+      if (session) {
+        // Fetch user name from the users table
+        const { data: userData, error } = await supabase
+          .from('users')
+          .select('name')
+          .single();
+
+        if (!error && userData) {
+          console.log('User data fetched:', userData);
+          setUserName(userData.name);
+        } else {
+          console.error('Error fetching user name:', error);
+        }
+      }
     };
 
     checkAuth();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Auth state changed:', event);
       setIsAuthenticated(!!session);
       if (session && event === 'SIGNED_IN') {
         setShowRegistradoModal(true);
+        // Fetch user name when auth state changes
+        const fetchUserName = async () => {
+          const { data: userData, error } = await supabase
+            .from('users')
+            .select('name')
+            .single();
+
+          if (!error && userData) {
+            console.log('User data fetched after auth change:', userData);
+            setUserName(userData.name);
+          } else {
+            console.error('Error fetching user name after auth change:', error);
+          }
+        };
+        fetchUserName();
       }
     });
 
@@ -45,7 +77,12 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
   return (
     <>
       <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
-        <h1 className="text-3xl font-bold">{updatedTitle}</h1>
+        <div>
+          <h1 className="text-3xl font-bold">{updatedTitle}</h1>
+          {isAuthenticated && userName && (
+            <p className="text-gray-600 mt-2">Olá, {userName}!</p>
+          )}
+        </div>
         <div className="flex gap-4">
           <Button 
             variant="outline" 
