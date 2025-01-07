@@ -1,8 +1,17 @@
 import { BarChart, LineChart, PieChart, Target } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const AnalyticsExamplesSection = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log("Analytics section clicked - redirecting to cadastro");
+    navigate('/cadastro');
+  };
+
   return (
     <div 
+      onClick={handleClick}
       className="w-full max-w-4xl bg-white/60 backdrop-blur-md p-4 md:p-8 rounded-2xl shadow-lg border border-white/50 mt-8 hover:bg-white/70 transition-all duration-300 cursor-pointer"
     >
       <h3 className="text-center text-xl font-semibold text-gray-800 mb-8">
