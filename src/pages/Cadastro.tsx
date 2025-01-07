@@ -38,11 +38,12 @@ const formSchema = z.object({
 });
 
 const occupationOptions = [
-  "Empreendedor",
   "Autônomo",
   "CLT",
+  "Empresário",
+  "Servidor Público",
   "Estudante",
-  "Outros",
+  "Outros"
 ];
 
 const ageRanges = ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"];
