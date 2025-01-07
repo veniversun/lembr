@@ -23,11 +23,15 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
       setIsAuthenticated(!!session);
       
       if (session) {
-        // Fetch user name from the users table
+        const storedUserId = localStorage.getItem("userId");
+        if (!storedUserId) return;
+
+        // Fetch user name from the users table with specific user ID
         const { data: userData, error } = await supabase
           .from('users')
           .select('name')
-          .single();
+          .eq('id', storedUserId)
+          .maybeSingle();
 
         if (!error && userData) {
           console.log('User data fetched:', userData);
@@ -47,10 +51,14 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
         setShowRegistradoModal(true);
         // Fetch user name when auth state changes
         const fetchUserName = async () => {
+          const storedUserId = localStorage.getItem("userId");
+          if (!storedUserId) return;
+
           const { data: userData, error } = await supabase
             .from('users')
             .select('name')
-            .single();
+            .eq('id', storedUserId)
+            .maybeSingle();
 
           if (!error && userData) {
             console.log('User data fetched after auth change:', userData);
