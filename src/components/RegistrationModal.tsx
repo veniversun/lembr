@@ -26,7 +26,7 @@ export const RegistrationModal = () => {
     sexo: "",
     ocupacao: "",
     cidade: "",
-    leu_livro: "",
+    estado: "",
   });
   const { toast } = useToast();
 
@@ -52,7 +52,7 @@ export const RegistrationModal = () => {
 
   const handleSubmit = async () => {
     if (!formData.nome || !formData.email || !formData.idade || !formData.sexo || 
-        !formData.ocupacao || !formData.cidade || !formData.leu_livro) {
+        !formData.ocupacao || !formData.cidade || !formData.estado) {
       toast({
         title: "Erro",
         description: "Por favor, preencha todos os campos",
@@ -64,12 +64,8 @@ export const RegistrationModal = () => {
     try {
       // Insert new registration
       const { error: registroError } = await supabase
-        .from("registros")
-        .insert([{
-          ...formData,
-          idade: parseInt(formData.idade),
-          leu_livro: formData.leu_livro === "sim"
-        }]);
+        .from("interessados")
+        .insert([formData]);
 
       if (registroError) throw registroError;
 
@@ -122,7 +118,7 @@ export const RegistrationModal = () => {
           </div>
           <div>
             <Input
-              type="number"
+              type="text"
               placeholder="Idade"
               value={formData.idade}
               onChange={(e) => setFormData({ ...formData, idade: e.target.value })}
@@ -142,11 +138,12 @@ export const RegistrationModal = () => {
               <SelectValue placeholder="Ocupação" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="empresário">Empresário</SelectItem>
-              <SelectItem value="estudante">Estudante</SelectItem>
-              <SelectItem value="servidor público">Servidor Público</SelectItem>
-              <SelectItem value="executivo">Executivo</SelectItem>
-              <SelectItem value="outros">Outros</SelectItem>
+              <SelectItem value="Autônomo">Autônomo</SelectItem>
+              <SelectItem value="CLT">CLT</SelectItem>
+              <SelectItem value="Empresário">Empresário</SelectItem>
+              <SelectItem value="Servidor Público">Servidor Público</SelectItem>
+              <SelectItem value="Estudante">Estudante</SelectItem>
+              <SelectItem value="Outros">Outros</SelectItem>
             </SelectContent>
           </Select>
           <div>
@@ -156,15 +153,13 @@ export const RegistrationModal = () => {
               onChange={(e) => setFormData({ ...formData, cidade: e.target.value })}
             />
           </div>
-          <Select onValueChange={(value) => setFormData({ ...formData, leu_livro: value })}>
-            <SelectTrigger>
-              <SelectValue placeholder="Já leu o livro?" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="sim">Sim</SelectItem>
-              <SelectItem value="nao">Não</SelectItem>
-            </SelectContent>
-          </Select>
+          <div>
+            <Input
+              placeholder="Estado"
+              value={formData.estado}
+              onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
+            />
+          </div>
           <Button onClick={handleSubmit} className="w-full">
             Começar
           </Button>

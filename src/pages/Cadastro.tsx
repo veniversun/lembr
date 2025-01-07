@@ -71,14 +71,14 @@ export default function Cadastro() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const { error } = await supabase.from("registros").insert({
+      const { error } = await supabase.from("interessados").insert({
         nome: `${values.firstName} ${values.lastName}`,
         email: values.email,
-        idade: parseInt(values.age),
+        idade: values.age,
         sexo: values.gender,
         ocupacao: values.occupation,
         cidade: values.city,
-        leu_livro: false,
+        estado: values.state,
       });
 
       if (error) throw error;
