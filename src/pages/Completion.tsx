@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Trophy, BookOpen } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
+import { Home, Trophy, ShoppingCart } from "lucide-react";
 import { BookCarousel } from "@/components/BookCarousel";
 
 const Completion = () => {
@@ -20,11 +19,14 @@ const Completion = () => {
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-4xl mx-auto space-y-6">
-        <div className="text-center space-y-2">
-          <h2 className="text-3xl font-bold">Parabéns!</h2>
-          <p className="text-gray-600">
-            Você completou mais uma sessão de estudos
-          </p>
+        <div className="relative p-8 rounded-lg overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 opacity-90" />
+          <div className="relative text-center space-y-2 text-white">
+            <h2 className="text-3xl font-bold">Parabéns!</h2>
+            <p className="text-xl">
+              Você completou mais uma sessão de estudos
+            </p>
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -67,12 +69,12 @@ const Completion = () => {
 
           <div className="space-y-4">
             <div className="text-center space-y-4">
-              <p className="text-xl font-semibold">Continue praticando</p>
-              <Link to={bookUrl}>
+              <p className="text-xl font-semibold">Compre o livro com desconto</p>
+              <a href={bookUrl} target="_blank" rel="noopener noreferrer">
                 <Button className="bg-blue-600 hover:bg-blue-700 w-full">
-                  <BookOpen className="mr-2" /> Continuar Praticando
+                  <ShoppingCart className="mr-2" /> Comprar Livro
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
