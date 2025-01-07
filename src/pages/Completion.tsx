@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, Trophy, ShoppingCart } from "lucide-react";
 import { BookCarousel } from "@/components/BookCarousel";
 
 const Completion = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { correctCount = 0, incorrectCount = 0, bookUrl = "/" } = location.state || {};
 
   const totalAttempts = correctCount + incorrectCount;
@@ -13,7 +14,8 @@ const Completion = () => {
     : 0;
 
   const handleConquistasClick = () => {
-    console.log("Conquistas clicked - auth disabled");
+    console.log("Redirecting to cadastro page");
+    navigate('/cadastro');
   };
 
   return (

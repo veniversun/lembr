@@ -1,16 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Home, Trophy } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface PracticeHeaderProps {
   title: string;
 }
 
 export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
+  const navigate = useNavigate();
   const updatedTitle = title.replace("Pratique", "Treine");
 
   const handleConquistasClick = () => {
-    console.log("Conquistas clicked - auth disabled");
+    console.log("Redirecting to cadastro page");
+    navigate('/cadastro');
   };
 
   return (
