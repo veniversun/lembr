@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Key } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email("Email inválido"),
@@ -26,6 +27,7 @@ interface LoginFormProps {
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const [loading, setLoading] = useState(false);
+  const [resetPassword, setResetPassword] = useState(false);
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,21 +40,31 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signInWithPassword({
-        email: values.email,
-        password: values.password,
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "Login realizado com sucesso!",
-      });
-      onSuccess();
+      if (resetPassword) {
+        const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        if (error) throw error;
+        toast({
+          title: "Email enviado!",
+          description: "Verifique sua caixa de entrada para redefinir sua senha.",
+        });
+        setResetPassword(false);
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: values.email,
+          password: values.password,
+        });
+        if (error) throw error;
+        toast({
+          title: "Login realizado com sucesso!",
+        });
+        onSuccess();
+      }
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error("Error:", error);
       toast({
-        title: "Erro ao fazer login",
+        title: "Erro",
         description: "Verifique suas credenciais e tente novamente",
         variant: "destructive",
       });
@@ -77,22 +89,41 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Senha</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="******" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Entrando..." : "Entrar"}
-        </Button>
+        {!resetPassword && (
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Senha</FormLabel>
+                <FormControl>
+                  <Input type="password" placeholder="******" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+        <div className="space-y-2">
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? (
+              "Processando..."
+            ) : resetPassword ? (
+              "Enviar email de recuperação"
+            ) : (
+              "Entrar"
+            )}
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            className="w-full text-sm"
+            onClick={() => setResetPassword(!resetPassword)}
+          >
+            <Key className="w-4 h-4 mr-2" />
+            {resetPassword ? "Voltar ao login" : "Esqueci minha senha"}
+          </Button>
+        </div>
       </form>
     </Form>
   );
