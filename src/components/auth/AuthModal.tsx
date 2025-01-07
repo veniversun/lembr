@@ -42,7 +42,7 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
       setIsAuthenticated(!!session);
       
       if (session) {
-        const isNewUser = event === 'SIGNED_IN' || event === 'SIGNED_UP';
+        const isNewUser = event === 'SIGNED_IN';
         if (isNewUser) {
           setShowRegistradoModal(true);
         }
