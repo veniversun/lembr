@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { GradientButton } from "@/components/ui/gradient-button";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
@@ -47,6 +48,7 @@ const genderOptions = ["Masculino", "Feminino", "Outro", "Prefiro não informar"
 
 export default function Cadastro() {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -261,9 +263,19 @@ export default function Cadastro() {
                 />
               </div>
 
-              <GradientButton type="submit" className="w-full">
-                Quero mais!
-              </GradientButton>
+              <div className="grid grid-cols-2 gap-4">
+                <GradientButton 
+                  type="button" 
+                  variant="outline"
+                  onClick={() => navigate("/")}
+                  className="w-full bg-white hover:bg-gray-50"
+                >
+                  Início
+                </GradientButton>
+                <GradientButton type="submit" className="w-full">
+                  Quero mais!
+                </GradientButton>
+              </div>
             </form>
           </Form>
         </div>
