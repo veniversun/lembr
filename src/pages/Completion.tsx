@@ -70,6 +70,7 @@ const Completion = () => {
           <div className="space-y-4">
             <div className="text-center space-y-4">
               <p className="text-xl font-semibold">Compre o livro com desconto</p>
+              <p></p>
               <a href={bookUrl} target="_blank" rel="noopener noreferrer">
                 <Button className="bg-blue-600 hover:bg-blue-700 w-full">
                   <ShoppingCart className="mr-2" /> Comprar Livro
