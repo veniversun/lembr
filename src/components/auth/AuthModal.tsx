@@ -7,10 +7,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LoginForm } from "./LoginForm";
-import { SignUpForm } from "./SignUpForm";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { AnalyticsPreview } from "@/components/premium/AnalyticsPreview";
 import { supabase } from "@/integrations/supabase/client";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useToast } from "@/hooks/use-toast";
 
 interface AuthModalProps {
   open: boolean;
@@ -18,9 +20,10 @@ interface AuthModalProps {
 }
 
 export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
-  const [activeTab, setActiveTab] = useState("login");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -34,23 +37,35 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
     checkAuth();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth state changed:", event, session);
       setIsAuthenticated(!!session);
+      
       if (session) {
+        toast({
+          title: "Login realizado com sucesso!",
+          description: "Bem-vindo de volta!",
+        });
         onOpenChange(false);
+        navigate('/registrado');
+      }
+
+      if (event === 'PASSWORD_RECOVERY') {
+        toast({
+          title: "Recuperação de senha",
+          description: "Verifique seu email para redefinir sua senha.",
+        });
+      }
+
+      if (event === 'USER_UPDATED') {
+        toast({
+          title: "Senha atualizada",
+          description: "Sua senha foi atualizada com sucesso.",
+        });
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [onOpenChange]);
-
-  const handleSuccess = () => {
-    onOpenChange(false);
-    navigate('/registrado');
-  };
-
-  const handleBack = () => {
-    setActiveTab("login");
-  };
+  }, [onOpenChange, navigate, toast]);
 
   if (isAuthenticated) {
     return null;
@@ -63,21 +78,53 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
           <div className="p-6">
             <DialogHeader>
               <DialogTitle className="text-center text-2xl font-semibold mb-4">
-                {activeTab === "login" ? "Bem-vindo de volta!" : "Criar Conta"}
+                Bem-vindo!
               </DialogTitle>
             </DialogHeader>
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="login">Entrar</TabsTrigger>
-                <TabsTrigger value="signup">Criar Conta</TabsTrigger>
-              </TabsList>
-              <TabsContent value="login">
-                <LoginForm onSuccess={handleSuccess} />
-              </TabsContent>
-              <TabsContent value="signup">
-                <SignUpForm onSuccess={handleSuccess} onBack={handleBack} />
-              </TabsContent>
-            </Tabs>
+            {error && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            <Auth
+              supabaseClient={supabase}
+              appearance={{
+                theme: ThemeSupa,
+                variables: {
+                  default: {
+                    colors: {
+                      brand: '#7C3AED',
+                      brandAccent: '#6D28D9',
+                    },
+                  },
+                },
+              }}
+              providers={[]}
+              localization={{
+                variables: {
+                  sign_in: {
+                    email_label: 'Email',
+                    password_label: 'Senha',
+                    button_label: 'Entrar',
+                    loading_button_label: 'Entrando...',
+                    link_text: 'Já tem uma conta? Entre',
+                  },
+                  sign_up: {
+                    email_label: 'Email',
+                    password_label: 'Senha',
+                    button_label: 'Criar conta',
+                    loading_button_label: 'Criando conta...',
+                    link_text: 'Não tem uma conta? Cadastre-se',
+                  },
+                  forgotten_password: {
+                    email_label: 'Email',
+                    button_label: 'Recuperar senha',
+                    loading_button_label: 'Enviando email...',
+                    link_text: 'Esqueceu sua senha?',
+                  },
+                },
+              }}
+            />
           </div>
           <div className="hidden md:block bg-gradient-to-br from-purple-50 to-indigo-50 p-6 border-l">
             <h3 className="text-xl font-semibold text-center mb-6">
