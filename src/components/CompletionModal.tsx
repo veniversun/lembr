@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Home, Trophy, BookOpen } from "lucide-react";
@@ -6,7 +6,6 @@ import { Progress } from "@/components/ui/progress";
 import { BookCarousel } from "@/components/BookCarousel";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { RegistradoModal } from "@/components/auth/RegistradoModal";
-import { supabase } from "@/integrations/supabase/client";
 
 interface CompletionModalProps {
   correctCount: number;
@@ -17,38 +16,14 @@ interface CompletionModalProps {
 export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: CompletionModalProps) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showRegistradoModal, setShowRegistradoModal] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const totalAttempts = correctCount + incorrectCount;
   const successPercentage = totalAttempts > 0 
     ? Math.round((correctCount / totalAttempts) * 100) 
     : 0;
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setIsAuthenticated(!!session);
-    };
-
-    checkAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("Auth state changed:", event, session);
-      setIsAuthenticated(!!session);
-      if (session && event === 'SIGNED_IN') {
-        setShowRegistradoModal(true);
-        setShowAuthModal(false);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
   const handleConquistasClick = () => {
-    if (isAuthenticated) {
-      setShowRegistradoModal(true);
-    } else {
-      setShowAuthModal(true);
-    }
+    // Temporarily disabled
+    console.log("Conquistas clicked - auth disabled");
   };
 
   return (
