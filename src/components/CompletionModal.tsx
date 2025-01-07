@@ -5,7 +5,6 @@ import { Home, Trophy, BookOpen } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { BookCarousel } from "@/components/BookCarousel";
 import { AuthModal } from "@/components/auth/AuthModal";
-import { RegistradoModal } from "@/components/auth/RegistradoModal";
 
 interface CompletionModalProps {
   correctCount: number;
@@ -15,8 +14,6 @@ interface CompletionModalProps {
 
 export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: CompletionModalProps) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
-  // Keep the state but don't use it
-  const [showRegistradoModal, setShowRegistradoModal] = useState(false);
   const totalAttempts = correctCount + incorrectCount;
   const successPercentage = totalAttempts > 0 
     ? Math.round((correctCount / totalAttempts) * 100) 
@@ -97,8 +94,6 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
         </div>
       </div>
       <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
-      {/* Keep the component but don't display it */}
-      <RegistradoModal open={false} onOpenChange={setShowRegistradoModal} />
     </>
   );
 };

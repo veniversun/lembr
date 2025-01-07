@@ -12,7 +12,6 @@ import { AnalyticsPreview } from "@/components/premium/AnalyticsPreview";
 import { supabase } from "@/integrations/supabase/client";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { RegistradoModal } from "./RegistradoModal";
 
 interface AuthModalProps {
   open: boolean;
@@ -21,7 +20,6 @@ interface AuthModalProps {
 
 export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showRegistradoModal, setShowRegistradoModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -42,11 +40,6 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
       setIsAuthenticated(!!session);
       
       if (session) {
-        const isNewUser = event === 'SIGNED_IN';
-        if (isNewUser) {
-          setShowRegistradoModal(true);
-        }
-        
         toast({
           title: "Login realizado com sucesso!",
           description: "Bem-vindo de volta!",
@@ -72,13 +65,8 @@ export const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
     return () => subscription.unsubscribe();
   }, [onOpenChange, navigate, toast]);
 
-  const handleRegistradoModalClose = () => {
-    setShowRegistradoModal(false);
-    navigate('/');
-  };
-
   if (isAuthenticated) {
-    return <RegistradoModal open={showRegistradoModal} onOpenChange={handleRegistradoModalClose} />;
+    return null;
   }
 
   return (

@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Home, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AuthModal } from "@/components/auth/AuthModal";
-import { RegistradoModal } from "@/components/auth/RegistradoModal";
 
 interface PracticeHeaderProps {
   title: string;
@@ -11,7 +10,6 @@ interface PracticeHeaderProps {
 
 export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [showRegistradoModal, setShowRegistradoModal] = useState(false);
   const updatedTitle = title.replace("Pratique", "Treine");
 
   const handleConquistasClick = () => {
@@ -40,7 +38,6 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
         </div>
       </div>
       <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
-      <RegistradoModal open={false} onOpenChange={setShowRegistradoModal} />
     </>
   );
 };
