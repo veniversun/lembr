@@ -11,7 +11,6 @@ import Practice2 from "./pages/Practice2";
 import Practice3 from "./pages/Practice3";
 import Practice4 from "./pages/Practice4";
 import Profile from "./pages/Profile";
-import Registrado from "./pages/Registrado";
 
 const queryClient = new QueryClient();
 
@@ -40,8 +39,8 @@ const AuthCallback = () => {
           const { data: { session }, error } = await supabase.auth.getSession();
           
           if (session && !error) {
-            console.log("Successfully authenticated, redirecting to registrado");
-            navigate('/registrado');
+            console.log("Successfully authenticated");
+            navigate('/');
           } else {
             console.error("Authentication error:", error);
             navigate('/');
@@ -71,7 +70,6 @@ const AppRoutes = () => {
       <Route path="/practice3" element={<Practice3 />} />
       <Route path="/practice4" element={<Practice4 />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/registrado" element={<Registrado />} />
       <Route path="*" element={<AuthCallback />} />
     </Routes>
   );
