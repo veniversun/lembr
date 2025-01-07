@@ -1,5 +1,4 @@
 import { Header } from "@/components/home/Header";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -21,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { supabase } from "@/integrations/supabase/client";
+import { GradientButton } from "@/components/ui/gradient-button";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
@@ -261,9 +261,9 @@ export default function Cadastro() {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
-                Registrar Interesse
-              </Button>
+              <GradientButton type="submit" className="w-full">
+                Quero mais!
+              </GradientButton>
             </form>
           </Form>
         </div>
