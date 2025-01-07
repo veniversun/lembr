@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Flashcard } from "@/components/Flashcard";
-import { CompletionModal } from "@/components/CompletionModal";
 import { PracticeHeader } from "@/components/practice/PracticeHeader";
 import { ProgressBar } from "@/components/practice/ProgressBar";
 import { CardControls } from "@/components/practice/CardControls";
 import { AnimatedFlashcardContainer } from "@/components/practice/AnimatedFlashcardContainer";
 import { useFlashcardState } from "@/hooks/use-flashcard-state";
 import { usePracticeShortcuts } from "@/hooks/use-practice-shortcuts";
+import { useNavigate } from "react-router-dom";
 
 interface PracticePageProps {
   title: string;
@@ -36,6 +36,8 @@ const mapRowToCardData = (row: TableRow): CardData => ({
 });
 
 export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
+  const navigate = useNavigate();
+  
   const { data: cards = [], isLoading } = useQuery({
     queryKey: [tableName],
     queryFn: async () => {
@@ -82,7 +84,16 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
   if (!cards.length) return <div className="flex items-center justify-center min-h-screen"><p>No flashcards available.</p></div>;
   
   const isCompleted = completedCards.size === cards.length && reviewStack.length === 0;
-  if (isCompleted) return <CompletionModal correctCount={correctCount} incorrectCount={incorrectCount} bookUrl={bookUrl} />;
+  if (isCompleted) {
+    navigate('/completion', { 
+      state: { 
+        correctCount, 
+        incorrectCount,
+        bookUrl 
+      }
+    });
+    return null;
+  }
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
