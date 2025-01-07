@@ -32,9 +32,11 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
     checkAuth();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth state changed:", event, session);
       setIsAuthenticated(!!session);
       if (session && event === 'SIGNED_IN') {
         setShowRegistradoModal(true);
+        setShowAuthModal(false);
       }
     });
 
@@ -51,40 +53,38 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
 
   return (
     <>
-      <div className="min-h-screen p-8 bg-gray-50 flex items-center justify-center">
-        <div className="max-w-4xl mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg">
-          <Link to="/" className="block mb-8">
-            <Button variant="outline" className="w-full sm:w-auto">
-              <Home className="mr-2" /> Página Inicial
-            </Button>
-          </Link>
-
-          <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white p-6 rounded-lg mb-8">
-            <h1 className="text-3xl font-bold">Parabéns, você terminou seu treino!</h1>
-          </div>
-          
-          <div className="space-y-6">
-            <div className="text-lg space-y-2">
-              <p>Acertos: {correctCount}</p>
-              <p>Erros: {incorrectCount}</p>
-              <p className="font-semibold">Taxa de acerto: {successPercentage}%</p>
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="p-6 space-y-6">
+            <div className="text-center space-y-2">
+              <h2 className="text-3xl font-bold">Parabéns!</h2>
+              <p className="text-gray-600">
+                Você completou mais uma sessão de estudos
+              </p>
             </div>
 
-            <div className="w-full max-w-md mx-auto">
-              <div className="h-4 bg-gray-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full transition-all duration-500 ease-out rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500"
-                  style={{ width: `${successPercentage}%` }}
-                />
+            <div className="space-y-4">
+              <div className="text-center">
+                <p className="text-2xl font-semibold mb-2">
+                  Taxa de Acerto: {successPercentage}%
+                </p>
+                <Progress value={successPercentage} className="h-3" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 text-center">
+                <div>
+                  <p className="text-green-600 text-2xl font-bold">{correctCount}</p>
+                  <p className="text-gray-600">Acertos</p>
+                </div>
+                <div>
+                  <p className="text-red-600 text-2xl font-bold">{incorrectCount}</p>
+                  <p className="text-gray-600">Erros</p>
+                </div>
               </div>
             </div>
 
-            <p className="text-green-600 font-semibold text-lg">
-              Você está melhor que 90% dos usuários!
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-              <div className="space-y-4 p-6 bg-purple-50 rounded-lg">
+            <div className="space-y-4">
+              <div className="text-center space-y-4">
                 <p className="text-xl font-semibold">Veja como está sua evolução geral</p>
                 <Button 
                   className="bg-purple-600 hover:bg-purple-700 w-full"
@@ -94,26 +94,28 @@ export const CompletionModal = ({ correctCount, incorrectCount, bookUrl }: Compl
                 </Button>
               </div>
 
-              <div className="space-y-4 p-6 bg-orange-50 rounded-lg">
-                <p className="text-lg font-medium text-orange-600">
-                  Adquira o livro completo na promoção
-                </p>
-                <a 
-                  href={bookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <Button className="bg-orange-500 hover:bg-orange-600 w-full">
-                    <BookOpen className="mr-2" />
-                    Comprar agora
+              <div className="text-center space-y-4">
+                <p className="text-xl font-semibold">Continue praticando</p>
+                <Link to={bookUrl}>
+                  <Button className="bg-blue-600 hover:bg-blue-700 w-full">
+                    <BookOpen className="mr-2" /> Continuar Praticando
                   </Button>
-                </a>
+                </Link>
+              </div>
+
+              <div className="text-center">
+                <Link to="/">
+                  <Button variant="outline" className="w-full">
+                    <Home className="mr-2" /> Voltar para Início
+                  </Button>
+                </Link>
               </div>
             </div>
 
-            <div className="space-y-4 mt-8 border-t pt-6">
-              <h2 className="text-xl font-semibold">Vamos treinar outro livro?</h2>
+            <div>
+              <p className="text-xl font-semibold mb-4 text-center">
+                Conheça outros livros
+              </p>
               <BookCarousel />
             </div>
           </div>
