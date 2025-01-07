@@ -80,7 +80,7 @@ const Completion = () => {
           </div>
         </div>
 
-        <div className="text-right">
+        <div className="text-center">
           <Link to="/">
             <Button variant="outline" className="w-full">
               <Home className="mr-2" /> Voltar para Início
@@ -89,8 +89,8 @@ const Completion = () => {
         </div>
 
         <div>
-          <p className="text-xl font-semibold mb-4 text-left">
-            Conheça outros livros
+          <p className="text-xl font-semibold mb-4 text-center">
+            Treine outros livros
           </p>
           <BookCarousel />
         </div>
