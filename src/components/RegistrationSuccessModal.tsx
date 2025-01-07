@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { PartyPopper, Trophy } from "lucide-react";
+import { Clap } from "lucide-react";
 
 interface RegistrationSuccessModalProps {
   open: boolean;
@@ -20,37 +20,58 @@ export const RegistrationSuccessModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-[800px]">
         <DialogHeader>
-          <div className="flex justify-center gap-2 mb-4">
-            <PartyPopper className="h-8 w-8 text-yellow-500" />
-            <Trophy className="h-8 w-8 text-yellow-500" />
+          <div className="flex justify-center gap-4 mb-8">
+            <Clap className="h-8 w-8 text-yellow-500" />
+            <Clap className="h-8 w-8 text-yellow-500" />
+            <Clap className="h-8 w-8 text-yellow-500" />
           </div>
         </DialogHeader>
-        <div className="space-y-4">
-          <div className="text-center space-y-2">
-            <p className="text-base">
-              Você está entre os primeiros que terão acesso completo ao nosso novo DashBoard com gráficos de evolução e outras funcionalidades!
-            </p>
-            <p className="text-base">
-              Te avisamos logo que estiver disponível!
-            </p>
-            <p className="text-base">
-              Enquanto isso escolha outro livro para praticar.
-            </p>
-            <p className="text-base font-medium">
-              Bons estudos!
-            </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="text-center space-y-4">
+              <p className="text-base">
+                Você está entre os primeiros que terão acesso completo ao nosso novo DashBoard com gráficos de evolução e outras funcionalidades!
+              </p>
+              <p className="text-base">
+                Te avisamos logo que estiver disponível!
+              </p>
+              <p className="text-base">
+                Enquanto isso escolha outro livro para praticar.
+              </p>
+              <p className="text-base font-medium">
+                Bons estudos!
+              </p>
+            </div>
+            <Button
+              onClick={() => {
+                onOpenChange(false);
+                navigate("/");
+              }}
+              className="w-full"
+            >
+              Ir para o início
+            </Button>
           </div>
-          <Button
-            onClick={() => {
-              onOpenChange(false);
-              navigate("/");
-            }}
-            className="w-full"
-          >
-            Ir para o início
-          </Button>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+              <BarChart className="w-16 h-16 text-purple-500" />
+              <span className="text-sm mt-2 font-medium">Progresso por livro</span>
+            </div>
+            <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+              <PieChart className="w-16 h-16 text-orange-500" />
+              <span className="text-sm mt-2 font-medium">Taxa de acertos</span>
+            </div>
+            <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+              <LineChart className="w-16 h-16 text-green-500" />
+              <span className="text-sm mt-2 font-medium">Evolução diária</span>
+            </div>
+            <div className="flex flex-col items-center p-4 bg-gray-50 rounded-lg">
+              <Target className="w-16 h-16 text-blue-500" />
+              <span className="text-sm mt-2 font-medium">Domínio de temas</span>
+            </div>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
