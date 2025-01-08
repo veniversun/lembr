@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, Trophy, ShoppingCart } from "lucide-react";
 import { BookCarousel } from "@/components/BookCarousel";
+import { Header } from "@/components/home/Header";
 
 const Completion = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const Completion = () => {
 
   return (
     <div className="min-h-screen bg-background p-6">
+      <Header />
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="relative p-8 rounded-lg overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 opacity-90" />
