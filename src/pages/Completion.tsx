@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, Trophy, ShoppingCart } from "lucide-react";
 import { BookCarousel } from "@/components/BookCarousel";
 import { Header } from "@/components/home/Header";
+import { YouTubeSection } from "@/components/home/YouTubeSection";
 
 const Completion = () => {
   const location = useLocation();
@@ -98,6 +99,8 @@ const Completion = () => {
           </p>
           <BookCarousel />
         </div>
+
+        <YouTubeSection />
       </div>
     </div>
   );
