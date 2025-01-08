@@ -8,6 +8,7 @@ import { AnimatedFlashcardContainer } from "@/components/practice/AnimatedFlashc
 import { useFlashcardState } from "@/hooks/use-flashcard-state";
 import { usePracticeShortcuts } from "@/hooks/use-practice-shortcuts";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 interface PracticePageProps {
   title: string;
@@ -37,6 +38,7 @@ const mapRowToCardData = (row: TableRow): CardData => ({
 
 export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   
   const { data: cards = [], isLoading } = useQuery({
     queryKey: [tableName],
@@ -100,6 +102,14 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       <div className="max-w-2xl mx-auto">
         <PracticeHeader title={title} />
         
+        <div className="mb-6 text-center">
+          <div className="text-lg font-semibold">
+            <span className="text-green-600">Acertos: {correctCount}</span>
+            <span className="mx-4">|</span>
+            <span className="text-red-600">Erros: {incorrectCount}</span>
+          </div>
+        </div>
+
         <ProgressBar 
           correctCount={correctCount}
           incorrectCount={incorrectCount}
@@ -120,7 +130,14 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
         <CardControls 
           onPrevious={handlePrevious}
           onCorrect={handleCorrect}
-          onIncorrect={handleIncorrect}
+          onIncorrect={() => {
+            handleIncorrect();
+            toast({
+              title: "Erro registrado",
+              description: "Continue praticando para melhorar!",
+              variant: "destructive",
+            });
+          }}
           onShowAnswer={() => setIsFlipped(true)}
           showAnswerButtons={isFlipped}
           isFlipped={isFlipped}
