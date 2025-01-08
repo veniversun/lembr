@@ -109,10 +109,14 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       <div className="max-w-2xl mx-auto">
         <PracticeHeader title={title} />
         
+<<<<<<< HEAD
+       
+=======
         <div className="mb-4">
           <span className="mr-4">Acertos: {correctCount}</span>
           <span>Erros: {incorrectCount}</span>
         </div>
+>>>>>>> 7499fd0f32def978f1a414020d9398526928b1bb
 
         <ProgressBar 
           correctCount={correctCount}
