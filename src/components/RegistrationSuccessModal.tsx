@@ -35,16 +35,16 @@ export const RegistrationSuccessModal = ({
           <div className="space-y-6">
             <div className="text-center space-y-4">
               <p className="text-base">
-                Você está entre os primeiros que terão acesso completo ao nosso novo DashBoard com gráficos de evolução e outras funcionalidades!
+                Você está entre os primeiros que terão acesso completo ao nosso novo DashBoard com gráficos de evolução, filtros de pesquisa e outras funcionalidades!
               </p>
               <p className="text-base">
                 Te avisamos logo que estiver disponível!
               </p>
               <p className="text-base">
-                Enquanto isso escolha outro livro para praticar.
+                Enquanto isso escolha outro best-sellerpara dominar.
               </p>
               <p className="text-base font-medium">
-                Bons estudos!
+                Bom treino!
               </p>
             </div>
             <Button
