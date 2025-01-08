@@ -32,7 +32,7 @@ export const AnalyticsExamplesSection = () => {
         </div>
         <div className="flex flex-col items-center p-8 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
           <Target className="w-20 h-20 text-blue-500 mb-4" />
-          <span className="text-base font-medium text-gray-700">Domínio de temas</span>
+          <span className="text-base font-medium text-gray-700">Domínio de assuntos</span>
         </div>
       </div>
     </div>
