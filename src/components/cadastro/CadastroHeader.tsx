@@ -13,7 +13,7 @@ export const CadastroHeader = () => {
               Quer ter acesso antecipado a todas as funcionalidades do inSumma?
             </p>
             <p className="text-lg md:text-xl text-white font-semibold">
-              Basta registrar seu interesse!
+              Basta se registrar agora!
             </p>
           </div>
         </div>
