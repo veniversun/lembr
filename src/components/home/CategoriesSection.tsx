@@ -6,7 +6,7 @@ export const CategoriesSection = () => {
   const categories = [
     { Icon: Brain, title: 'Psicologia', path: '/practice2' },
     { Icon: Coins, title: 'Finanças', path: '/practice2' },
-    { Icon: GraduationCap, title: 'Liderança', path: '/practice' },
+    { Icon: GraduationCap, title: 'Liderança', path: '/practice4' },
     { Icon: Atom, title: 'Disciplina', path: '/practice' }
   ];
 
