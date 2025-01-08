@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CadastroHeader } from "@/components/cadastro/CadastroHeader";
 import { CadastroForm } from "@/components/cadastro/CadastroForm";
 import { RegistrationSuccessModal } from "@/components/RegistrationSuccessModal";
+import { Footer } from "@/components/home/Footer";
 
 export default function Cadastro() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -18,6 +19,8 @@ export default function Cadastro() {
         open={showSuccessModal}
         onOpenChange={setShowSuccessModal}
       />
+      
+      <Footer />
     </div>
   );
 }

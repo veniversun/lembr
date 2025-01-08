@@ -4,6 +4,7 @@ import { Home, Trophy, ShoppingCart } from "lucide-react";
 import { BookCarousel } from "@/components/BookCarousel";
 import { Header } from "@/components/home/Header";
 import { YouTubeSection } from "@/components/home/YouTubeSection";
+import { Footer } from "@/components/home/Footer";
 
 const Completion = () => {
   const location = useLocation();
@@ -102,6 +103,7 @@ const Completion = () => {
 
         <YouTubeSection />
       </div>
+      <Footer />
     </div>
   );
 };
