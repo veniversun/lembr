@@ -76,7 +76,14 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
 
   usePracticeShortcuts({
     onCorrect: handleCorrect,
-    onIncorrect: handleIncorrect,
+    onIncorrect: () => {
+      handleIncorrect();
+      toast({
+        title: "Erro registrado",
+        description: "Continue praticando para melhorar!",
+        variant: "destructive",
+      });
+    },
     onPrevious: handlePrevious,
     onShowAnswer: () => setIsFlipped(true),
     isFlipped,

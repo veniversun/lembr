@@ -25,7 +25,7 @@ export const usePracticeShortcuts = ({
         onIncorrect();
       } else if (event.code === "Backspace") {
         event.preventDefault();
-        onPrevious();
+        onIncorrect();
       } else if (event.code === "Enter" && !isFlipped) {
         event.preventDefault();
         onShowAnswer();
