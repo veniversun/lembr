@@ -151,10 +151,6 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
             <span className="ml-2">({reviewStack.length} cards to review)</span>
           )}
         </div>
-
-        <div className="text-center mt-4 text-sm text-gray-500">
-          <span className="text-red-500 font-semibold">Erros: {incorrectCount}</span>
-        </div>
       </div>
     </div>
   );
