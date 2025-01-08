@@ -19,13 +19,16 @@ export const Footer = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    console.log('Submitting form data:', formData);
 
     try {
-      const { data: { publicUrl }, error: functionError } = await supabase.functions.invoke('send-contact-email', {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
         body: formData
       });
 
-      if (functionError) throw functionError;
+      console.log('Response from edge function:', { data, error });
+
+      if (error) throw error;
 
       toast({
         title: "Mensagem enviada!",
