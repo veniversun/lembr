@@ -109,12 +109,9 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       <div className="max-w-2xl mx-auto">
         <PracticeHeader title={title} />
         
-        <div className="mb-6 text-center">
-          <div className="text-lg font-semibold">
-            <span className="text-green-600">Acertos: {correctCount}</span>
-            <span className="mx-4">|</span>
-            <span className="text-red-600">Erros: {incorrectCount}</span>
-          </div>
+        <div className="mb-4">
+          <span className="mr-4">Acertos: {correctCount}</span>
+          <span>Erros: {incorrectCount}</span>
         </div>
 
         <ProgressBar 
