@@ -15,7 +15,7 @@ export const AnalyticsExamplesSection = () => {
       className="w-full max-w-4xl bg-white/60 backdrop-blur-md p-4 md:p-8 rounded-2xl shadow-lg border border-white/50 mt-8 hover:bg-white/70 transition-all duration-300 cursor-pointer"
     >
       <h3 className="text-center text-xl font-semibold text-gray-800 mb-8">
-        Obtenha análise detalhada de desempenhp!
+        Obtenha análise detalhada de desempenho!
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="flex flex-col items-center p-8 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
