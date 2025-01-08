@@ -8,6 +8,7 @@ import { AnimatedFlashcardContainer } from "@/components/practice/AnimatedFlashc
 import { useFlashcardState } from "@/hooks/use-flashcard-state";
 import { usePracticeShortcuts } from "@/hooks/use-practice-shortcuts";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 interface PracticePageProps {
   title: string;
@@ -37,6 +38,7 @@ const mapRowToCardData = (row: TableRow): CardData => ({
 
 export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   
   const { data: cards = [], isLoading } = useQuery({
     queryKey: [tableName],
@@ -95,6 +97,23 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
     return null;
   }
 
+  const handleError = async () => {
+    try {
+      await handleIncorrect();
+      toast({
+        title: "Resposta registrada",
+        description: "Continue praticando para melhorar!",
+      });
+    } catch (error) {
+      console.error("Error handling incorrect answer:", error);
+      toast({
+        title: "Erro ao registrar resposta",
+        description: "Tente novamente",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-2xl mx-auto">
@@ -120,7 +139,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
         <CardControls 
           onPrevious={handlePrevious}
           onCorrect={handleCorrect}
-          onIncorrect={handleIncorrect}
+          onIncorrect={handleError}
           onShowAnswer={() => setIsFlipped(true)}
           showAnswerButtons={isFlipped}
           isFlipped={isFlipped}
@@ -131,6 +150,10 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
           {reviewStack.length > 0 && (
             <span className="ml-2">({reviewStack.length} cards to review)</span>
           )}
+        </div>
+
+        <div className="text-center mt-4 text-sm text-gray-500">
+          <span className="text-red-500 font-semibold">Erros: {incorrectCount}</span>
         </div>
       </div>
     </div>
