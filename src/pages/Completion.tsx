@@ -5,6 +5,9 @@ import { BookCarousel } from "@/components/BookCarousel";
 import { Header } from "@/components/home/Header";
 import { YouTubeSection } from "@/components/home/YouTubeSection";
 import { Footer } from "@/components/home/Footer";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
+
+const COLORS = ["#22c55e", "#ef4444"]; // green for correct, red for incorrect
 
 const Completion = () => {
   const location = useLocation();
@@ -15,6 +18,11 @@ const Completion = () => {
   const successPercentage = totalAttempts > 0 
     ? Math.round((correctCount / totalAttempts) * 100) 
     : 0;
+
+  const pieData = [
+    { name: "Acertos", value: correctCount },
+    { name: "Erros", value: incorrectCount },
+  ];
 
   const handleConquistasClick = () => {
     console.log("Redirecting to cadastro page");
@@ -40,22 +48,27 @@ const Completion = () => {
             <p className="text-2xl font-semibold mb-2">
               Taxa de Acerto: {successPercentage}%
             </p>
-            <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
-              <div 
-                className="h-full transition-all duration-500 ease-out rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500"
-                style={{ width: `${successPercentage}%` }}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 text-center">
-            <div>
-              <p className="text-green-600 text-2xl font-bold">{correctCount}</p>
-              <p className="text-gray-600">Acertos</p>
-            </div>
-            <div>
-              <p className="text-red-600 text-2xl font-bold">{incorrectCount}</p>
-              <p className="text-gray-600">Erros</p>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
