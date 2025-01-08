@@ -50,7 +50,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="w-full bg-[#6c0dd1] backdrop-blur-md mt-12 py-8 px-4">
+    <footer className="w-full bg-[#414145] backdrop-blur-md mt-12 py-8 px-4">
       <div className="max-w-4xl mx-auto flex flex-col items-center gap-6">
         <nav className="flex gap-8">
           <Link to="/" className="text-white/80 hover:text-white transition-colors">
