@@ -11,6 +11,11 @@ import { BookCard } from './BookCard';
 export const BooksCarousel = () => {
   const books = [
     {
+      path: '/practice',
+      image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png',
+      alt: 'Hábitos Atômicos'
+    },
+    {
       path: '/practice4',
       image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png',
       alt: 'Generalista'
@@ -19,11 +24,6 @@ export const BooksCarousel = () => {
       path: '/practice2',
       image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png',
       alt: 'Psicologia Financeira'
-    },
-    {
-      path: '/practice',
-      image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png',
-      alt: 'Hábitos Atômicos'
     },
     {
       path: '/practice3',

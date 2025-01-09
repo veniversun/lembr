@@ -10,6 +10,12 @@ import {
 
 const books = [
   {
+    title: "Hábitos Atômicos",
+    route: "/practice",
+    description: "Desenvolva hábitos positivos e transforme sua vida",
+    image: "/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png"
+  },
+  {
     title: "Generalista",
     route: "/practice4",
     description: "Domine os conceitos fundamentais de diversas áreas",
@@ -20,12 +26,6 @@ const books = [
     route: "/practice2",
     description: "Aprenda sobre os vieses cognitivos que afetam suas decisões financeiras",
     image: "/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png"
-  },
-  {
-    title: "Hábitos Atômicos",
-    route: "/practice",
-    description: "Desenvolva hábitos positivos e transforme sua vida",
-    image: "/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png"
   },
   {
     title: "Essencialismo",
