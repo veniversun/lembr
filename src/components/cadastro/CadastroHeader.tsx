@@ -10,7 +10,7 @@ export const CadastroHeader = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 opacity-90" />
           <div className="relative space-y-2">
             <p className="text-lg md:text-xl text-white">
-              Quer ter acesso antecipado a todas as funcionalidades do inSumma?
+              Quer ter acesso antecipado a todas as funcionalidades do Lembr?
             </p>
             <p className="text-lg md:text-xl text-white font-semibold">
               Basta se registrar agora!

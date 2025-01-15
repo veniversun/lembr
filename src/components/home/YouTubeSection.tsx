@@ -18,7 +18,7 @@ export const YouTubeSection = () => {
           <Button 
             className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-2 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            Podcast inSumma
+            Podcast LEMBR
           </Button>
         </a>
       </div>
