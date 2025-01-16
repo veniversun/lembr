@@ -33,10 +33,10 @@ const Completion = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
       <Header />
       <div className="max-w-4xl mx-auto p-6 space-y-6">
-        <div className="relative p-8 rounded-lg overflow-hidden bg-white/80 backdrop-blur-sm shadow-lg">
+        <div className="relative p-8 rounded-lg overflow-hidden bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 shadow-lg">
           <div className="text-center space-y-2">
-            <h2 className="text-3xl font-bold text-gray-800">Parabéns!</h2>
-            <p className="text-xl text-gray-600">
+            <h2 className="text-3xl font-bold text-white">Parabéns!</h2>
+            <p className="text-xl text-white/90">
               Você completou mais uma sessão de estudos
             </p>
           </div>
@@ -77,8 +77,7 @@ const Completion = () => {
             <div className="text-center space-y-4">
               <p className="text-xl font-semibold text-gray-800">Veja como está sua evolução geral</p>
               <Button 
-                variant="outline"
-                className="w-full bg-white/80 hover:bg-white/90 text-gray-800 border-gray-200 shadow-sm backdrop-blur-sm"
+                className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white hover:opacity-90 transition-opacity"
                 onClick={handleConquistasClick}
               >
                 <Trophy className="mr-2" /> Conquistas
@@ -92,8 +91,7 @@ const Completion = () => {
               <p></p>
               <a href={bookUrl} target="_blank" rel="noopener noreferrer">
                 <Button 
-                  variant="outline" 
-                  className="w-full bg-white/80 hover:bg-white/90 text-gray-800 border-gray-200 shadow-sm backdrop-blur-sm"
+                  className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white hover:opacity-90 transition-opacity"
                 >
                   <ShoppingCart className="mr-2" /> Comprar Livro
                 </Button>
