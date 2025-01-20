@@ -12,6 +12,12 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 md:p-8">
       <Header />
+      <p className="text-gray-700 text-center leading-relaxed text-4xl md:text-5xl font-bold">
+        Aprenda o melhor dos Best-Sellers!
+      </p>
+      
+      <p></p>
+      
       <MessageBox />
       <BooksCarousel />
       <YouTubeSection />
