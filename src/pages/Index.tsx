@@ -4,6 +4,7 @@ import { MessageBox } from '@/components/home/MessageBox';
 import { BooksCarousel } from '@/components/home/BooksCarousel';
 import { YouTubeSection } from '@/components/home/YouTubeSection';
 import { CategoriesSection } from '@/components/home/CategoriesSection';
+import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { AnalyticsExamplesSection } from '@/components/home/AnalyticsExamplesSection';
 import { Footer } from '@/components/home/Footer';
 
@@ -15,6 +16,7 @@ const Index = () => {
       <BooksCarousel />
       <YouTubeSection />
       <CategoriesSection />
+      <TestimonialsSection />
       <AnalyticsExamplesSection />
       <Footer />
     </div>
