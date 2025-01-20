@@ -51,7 +51,7 @@ export const TestimonialsSection = () => {
     {
       name: "Guilherme",
       role: "Advogado",
-      quote: "Eu tinha a sensação de ler muito e acabar não ficando com muito pouco memorizado..Com o Lembr eu posso rever e internalizar os principais pontos dos livros",
+      quote: "Eu tinha a sensação de ler muito e acabar ficando com muito pouco memorizado..Com o Lembr eu posso rever e internalizar os principais pontos dos livros",
       rating: 4.5
     },
     {

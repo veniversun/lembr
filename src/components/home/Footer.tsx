@@ -59,6 +59,15 @@ export const Footer = () => {
           <Link to="/cadastro" className="text-white/80 hover:text-white transition-colors">
             Registre-se
           </Link>
+
+          <Link to="/" className="text-white/80 hover:text-white transition-colors">
+            Termos de Uso
+          </Link>
+
+          <Link to="/" className="text-white/80 hover:text-white transition-colors">
+            Política de Privacidade
+          </Link>
+
           <button 
             onClick={() => setIsContactOpen(true)}
             className="text-white/80 hover:text-white transition-colors"
