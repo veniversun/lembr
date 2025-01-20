@@ -52,6 +52,12 @@ export const TestimonialsSection = () => {
       role: "Servidor Público",
       quote: "O aplicativo me ajudou a revisar conceitos do livro que li ano passado. Com isso, não preciso reler e posso praticar imediatamente!",
       rating: 5
+    },
+    {
+      name: "Débora",
+      role: "Empreendedora",
+      quote: "Gosto bastante das opções de acerto e erro. Posso revisar somente os conceitos que tenho mais dificuldade. É preciso melhorar o design do site.",
+      rating: 4
     }
   ];
 
