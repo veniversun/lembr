@@ -7,6 +7,7 @@ export const MessageBox = () => {
         Aprenda o melhor dos Best-Sellers!
       </p>
       
+      <p></p>
       
       <p className="text-gray-700 text-center leading-relaxed">
         Não basta ler os melhores livros. É preciso aprender com eles. Somente praticando é possível crescer de verdade!<br /><br />
