@@ -1,5 +1,12 @@
 import React from 'react';
 import { Star, StarHalf } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface TestimonialProps {
   name: string;
@@ -28,7 +35,7 @@ const StarRating = ({ rating }: { rating: number }) => {
 
 const Testimonial = ({ name, role, quote, rating }: TestimonialProps) => {
   return (
-    <div className="bg-white/60 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/50 hover:bg-white/70 transition-all duration-300">
+    <div className="bg-white/60 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/50 hover:bg-white/70 transition-all duration-300 h-full">
       <p className="text-gray-700 italic mb-4">&ldquo;{quote}&rdquo;</p>
       <div className="text-center">
         <p className="font-semibold text-gray-800">{name}</p>
@@ -63,11 +70,20 @@ export const TestimonialsSection = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {testimonials.map((testimonial, index) => (
-          <Testimonial key={index} {...testimonial} />
-        ))}
-      </div>
+      <Carousel className="w-full relative" opts={{
+        align: "start",
+        loop: true,
+      }}>
+        <CarouselContent className="-ml-2 md:-ml-4">
+          {testimonials.map((testimonial, index) => (
+            <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-2/3 lg:basis-1/2">
+              <Testimonial {...testimonial} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
+        <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
+      </Carousel>
     </div>
   );
 };
