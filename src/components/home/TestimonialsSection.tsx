@@ -69,7 +69,7 @@ export const TestimonialsSection = () => {
   ];
 
   return (
-    <div className="w-full py-12 bg-gradient-to-r from-purple-900/90 via-purple-800/90 to-purple-900/90">
+    <div className="w-full py-12">
       <div className="w-full max-w-4xl mx-auto">
         <Carousel className="w-full relative" opts={{
           align: "start",
