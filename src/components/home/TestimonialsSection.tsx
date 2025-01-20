@@ -69,21 +69,23 @@ export const TestimonialsSection = () => {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-8">
-      <Carousel className="w-full relative" opts={{
-        align: "start",
-        loop: true,
-      }}>
-        <CarouselContent className="-ml-2 md:-ml-4">
-          {testimonials.map((testimonial, index) => (
-            <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-3/5">
-              <Testimonial {...testimonial} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
-        <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
-      </Carousel>
+    <div className="w-full py-12 bg-gradient-to-r from-purple-100 via-purple-50 to-pink-50">
+      <div className="w-full max-w-4xl mx-auto">
+        <Carousel className="w-full relative" opts={{
+          align: "start",
+          loop: true,
+        }}>
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {testimonials.map((testimonial, index) => (
+              <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-3/5">
+                <Testimonial {...testimonial} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
+          <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
+        </Carousel>
+      </div>
     </div>
   );
 };
