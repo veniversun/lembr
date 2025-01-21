@@ -1,4 +1,4 @@
-import { BarChart, LineChart, PieChart, Target } from "lucide-react";
+import { LibraryBig, PieChart, AudioWaveform, Target } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export const AnalyticsExamplesSection = () => {
@@ -19,7 +19,7 @@ export const AnalyticsExamplesSection = () => {
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="flex flex-col items-center p-8 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-          <BarChart className="w-20 h-20 text-purple-500 mb-4" />
+          <LibraryBig className="w-20 h-20 text-purple-500 mb-4" />
           <span className="text-base font-medium text-gray-700">Mais Livros</span>
         </div>
         <div className="flex flex-col items-center p-8 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
@@ -27,7 +27,7 @@ export const AnalyticsExamplesSection = () => {
           <span className="text-base font-medium text-gray-700">Mais Questões</span>
         </div>
         <div className="flex flex-col items-center p-8 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-          <LineChart className="w-20 h-20 text-green-500 mb-4" />
+          <AudioWaveform className="w-20 h-20 text-green-500 mb-4" />
           <span className="text-base font-medium text-gray-700"> Podcasts exclusivos</span>
         </div>
         <div className="flex flex-col items-center p-8 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300">
