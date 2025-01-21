@@ -10,23 +10,23 @@ import { Footer } from '@/components/home/Footer';
 
 const Index = () => {
   return (
-    <Header />
-    
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 md:p-8">
+    <div className="flex flex-col min-h-screen">
+      <Header />
       
-
-      <p className="text-gray-700 text-center leading-relaxed text-4xl md:text-5xl font-bold">
-        Aprenda o melhor dos Best-Sellers!
-      </p>
-      
-      <br />
-      <MessageBox />
-      <BooksCarousel />
-      <YouTubeSection />
-      <CategoriesSection />
-      <TestimonialsSection />
-      <AnalyticsExamplesSection />
-      <Footer />
+      <div className="flex-1 flex flex-col items-center justify-start bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 md:p-8">
+        <p className="text-gray-700 text-center leading-relaxed text-4xl md:text-5xl font-bold mt-8">
+          Aprenda o melhor dos Best-Sellers!
+        </p>
+        
+        <br />
+        <MessageBox />
+        <BooksCarousel />
+        <YouTubeSection />
+        <CategoriesSection />
+        <TestimonialsSection />
+        <AnalyticsExamplesSection />
+        <Footer />
+      </div>
     </div>
   );
 };
