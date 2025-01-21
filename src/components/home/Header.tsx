@@ -5,9 +5,8 @@ export const Header = () => {
     <Link to="/" className="block">
       <div className="bg-[#222222] w-full py-8">
         <div className="text-center mb-8 md:mb-12">
-          <p style={{ color: '#f6d964', alignItems: 'center' }} className="text-center leading-relaxed text-4xl md:text-5xl font-bold">
+          <p style={{ color: '#f6d964', alignItems: 'center' }} className="text-center leading-relaxed text-5xl md:text-5xl font-bold">
             L e m b r .
           </p>
         </div>
       </div>
-
