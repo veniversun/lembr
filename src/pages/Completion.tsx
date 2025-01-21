@@ -90,7 +90,7 @@ const Completion = () => {
                 Quero mais treinos!
               </p>
               <Button 
-                className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white hover:opacity-90 transition-opacity"
+                className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white transition-colors"
                 onClick={handleConquistasClick}
               >
                 <Trophy className="mr-2" /> Versão Plus!
@@ -106,7 +106,7 @@ const Completion = () => {
               <p></p>
               <a href={bookUrl} target="_blank" rel="noopener noreferrer">
                 <Button 
-                  className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white hover:opacity-90 transition-opacity"
+                  className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white transition-colors"
                 >
                   <ShoppingCart className="mr-2" /> Quero o Livro
                 </Button>
@@ -119,7 +119,7 @@ const Completion = () => {
           <Link to="/">
             <Button 
               variant="secondary" 
-              className="w-full bg-black/80 text-white hover:bg-gray/90 text-white-800 border-gray-200 shadow-sm backdrop-blur-sm"
+              className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white transition-colors"
             >
               <Home className="mr-2" /> Voltar para Início
             </Button>
