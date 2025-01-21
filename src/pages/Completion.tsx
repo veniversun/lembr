@@ -119,7 +119,7 @@ const Completion = () => {
           <Link to="/">
             <Button 
               variant="secondary" 
-              className="w-full bg-black/80 hover:bg-gray/90 text-white-800 border-gray-200 shadow-sm backdrop-blur-sm"
+              className="w-full bg-black/80 text-white hover:bg-gray/90 text-white-800 border-gray-200 shadow-sm backdrop-blur-sm"
             >
               <Home className="mr-2" /> Voltar para Início
             </Button>
