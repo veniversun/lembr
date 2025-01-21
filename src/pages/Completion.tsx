@@ -43,7 +43,7 @@ const Completion = () => {
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-bold text-white">Parabéns!</h2>
             <p className="text-xl text-white/90">
-              Você completou mais uma sessão de estudos
+              Você completou mais um Treino!
             </p>
           </div>
         </div>
@@ -87,13 +87,13 @@ const Completion = () => {
           <div className="space-y-4">
             <div className="text-center space-y-4">
               <p className="text-xl font-semibold text-gray-800">
-                Veja como está sua evolução geral
+                Quero mais treinos!
               </p>
               <Button 
                 className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white hover:opacity-90 transition-opacity"
                 onClick={handleConquistasClick}
               >
-                <Trophy className="mr-2" /> Conquistas
+                <Trophy className="mr-2" /> Versão Plus!
               </Button>
             </div>
           </div>
@@ -101,14 +101,14 @@ const Completion = () => {
           <div className="space-y-4">
             <div className="text-center space-y-4">
               <p className="text-xl font-semibold text-gray-800">
-                Compre o livro com desconto
+                Comprar o livro com desconto
               </p>
               <p></p>
               <a href={bookUrl} target="_blank" rel="noopener noreferrer">
                 <Button 
                   className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white hover:opacity-90 transition-opacity"
                 >
-                  <ShoppingCart className="mr-2" /> Comprar Livro
+                  <ShoppingCart className="mr-2" /> Quero o Livro
                 </Button>
               </a>
             </div>
@@ -119,7 +119,7 @@ const Completion = () => {
           <Link to="/">
             <Button 
               variant="secondary" 
-              className="w-full bg-white/80 hover:bg-white/90 text-gray-800 border-gray-200 shadow-sm backdrop-blur-sm"
+              className="w-full bg-white/80 hover:bg-black/90 text-white-800 border-gray-200 shadow-sm backdrop-blur-sm"
             >
               <Home className="mr-2" /> Voltar para Início
             </Button>
