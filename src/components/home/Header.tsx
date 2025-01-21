@@ -7,8 +7,10 @@ export const Header = () => {
       <div className="bg-[#222222] w-full py-8">
         <div className="text-center mb-8 md:mb-12">
           <p>
-            L e m b r .
-          <p/>  
+
+          L e m b r .
+
+          </p>
         </div>
       </div>
     </Link>
