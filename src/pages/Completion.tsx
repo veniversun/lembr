@@ -14,14 +14,20 @@ const Completion = () => {
   const navigate = useNavigate();
   const { correctCount = 0, incorrectCount = 0, bookUrl = "/" } = location.state || {};
 
-  const totalAttempts = correctCount + incorrectCount;
-  const successPercentage = totalAttempts > 0 
-    ? Math.round((correctCount / totalAttempts) * 100) 
-    : 0;
+  // Improved success rate calculation with proper type handling and edge case management
+  const totalAttempts = Math.max(correctCount + incorrectCount, 1); // Prevent division by zero
+  const successPercentage = Math.round((correctCount / totalAttempts) * 100);
+
+  console.log('Completion stats:', {
+    correctCount,
+    incorrectCount,
+    totalAttempts,
+    successPercentage
+  });
 
   const pieData = [
-    { name: "Acertos", value: correctCount },
-    { name: "Erros", value: incorrectCount },
+    { name: "Acertos", value: correctCount || 0 },
+    { name: "Erros", value: incorrectCount || 0 },
   ];
 
   const handleConquistasClick = () => {
@@ -58,10 +64,15 @@ const Completion = () => {
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => 
+                      `${name} ${(percent * 100).toFixed(0)}%`
+                    }
                   >
                     {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={COLORS[index % COLORS.length]} 
+                      />
                     ))}
                   </Pie>
                   <Tooltip />
@@ -75,7 +86,9 @@ const Completion = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="text-center space-y-4">
-              <p className="text-xl font-semibold text-gray-800">Veja como está sua evolução geral</p>
+              <p className="text-xl font-semibold text-gray-800">
+                Veja como está sua evolução geral
+              </p>
               <Button 
                 className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white hover:opacity-90 transition-opacity"
                 onClick={handleConquistasClick}
@@ -87,7 +100,9 @@ const Completion = () => {
 
           <div className="space-y-4">
             <div className="text-center space-y-4">
-              <p className="text-xl font-semibold text-gray-800">Compre o livro com desconto</p>
+              <p className="text-xl font-semibold text-gray-800">
+                Compre o livro com desconto
+              </p>
               <p></p>
               <a href={bookUrl} target="_blank" rel="noopener noreferrer">
                 <Button 
