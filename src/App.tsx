@@ -11,6 +11,7 @@ import Practice4 from "@/pages/Practice4";
 import Completion from "@/pages/Completion";
 import Cadastro from "@/pages/Cadastro";
 import Profile from "@/pages/Profile";
+import Vendas from "@/pages/Vendas";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/completion" element={<Completion />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/vendas" element={<Vendas />} />
       </Routes>
       <Toaster />
     </Router>
