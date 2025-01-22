@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, X } from 'lucide-react';
+import { Check, Dot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const ComparisonTable = () => {
@@ -43,7 +43,7 @@ export const ComparisonTable = () => {
           <div className="space-y-4">
             {features.map((feature, index) => (
               <div key={index} className="flex items-center space-x-2">
-                <X className="h-5 w-5 text-red-500" />
+                <Dot className="h-5 w-5 text-gray-800" />
                 <span className="text-gray-700">{feature.free}</span>
               </div>
             ))}
@@ -57,7 +57,7 @@ export const ComparisonTable = () => {
             <p className="text-purple-600 mt-2">Acesso Completo</p>
             <Button 
               className="mt-4 w-full bg-purple-600 hover:bg-purple-700"
-              onClick={() => window.location.href = '/cadastro'}
+              onClick={() => window.location.href = 'https://pay.hotmart.com/G97646259Y?bid=1737402944600'}
             >
               Obter Plus
             </Button>
