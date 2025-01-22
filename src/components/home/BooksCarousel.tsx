@@ -38,24 +38,17 @@ export const BooksCarousel = () => {
         Escolha um best-seller para treinar agora:
       </p>
       
-      <Carousel className="w-full max-w-3xl mx-auto relative" opts={{ 
-        align: "center",
-        loop: true,
-      }}>
-        <CarouselContent className="-ml-2 md:-ml-4">
-          {books.map((book, index) => (
-            <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-1/3">
-              <BookCard 
-                imageSrc={book.image}
-                alt={book.alt}
-                path={book.path}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
-        <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
-      </Carousel>
+      <div className="grid grid-cols-2 gap-4 max-w-3xl mx-auto">
+        {books.map((book, index) => (
+          <div key={index} className="w-full">
+            <BookCard 
+              imageSrc={book.image}
+              alt={book.alt}
+              path={book.path}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
