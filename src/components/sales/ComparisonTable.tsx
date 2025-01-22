@@ -53,7 +53,7 @@ export const ComparisonTable = () => {
         {/* Plus Column */}
         <div className="space-y-6">
           <div className="text-center p-4 bg-purple-50 rounded-lg border-2 border-purple-200">
-            <h3 className="text-xl font-semibold text-purple-800">PLUS</h3>
+            <h3 className="text-xl font-semibold text-purple-800">PRO</h3>
             <p className="text-purple-600 mt-2">Acesso Completo</p>
             <Button 
               className="mt-4 w-full bg-purple-600 hover:bg-purple-700"
