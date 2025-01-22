@@ -8,7 +8,6 @@ const Vendas = () => {
   const navigate = useNavigate();
 
   const handleStartFree = () => {
-    localStorage.removeItem("hasVisited");
     navigate('/practice');
   };
 
