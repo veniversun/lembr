@@ -5,8 +5,8 @@ export const AnalyticsExamplesSection = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log("Analytics section clicked - redirecting to cadastro");
-    navigate('/cadastro');
+    console.log("Analytics section clicked - redirecting to Vendas");
+    navigate('/Vendas');
   };
 
   return (
