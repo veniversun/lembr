@@ -2,11 +2,7 @@ import React from 'react';
 import { Check, Dot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-interface ComparisonTableProps {
-  onUpgradeClick: () => void;
-}
-
-export const ComparisonTable = ({ onUpgradeClick }: ComparisonTableProps) => {
+export const ComparisonTable = () => {
   const features = [
     {
       free: '1 livro para treino',
@@ -61,7 +57,7 @@ export const ComparisonTable = ({ onUpgradeClick }: ComparisonTableProps) => {
             <p className="text-purple-600 mt-2">Acesso Completo</p>
             <Button 
               className="mt-4 w-full bg-purple-600 hover:bg-purple-700"
-              onClick={onUpgradeClick}
+              onClick={() => window.location.href = 'https://pay.hotmart.com/G97646259Y?bid=1737402944600'}
             >
               Obter Plus
             </Button>
