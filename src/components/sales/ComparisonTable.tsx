@@ -9,11 +9,11 @@ export const ComparisonTable = () => {
   const features = [
     {
       free: '1 livro para treino',
-      plus: '4 livros atualmente e 2 novos todo mês',
+      plus: 'Acervo completo de livros',
     },
     {
       free: '10 questões por livro',
-      plus: 'Mínimo de 20 questões por livro',
+      plus: 'Dezenas de questões por livro',
     },
     {
       free: '1 resumo exemplo',
@@ -21,7 +21,7 @@ export const ComparisonTable = () => {
     },
     {
       free: 'Podcasts abertos',
-      plus: 'Podcast de cada livro e mais exclusivos',
+      plus: 'Playlist com podcast de cada livro e mais exclusivos',
     },
   ];
 
