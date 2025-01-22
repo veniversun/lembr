@@ -22,8 +22,8 @@ const Index = () => {
         <MessageBox />
         <BooksCarousel />
         
-        {/* New flex container for side-by-side sections */}
-        <div className="w-full max-w-7xl flex flex-col md:flex-row gap-8 justify-center items-stretch">
+        {/* Container for side-by-side sections with max-width constraint */}
+        <div className="w-full max-w-4xl flex flex-col md:flex-row gap-8 justify-center items-stretch mb-8">
           <YouTubeSection />
           <CategoriesSection />
         </div>
