@@ -33,9 +33,9 @@ export const useFlashcardState = ({ bookType, cards }: UseFlashcardStateProps) =
         .select("*")
         .eq("user_id", userId)
         .eq("book_type", bookType)
-        .single();
+        .maybeSingle();
 
-      if (fetchError && fetchError.code !== 'PGRST116') {
+      if (fetchError) {
         console.error("Error fetching progress:", fetchError);
         return;
       }
