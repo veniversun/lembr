@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, Trophy, ShoppingCart } from "lucide-react";
-import { BooksCarousel } from "@/components/home/BooksCarousel";
+import { Home, ShoppingCart } from "lucide-react";
 import { Header } from "@/components/home/Header";
 import { YouTubeSection } from "@/components/home/YouTubeSection";
 import { Footer } from "@/components/home/Footer";
+import { ComparisonTable } from "@/components/sales/ComparisonTable";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
 const COLORS = ["#22c55e", "#ef4444"]; // green for correct, red for incorrect
@@ -28,11 +28,6 @@ const Completion = () => {
     { name: "Acertos", value: correctCount || 0 },
     { name: "Erros", value: incorrectCount || 0 },
   ];
-
-  const handleConquistasClick = () => {
-    console.log("Redirecting to vendas page");
-    navigate('/vendas');
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
@@ -82,40 +77,15 @@ const Completion = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <div className="text-center space-y-4">
-              <p className="text-xl font-semibold text-gray-800">
-                Quero mais treinos!
-              </p>
-              <Button 
-                className="w-full bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] transition-colors"
-                onClick={handleConquistasClick}
-              >
-                <Trophy className="mr-2" /> Versão Plus!
-              </Button>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="text-center space-y-4">
-              <p className="text-xl font-semibold text-gray-800">
-                Comprar o livro com desconto
-              </p>
-              <p></p>
-              <a href={bookUrl} target="_blank" rel="noopener noreferrer">
-                <Button 
-                  className="w-full bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] transition-colors"
-                >
-                  <ShoppingCart className="mr-2" /> Quero o Livro
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center">
-          <Link to="/">
+        <div className="flex gap-4 justify-center">
+          <a href={bookUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
+            <Button 
+              className="w-full bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] transition-colors"
+            >
+              <ShoppingCart className="mr-2" /> Quero o Livro
+            </Button>
+          </a>
+          <Link to="/" className="flex-1">
             <Button 
               className="w-full bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] transition-colors"
             >
@@ -124,12 +94,7 @@ const Completion = () => {
           </Link>
         </div>
 
-        <div>
-          <p className="text-xl font-semibold mb-4 text-center text-gray-800">
-            Treine outros livros
-          </p>
-          <BooksCarousel />
-        </div>
+        <ComparisonTable />
 
         <YouTubeSection />
       </div>
