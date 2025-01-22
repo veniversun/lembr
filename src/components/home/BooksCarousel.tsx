@@ -33,7 +33,7 @@ export const BooksCarousel = () => {
   ];
 
   return (
-    <div className="w-full max-w-5xl mx-auto bg-white/60 backdrop-blur-md p-4 md:p-8 rounded-2xl shadow-lg border border-white/50 mb-8 md:mb-12 hover:bg-white/70 transition-all duration-300">
+    <div className="w-full max-w-4xl mx-auto bg-white/60 backdrop-blur-md p-4 md:p-8 rounded-2xl shadow-lg border border-white/50 mb-8 md:mb-12 hover:bg-white/70 transition-all duration-300">
       <p className="text-xl text-gray-700 text-center mb-8 font-medium">
         Escolha um best-seller para treinar agora:
       </p>
