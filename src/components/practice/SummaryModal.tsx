@@ -35,11 +35,20 @@ export const SummaryModal = ({ isOpen, onClose }: SummaryModalProps) => {
 
   const formatIdeas = (ideas: string | null) => {
     if (!ideas) return '';
-    // Remove any table formatting and extra whitespace
-    return ideas
-      .replace(/\|/g, '') // Remove table separators
-      .replace(/\n+/g, '\n') // Replace multiple newlines with single newline
-      .trim();
+    try {
+      // Parse the string to get an array
+      const ideasArray = JSON.parse(ideas);
+      // Format each idea as a bullet point, removing quotes
+      return ideasArray
+        .map(idea => `• ${idea.replace(/"/g, '')}`)
+        .join('\n');
+    } catch (e) {
+      // If parsing fails, return the original string with basic formatting
+      return ideas
+        .replace(/[\[\]"]/g, '') // Remove brackets and quotes
+        .replace(/,/g, '\n• ') // Replace commas with newline and bullet point
+        .replace(/^/, '• '); // Add bullet point to the first line
+    }
   };
 
   return (
