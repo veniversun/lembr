@@ -22,7 +22,7 @@ export const BooksCarousel = () => {
     },
     {
       path: '/practice2',
-      image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364d.png',
+      image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png',
       alt: 'Psicologia Financeira'
     },
     {
@@ -38,7 +38,7 @@ export const BooksCarousel = () => {
         Escolha um best-seller para treinar agora:
       </p>
       
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden px-12">
         <Carousel
           opts={{
             align: "center",
@@ -51,7 +51,7 @@ export const BooksCarousel = () => {
           <CarouselContent className="-ml-4">
             {books.map((book, index) => (
               <CarouselItem key={index} className="pl-4 basis-1/3 transition-opacity duration-300">
-                <div className={`w-full max-w-[280px] mx-auto transform transition-all duration-300
+                <div className={`w-full max-w-[220px] mx-auto transform transition-all duration-300
                   ${index === 1 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
                   <BookCard 
                     imageSrc={book.image}
@@ -69,8 +69,8 @@ export const BooksCarousel = () => {
           {/* Right shadow overlay */}
           <div className="absolute right-0 top-0 bottom-0 w-[15%] bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
           
-          <CarouselPrevious className="absolute -left-4 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
-          <CarouselNext className="absolute -right-4 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+          <CarouselPrevious className="absolute -left-2 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+          <CarouselNext className="absolute -right-2 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
         </Carousel>
       </div>
     </div>
