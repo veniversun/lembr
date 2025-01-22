@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, Trophy, ShoppingCart } from "lucide-react";
-import { BookCarousel } from "@/components/BookCarousel";
+import { BooksCarousel } from "@/components/home/BooksCarousel";
 import { Header } from "@/components/home/Header";
 import { YouTubeSection } from "@/components/home/YouTubeSection";
 import { Footer } from "@/components/home/Footer";
@@ -14,8 +14,7 @@ const Completion = () => {
   const navigate = useNavigate();
   const { correctCount = 0, incorrectCount = 0, bookUrl = "/" } = location.state || {};
 
-  // Improved success rate calculation with proper type handling and edge case management
-  const totalAttempts = Math.max(correctCount + incorrectCount, 1); // Prevent division by zero
+  const totalAttempts = Math.max(correctCount + incorrectCount, 1);
   const successPercentage = Math.round((correctCount / totalAttempts) * 100);
 
   console.log('Completion stats:', {
@@ -90,7 +89,7 @@ const Completion = () => {
                 Quero mais treinos!
               </p>
               <Button 
-                className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white transition-colors"
+                className="w-full bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] transition-colors"
                 onClick={handleConquistasClick}
               >
                 <Trophy className="mr-2" /> Versão Plus!
@@ -106,7 +105,7 @@ const Completion = () => {
               <p></p>
               <a href={bookUrl} target="_blank" rel="noopener noreferrer">
                 <Button 
-                  className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white transition-colors"
+                  className="w-full bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] transition-colors"
                 >
                   <ShoppingCart className="mr-2" /> Quero o Livro
                 </Button>
@@ -118,8 +117,7 @@ const Completion = () => {
         <div className="text-center">
           <Link to="/">
             <Button 
-              variant="secondary" 
-              className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white transition-colors"
+              className="w-full bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] transition-colors"
             >
               <Home className="mr-2" /> Voltar para Início
             </Button>
@@ -130,7 +128,7 @@ const Completion = () => {
           <p className="text-xl font-semibold mb-4 text-center text-gray-800">
             Treine outros livros
           </p>
-          <BookCarousel />
+          <BooksCarousel />
         </div>
 
         <YouTubeSection />
