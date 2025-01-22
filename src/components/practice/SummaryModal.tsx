@@ -33,6 +33,15 @@ export const SummaryModal = ({ isOpen, onClose }: SummaryModalProps) => {
     },
   });
 
+  const formatIdeas = (ideas: string | null) => {
+    if (!ideas) return '';
+    // Remove any table formatting and extra whitespace
+    return ideas
+      .replace(/\|/g, '') // Remove table separators
+      .replace(/\n+/g, '\n') // Replace multiple newlines with single newline
+      .trim();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl">
@@ -50,7 +59,9 @@ export const SummaryModal = ({ isOpen, onClose }: SummaryModalProps) => {
             {summary?.ideias && (
               <div>
                 <h3 className="text-lg font-semibold mb-2">Principais Ideias:</h3>
-                <p className="text-gray-700 whitespace-pre-wrap">{summary.ideias}</p>
+                <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">
+                  {formatIdeas(summary.ideias)}
+                </p>
               </div>
             )}
           </div>
