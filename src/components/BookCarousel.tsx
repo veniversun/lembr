@@ -37,13 +37,14 @@ const books = [
 
 export const BookCarousel = () => {
   return (
-    <Carousel className="w-full max-w-3xl mx-auto relative" opts={{ 
+    <Carousel className="w-full max-w-5xl mx-auto relative" opts={{ 
       align: "center",
       loop: true,
+      slidesToScroll: 2,
     }}>
       <CarouselContent className="-ml-2 md:-ml-4">
         {books.map((book, index) => (
-          <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-1/3">
+          <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 md:basis-1/2 relative">
             <Link to={book.route}>
               <div className="cursor-pointer">
                 <div className="relative group transition-all duration-300">
@@ -63,8 +64,10 @@ export const BookCarousel = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
-      <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500" />
+      <div className="absolute -left-[15%] top-0 bottom-0 w-[15%] bg-gradient-to-r from-white/80 to-transparent z-10" />
+      <div className="absolute -right-[15%] top-0 bottom-0 w-[15%] bg-gradient-to-l from-white/80 to-transparent z-10" />
+      <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+      <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
     </Carousel>
   );
 };
