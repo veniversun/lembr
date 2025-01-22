@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 
 export const YouTubeSection = () => {
   return (
-    <div className="w-full max-w-4xl bg-white/60 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-lg border border-white/50 hover:bg-white/70 transition-all duration-300">
-      <div className="flex flex-col items-center gap-6">
+    <div className="flex-1 bg-white/60 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-lg border border-white/50 hover:bg-white/70 transition-all duration-300">
+      <div className="flex flex-col items-center gap-6 h-full justify-center">
         <Youtube className="w-16 h-16 text-red-600 animate-pulse" />
-        <p className="text-lg md:text-xl text-gray-700">
+        <p className="text-lg md:text-xl text-gray-700 text-center">
           Para ir além, ouça nosso podcast com análise em detalhes do livros:
         </p>
         <a 

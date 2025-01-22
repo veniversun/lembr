@@ -21,8 +21,13 @@ const Index = () => {
         <br />
         <MessageBox />
         <BooksCarousel />
-        <YouTubeSection />
-        <CategoriesSection />
+        
+        {/* New flex container for side-by-side sections */}
+        <div className="w-full max-w-7xl flex flex-col md:flex-row gap-8 justify-center items-stretch">
+          <YouTubeSection />
+          <CategoriesSection />
+        </div>
+        
         <TestimonialsSection />
         <AnalyticsExamplesSection />
         <Footer />
