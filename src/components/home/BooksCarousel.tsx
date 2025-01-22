@@ -16,17 +16,17 @@ export const BooksCarousel = () => {
       alt: 'Hábitos Atômicos'
     },
     {
-      path: '/practice4',
+      path: '/vendas',
       image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png',
       alt: 'Generalista'
     },
     {
-      path: '/practice2',
+      path: '/vendas',
       image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png',
       alt: 'Psicologia Financeira'
     },
     {
-      path: '/practice3',
+      path: '/vendas',
       image: '/lovable-uploads/1fdec32a-a0f5-4c0c-b655-f206a8d95c1a.png',
       alt: 'Essencialismo'
     }
