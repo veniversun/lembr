@@ -38,7 +38,7 @@ export const BooksCarousel = () => {
         Escolha um best-seller para treinar agora:
       </p>
       
-      <div className="relative px-12">
+      <div className="relative">
         <Carousel
           opts={{
             align: "center",
@@ -61,11 +61,14 @@ export const BooksCarousel = () => {
             ))}
           </CarouselContent>
           
-          <div className="absolute -left-[15%] top-0 bottom-0 w-[15%] bg-gradient-to-r from-white/80 to-transparent z-10" />
-          <div className="absolute -right-[15%] top-0 bottom-0 w-[15%] bg-gradient-to-l from-white/80 to-transparent z-10" />
+          {/* Left shadow overlay */}
+          <div className="absolute left-0 top-0 bottom-0 w-[120px] bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10" />
           
-          <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
-          <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+          {/* Right shadow overlay */}
+          <div className="absolute right-0 top-0 bottom-0 w-[120px] bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
+          
+          <CarouselPrevious className="absolute -left-4 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+          <CarouselNext className="absolute -right-4 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
         </Carousel>
       </div>
     </div>
