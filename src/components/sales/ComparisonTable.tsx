@@ -1,8 +1,11 @@
 import React from 'react';
 import { Check, Dot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 export const ComparisonTable = () => {
+  const navigate = useNavigate();
+  
   const features = [
     {
       free: '1 livro para treino',
@@ -34,7 +37,7 @@ export const ComparisonTable = () => {
             <p className="text-gray-600 mt-2">Comece Agora</p>
             <Button 
               className="mt-4 w-full bg-gray-600 hover:bg-gray-700"
-              onClick={() => window.location.href = '/cadastro'}
+              onClick={() => navigate('/practice')}
             >
               Começar Grátis
             </Button>
