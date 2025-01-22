@@ -7,7 +7,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { BookCard } from './BookCard';
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 export const BooksCarousel = () => {
@@ -35,25 +34,11 @@ export const BooksCarousel = () => {
     }
   ];
 
-  const handleHabitosClick = () => {
-    localStorage.removeItem("hasVisited");
-    navigate('/practice');
-  };
-
   return (
     <div className="w-full max-w-4xl mx-auto bg-white/60 backdrop-blur-md p-4 md:p-8 rounded-2xl shadow-lg border border-white/50 mb-8 md:mb-12 hover:bg-white/70 transition-all duration-300">
       <p className="text-xl text-gray-700 text-center mb-8 font-medium">
         Escolha um best-seller para treinar agora:
       </p>
-      
-      <div className="flex justify-center mb-8">
-        <Button
-          onClick={handleHabitosClick}
-          className="bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] transition-colors px-8"
-        >
-          Hábitos Atômicos
-        </Button>
-      </div>
       
       <div className="relative overflow-hidden px-12">
         <Carousel
@@ -61,7 +46,7 @@ export const BooksCarousel = () => {
             align: "center",
             loop: true,
             slidesToScroll: 1,
-            startIndex: 1,
+            startIndex: 0,
           }}
           className="w-full"
         >
@@ -69,7 +54,7 @@ export const BooksCarousel = () => {
             {books.map((book, index) => (
               <CarouselItem key={index} className="pl-4 basis-1/3 transition-opacity duration-300">
                 <div className={`w-full max-w-[220px] mx-auto transform transition-all duration-300
-                  ${index === 1 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
+                  ${index === 0 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
                   <BookCard 
                     imageSrc={book.image}
                     alt={book.alt}
