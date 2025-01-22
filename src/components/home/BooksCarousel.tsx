@@ -1,11 +1,4 @@
 import React from 'react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { BookCard } from './BookCard';
 
 export const BooksCarousel = () => {
@@ -34,13 +27,13 @@ export const BooksCarousel = () => {
 
   return (
     <div className="w-full max-w-4xl bg-white/60 backdrop-blur-md p-4 md:p-8 rounded-2xl shadow-lg border border-white/50 mb-8 md:mb-12 hover:bg-white/70 transition-all duration-300">
-      <p className="text-xl text-gray-700 text-center mb-6 font-medium">
+      <p className="text-xl text-gray-700 text-center mb-8 font-medium">
         Escolha um best-seller para treinar agora:
       </p>
       
-      <div className="grid grid-cols-2 gap-4 max-w-3xl mx-auto">
+      <div className="grid grid-cols-2 gap-8 md:gap-12 max-w-2xl mx-auto">
         {books.map((book, index) => (
-          <div key={index} className="w-full">
+          <div key={index} className="w-full max-w-[240px] mx-auto">
             <BookCard 
               imageSrc={book.image}
               alt={book.alt}
