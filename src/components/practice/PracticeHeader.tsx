@@ -11,8 +11,8 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
   const updatedTitle = title.replace("Pratique", "Treine");
 
   const handleConquistasClick = () => {
-    console.log("Redirecting to cadastro page");
-    navigate('/cadastro');
+    console.log("Redirecting to vendas page");
+    navigate('/vendas');
   };
 
   return (

@@ -31,8 +31,8 @@ const Completion = () => {
   ];
 
   const handleConquistasClick = () => {
-    console.log("Redirecting to cadastro page");
-    navigate('/cadastro');
+    console.log("Redirecting to vendas page");
+    navigate('/vendas');
   };
 
   return (
