@@ -2,8 +2,16 @@ import React from 'react';
 import { Header } from '@/components/home/Header';
 import { ComparisonTable } from '@/components/sales/ComparisonTable';
 import { HorizontalAnalytics } from '@/components/sales/HorizontalAnalytics';
+import { useNavigate } from 'react-router-dom';
 
 const Vendas = () => {
+  const navigate = useNavigate();
+
+  const handleStartFree = () => {
+    localStorage.removeItem("hasVisited");
+    navigate('/practice');
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -12,7 +20,7 @@ const Vendas = () => {
           Seja um profissional em aplicar <br /> as melhores ideias!
         </p>
               
-        <ComparisonTable />
+        <ComparisonTable onStartFree={handleStartFree} />
         <HorizontalAnalytics />
       </div>
     </div>

@@ -1,76 +1,79 @@
-import React from 'react';
-import { Check, Dot } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
-export const ComparisonTable = () => {
-  const features = [
-    {
-      free: '1 livro para treino',
-      plus: '4 livros atualmente e 2 novos todo mês',
-    },
-    {
-      free: '10 questões por livro',
-      plus: 'Mínimo de 20 questões por livro',
-    },
-    {
-      free: '1 resumo exemplo',
-      plus: 'Resumo de todos os livros',
-    },
-    {
-      free: 'Podcasts abertos',
-      plus: 'Podcast de cada livro e mais exclusivos',
-    },
-  ];
+interface ComparisonTableProps {
+  onStartFree?: () => void;
+}
 
+export const ComparisonTable = ({ onStartFree }: ComparisonTableProps) => {
   return (
-    <div className="w-full max-w-4xl bg-white/60 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/50 mt-8">
-      <h2 className="text-2xl font-bold text-center mb-8 text-gray-800">Compare os Planos</h2>
-      
-      <div className="grid grid-cols-2 gap-8">
-        {/* Free Column */}
-        <div className="space-y-6">
-          <div className="text-center p-4 bg-gray-50 rounded-lg">
-            <h3 className="text-xl font-semibold text-gray-800">FREE</h3>
-            <p className="text-gray-600 mt-2">Comece Agora</p>
-            <Button 
-              className="mt-4 w-full bg-gray-600 hover:bg-gray-700"
-              onClick={() => window.location.href = '/cadastro'}
-            >
-              Começar Grátis
-            </Button>
-          </div>
-          
-          <div className="space-y-4">
-            {features.map((feature, index) => (
-              <div key={index} className="flex items-center space-x-2">
-                <Dot className="h-5 w-5 text-gray-800" />
-                <span className="text-gray-700">{feature.free}</span>
-              </div>
-            ))}
-          </div>
+    <div className="w-full max-w-4xl mx-auto mt-12 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Free Plan */}
+        <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+          <h3 className="text-2xl font-bold mb-4">Grátis</h3>
+          <ul className="space-y-4 mb-8">
+            <li className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Acesso a 1 livro
+            </li>
+            <li className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Flashcards ilimitados
+            </li>
+            <li className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Estatísticas básicas
+            </li>
+          </ul>
+          <Button 
+            onClick={onStartFree}
+            className="w-full bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964]"
+          >
+            Começar Grátis
+          </Button>
         </div>
 
-        {/* Plus Column */}
-        <div className="space-y-6">
-          <div className="text-center p-4 bg-purple-50 rounded-lg border-2 border-purple-200">
-            <h3 className="text-xl font-semibold text-purple-800">PRO</h3>
-            <p className="text-purple-600 mt-2">Acesso Completo</p>
-            <Button 
-              className="mt-4 w-full bg-purple-600 hover:bg-purple-700"
-              onClick={() => window.location.href = 'https://pay.hotmart.com/G97646259Y?bid=1737402944600'}
-            >
-              Obter Plus
-            </Button>
+        {/* PRO Plan */}
+        <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-8 rounded-2xl shadow-lg border border-purple-100 relative overflow-hidden">
+          <div className="absolute top-4 right-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm">
+            Recomendado
           </div>
-          
-          <div className="space-y-4">
-            {features.map((feature, index) => (
-              <div key={index} className="flex items-center space-x-2">
-                <Check className="h-5 w-5 text-green-500" />
-                <span className="text-gray-700">{feature.plus}</span>
-              </div>
-            ))}
-          </div>
+          <h3 className="text-2xl font-bold mb-4">PRO</h3>
+          <ul className="space-y-4 mb-8">
+            <li className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Acesso a todos os livros
+            </li>
+            <li className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Flashcards ilimitados
+            </li>
+            <li className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Estatísticas avançadas
+            </li>
+            <li className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Suporte prioritário
+            </li>
+          </ul>
+          <Button className="w-full bg-purple-500 hover:bg-purple-600 text-white">
+            Em breve
+          </Button>
         </div>
       </div>
     </div>
