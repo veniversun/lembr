@@ -23,14 +23,14 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
           <Link to="/vendas">
             <Button 
               variant="outline" 
-              className="bg-[#9b87f5] text-white hover:bg-[#7E69AB]"
+              className="bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] shadow-md hover:shadow-lg transition-all duration-300"
             >
               <BookOpen className="mr-2" /> Resumo
             </Button>
           </Link>
           <Button 
             variant="outline" 
-            className="bg-[#9b87f5] text-white hover:bg-[#7E69AB]"
+            className="bg-[#222222] hover:bg-black text-[#f6d964] hover:text-[#f6d964] shadow-md hover:shadow-lg transition-all duration-300"
             onClick={handlePodcastClick}
           >
             <Headphones className="mr-2" /> Podcast
