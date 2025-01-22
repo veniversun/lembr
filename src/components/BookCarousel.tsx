@@ -11,7 +11,7 @@ import {
 const books = [
   {
     title: "Hábitos Atômicos",
-    route: "/practice",
+    route: "/vendas",
     description: "Desenvolva hábitos positivos e transforme sua vida",
     image: "/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png"
   },
