@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { BookCard } from './BookCard';
 
 export const BooksCarousel = () => {
@@ -31,16 +38,35 @@ export const BooksCarousel = () => {
         Escolha um best-seller para treinar agora:
       </p>
       
-      <div className="grid grid-cols-2 gap-8 md:gap-12 max-w-2xl mx-auto">
-        {books.map((book, index) => (
-          <div key={index} className="w-full max-w-[240px] mx-auto">
-            <BookCard 
-              imageSrc={book.image}
-              alt={book.alt}
-              path={book.path}
-            />
-          </div>
-        ))}
+      <div className="relative px-12">
+        <Carousel
+          opts={{
+            align: "center",
+            loop: true,
+            slidesToScroll: 2,
+          }}
+          className="w-full max-w-5xl mx-auto"
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {books.map((book, index) => (
+              <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 md:basis-1/2">
+                <div className="w-full max-w-[240px] mx-auto">
+                  <BookCard 
+                    imageSrc={book.image}
+                    alt={book.alt}
+                    path={book.path}
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          
+          <div className="absolute -left-[15%] top-0 bottom-0 w-[15%] bg-gradient-to-r from-white/80 to-transparent z-10" />
+          <div className="absolute -right-[15%] top-0 bottom-0 w-[15%] bg-gradient-to-l from-white/80 to-transparent z-10" />
+          
+          <CarouselPrevious className="hidden md:flex absolute -left-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+          <CarouselNext className="hidden md:flex absolute -right-12 transform scale-150 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+        </Carousel>
       </div>
     </div>
   );
