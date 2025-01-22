@@ -17,19 +17,19 @@ const books = [
   },
   {
     title: "Generalista",
-    route: "/practice4",
+    route: "/vendas",
     description: "Domine os conceitos fundamentais de diversas áreas",
     image: "/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png"
   },
   {
     title: "Psicologia Financeira",
-    route: "/practice2",
+    route: "/vendas",
     description: "Aprenda sobre os vieses cognitivos que afetam suas decisões financeiras",
     image: "/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png"
   },
   {
     title: "Essencialismo",
-    route: "/practice3",
+    route: "/vendas",
     description: "Aprenda a focar no que realmente importa",
     image: "/lovable-uploads/1fdec32a-a0f5-4c0c-b655-f206a8d95c1a.png"
   }
