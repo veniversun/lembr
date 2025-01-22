@@ -165,6 +165,33 @@ export type Database = {
         }
         Relationships: []
       }
+      resumos: {
+        Row: {
+          banco_de_dados: string
+          created_at: string
+          id: number
+          ideias: string | null
+          resumo: string
+          titulo: string
+        }
+        Insert: {
+          banco_de_dados: string
+          created_at?: string
+          id?: number
+          ideias?: string | null
+          resumo: string
+          titulo: string
+        }
+        Update: {
+          banco_de_dados?: string
+          created_at?: string
+          id?: number
+          ideias?: string | null
+          resumo?: string
+          titulo?: string
+        }
+        Relationships: []
+      }
       user_progress: {
         Row: {
           book_type: string
