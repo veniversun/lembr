@@ -15,7 +15,7 @@ const Index = () => {
       
       <div className="flex-1 flex flex-col items-center justify-start bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 md:p-8">
         <div className="text-gray-700 text-center  leading-[4rem] text-4xl md:text-5xl font-bold mt-8">
-          <p className="text-loose leading-[6rem]"> Aplique as grandes ideias dos <br /> melhores Best-Sellers!
+          <p className="text-loose leading-[4rem]"> Aplique as grandes ideias dos <br /> melhores Best-Sellers!
           </p>
         </div>
         <br />
