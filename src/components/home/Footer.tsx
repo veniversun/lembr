@@ -56,9 +56,6 @@ export const Footer = () => {
           <Link to="/" className="text-white/80 hover:text-white transition-colors">
             Sobre
           </Link>
-          <Link to="/cadastro" className="text-white/80 hover:text-white transition-colors">
-            Registre-se
-          </Link>
 
           <Link to="/" className="text-white/80 hover:text-white transition-colors">
             Termos de Uso
