@@ -17,6 +17,7 @@ interface PracticePageProps {
   bookUrl: string;
 }
 
+// Simplified database row type
 type DatabaseRow = {
   q: string | null;
   a: string | null;
@@ -38,7 +39,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  const { data: cards = [], isLoading } = useQuery({
+  const { data: cards = [], isLoading } = useQuery<CardData[]>({
     queryKey: [tableName],
     queryFn: async () => {
       console.log('Fetching data from table:', tableName);
@@ -46,7 +47,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
         .from(tableName)
         .select("*")
         .eq('n', 1)
-        .order('id', { ascending: true })  // Added ordering by id in ascending order
+        .order('id', { ascending: true })
         .limit(10);
       
       if (error) {
