@@ -49,7 +49,7 @@ export const BookCarousel = () => {
             <Link to={book.route}>
               <div className="cursor-pointer">
                 <div className={`relative group transition-all duration-500 transform
-                  ${index === 1 ? 'scale-110' : 'scale-100'}`}>
+                  ${index === 1 ? 'scale-110 z-10' : 'scale-90 opacity-50 blur-[1px]'}`}>
                   <div className="overflow-hidden rounded-xl shadow-lg">
                     <img 
                       src={book.image} 
