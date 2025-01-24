@@ -17,18 +17,19 @@ interface PracticePageProps {
   bookUrl: string;
 }
 
-interface HabatomRow {
+type DatabaseRow = {
   q: string | null;
   a: string | null;
-  n: number | null;
-}
+  n?: number | null;
+  id?: number | null;
+};
 
 interface CardData {
   question: string;
   answer: string;
 }
 
-const mapRowToCardData = (row: HabatomRow): CardData => ({
+const mapRowToCardData = (row: DatabaseRow): CardData => ({
   question: row.q || '',
   answer: row.a || ''
 });
@@ -54,7 +55,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       }
       
       console.log('Fetched data:', data);
-      return (data as HabatomRow[]).map(mapRowToCardData);
+      return (data as DatabaseRow[]).map(mapRowToCardData);
     },
   });
 
