@@ -8,9 +8,11 @@ import {
 } from "@/components/ui/carousel";
 import { BookCard } from './BookCard';
 import { GoProModal } from './GoProModal';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export const BooksCarousel = () => {
   const [showProModal, setShowProModal] = useState(false);
+  const isMobile = useIsMobile();
   
   const books = [
     {
@@ -54,21 +56,24 @@ export const BooksCarousel = () => {
         Escolha um best-seller para treinar agora:
       </p>
       
-      <div className="relative overflow-hidden px-12">
+      <div className="relative overflow-hidden px-4 md:px-12">
         <Carousel
           opts={{
             align: "center",
             loop: true,
             slidesToScroll: 1,
-            startIndex: 1, // This ensures "Hábitos Atômicos" starts in the center
+            startIndex: 1,
           }}
           className="w-full"
         >
-          <CarouselContent className="-ml-4">
+          <CarouselContent className="-ml-2 md:-ml-4">
             {books.map((book, index) => (
-              <CarouselItem key={index} className="pl-4 basis-1/3 transition-opacity duration-300">
-                <div className={`w-full max-w-[220px] mx-auto transform transition-all duration-300
-                  ${index === 1 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
+              <CarouselItem 
+                key={index} 
+                className={`pl-2 md:pl-4 ${isMobile ? 'basis-full' : 'basis-1/3'} transition-opacity duration-300`}
+              >
+                <div className={`w-full max-w-[280px] mx-auto transform transition-all duration-300
+                  ${!isMobile && index === 1 ? 'scale-110 opacity-100' : isMobile ? 'scale-100 opacity-100' : 'scale-90 opacity-50'}`}>
                   <div onClick={() => handleBookClick(book.isPro, book.path)}>
                     <BookCard 
                       imageSrc={book.image}
@@ -84,8 +89,8 @@ export const BooksCarousel = () => {
           <div className="absolute left-0 top-0 bottom-0 w-[15%] bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-[15%] bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
           
-          <CarouselPrevious className="absolute -left-2 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
-          <CarouselNext className="absolute -right-2 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+          <CarouselPrevious className="absolute -left-2 md:-left-4 transform scale-100 md:scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
+          <CarouselNext className="absolute -right-2 md:-right-4 transform scale-100 md:scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
         </Carousel>
       </div>
 
