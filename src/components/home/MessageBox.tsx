@@ -8,13 +8,13 @@ export const MessageBox = () => {
         
         {/* Section 1: Não li */}
         <div className="flex flex-col items-center text-center">
-          <BookOpen className="w-12 h-12 text-[#f6d964] hover:text-[#222222] transition-colors duration-300 mb-4" />
+          <BookOpen className="w-12 h-12  transition-colors duration-300 mb-4" />
           <h3 className="text-xl font-semibold text-gray-800 mb-3"> Quero ler</h3>
           <p className="text-gray-600 leading-relaxed">
             Fuja das partes chatas. Com a nossa curadoria você vai direto às ideias mais poderosas do livro de forma prática e divertida!
           </p>
         </div>
- 
+
         {/* Section 2: Já li */}
         <div className="flex flex-col items-center text-center">
           <BookCheck className="w-12 h-12 text-[#f6d964] hover:text-[#222222] transition-colors duration-300 mb-4" />
@@ -29,7 +29,7 @@ export const MessageBox = () => {
           <Brain className="w-12 h-12 text-[#f6d964] hover:text-[#222222] transition-colors duration-300 mb-4" />
           <h3 className="text-xl font-semibold text-gray-800 mb-3">Livros?</h3>
           <p className="text-gray-600 leading-relaxed">
-            Não liga para nomes de livros? Vamos direto aos resultados! Os Temas selecionam ideias comuns de livros diferentes. Pratique sem historinhas.
+            Não liga para nomes de livros? Vamos direto aos resultados! Trilhas reúnem ideias e conceitos de diversos livros. Pratique sem se perder em historinhas.
           </p>
         </div>
 
