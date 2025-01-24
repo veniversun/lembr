@@ -29,7 +29,7 @@ export const MessageBox = () => {
           <Brain className="w-12 h-12 text-[#f6d964] hover:text-[#222222] transition-colors duration-300 mb-4" />
           <h3 className="text-xl font-semibold text-gray-800 mb-3">Livros?</h3>
           <p className="text-gray-600 leading-relaxed">
-            Não liga para nomes de livros? Vamos direto aos resultados! Os Temas reúnem ideias poderosas de livros diferentes. Sem historinhas.
+            Não liga para nomes de livros? Vamos direto aos resultados! Os Temas reúnem ideias de livros diferentes. Sem historinhas.
           </p>
         </div>
 
