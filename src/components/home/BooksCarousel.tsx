@@ -51,8 +51,8 @@ export const BooksCarousel = () => {
           <CarouselContent className="-ml-4">
             {books.map((book, index) => (
               <CarouselItem key={index} className="pl-4 basis-1/3 transition-opacity duration-300">
-                <div className={`w-full max-w-[220px] mx-auto transform transition-all duration-500
-                  ${index === 1 ? 'scale-125 opacity-100 z-10' : 'scale-75 opacity-40 blur-[1px]'}`}>
+                <div className={`w-full max-w-[220px] mx-auto transform transition-all duration-300
+                  ${index === 1 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
                   <BookCard 
                     imageSrc={book.image}
                     alt={book.alt}

@@ -40,16 +40,14 @@ export const BookCarousel = () => {
     <Carousel className="w-full max-w-5xl mx-auto relative" opts={{ 
       align: "center",
       loop: true,
-      slidesToScroll: 1,
-      startIndex: 1,
+      slidesToScroll: 2,
     }}>
       <CarouselContent className="-ml-2 md:-ml-4">
         {books.map((book, index) => (
           <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 md:basis-1/2 relative">
             <Link to={book.route}>
               <div className="cursor-pointer">
-                <div className={`relative group transition-all duration-500 transform
-                  ${index === 1 ? 'scale-110 z-10' : 'scale-90 opacity-50 blur-[1px]'}`}>
+                <div className="relative group transition-all duration-300">
                   <div className="overflow-hidden rounded-xl shadow-lg">
                     <img 
                       src={book.image} 
