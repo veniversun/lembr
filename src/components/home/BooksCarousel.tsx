@@ -12,8 +12,8 @@ export const BooksCarousel = () => {
   const books = [
     {
       path: '/vendas',
-      image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png',
-      alt: 'Generalista'
+      image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png',
+      alt: 'Psicologia Financeira'
     },
     {
       path: '/practice',
@@ -22,8 +22,8 @@ export const BooksCarousel = () => {
     },
     {
       path: '/vendas',
-      image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png',
-      alt: 'Psicologia Financeira'
+      image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png',
+      alt: 'Generalista'
     },
     {
       path: '/vendas',
@@ -44,7 +44,7 @@ export const BooksCarousel = () => {
             align: "center",
             loop: true,
             slidesToScroll: 1,
-            startIndex: 0, // Start with Generalista (index 0)
+            startIndex: 0,
           }}
           className="w-full"
         >
