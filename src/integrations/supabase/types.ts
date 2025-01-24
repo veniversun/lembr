@@ -66,17 +66,17 @@ export type Database = {
       habatom: {
         Row: {
           a: string | null
-          nivel: number | null
+          n: number | null
           q: string | null
         }
         Insert: {
           a?: string | null
-          nivel?: number | null
+          n?: number | null
           q?: string | null
         }
         Update: {
           a?: string | null
-          nivel?: number | null
+          n?: number | null
           q?: string | null
         }
         Relationships: []

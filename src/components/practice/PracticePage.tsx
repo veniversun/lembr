@@ -46,7 +46,10 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       console.log('Fetching data from table:', tableName);
       const { data, error } = await supabase
         .from(tableName)
-        .select("*");
+        .select("*")
+        .eq('n', 1)  // Filter for cards where n = 1
+        .limit(10)   // Limit to 10 cards
+        .order('q'); // Optional: order by question for consistency
       
       if (error) {
         console.error('Error fetching data:', error);
