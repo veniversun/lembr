@@ -60,7 +60,7 @@ export const BooksCarousel = () => {
             align: "center",
             loop: true,
             slidesToScroll: 1,
-            startIndex: 1,
+            startIndex: 1, // This ensures "Hábitos Atômicos" starts in the center
           }}
           className="w-full"
         >
@@ -81,10 +81,7 @@ export const BooksCarousel = () => {
             ))}
           </CarouselContent>
           
-          {/* Left shadow overlay */}
           <div className="absolute left-0 top-0 bottom-0 w-[15%] bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10" />
-          
-          {/* Right shadow overlay */}
           <div className="absolute right-0 top-0 bottom-0 w-[15%] bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
           
           <CarouselPrevious className="absolute -left-2 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
