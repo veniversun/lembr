@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -7,30 +7,46 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { BookCard } from './BookCard';
+import { GoProModal } from './GoProModal';
 
 export const BooksCarousel = () => {
+  const [showProModal, setShowProModal] = useState(false);
+  
   const books = [
     {
       path: '/vendas',
       image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png',
-      alt: 'Psicologia Financeira'
+      alt: 'Psicologia Financeira',
+      isPro: true
     },
     {
       path: '/practice',
       image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png',
-      alt: 'Hábitos Atômicos'
+      alt: 'Hábitos Atômicos',
+      isPro: false
     },
     {
       path: '/vendas',
       image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png',
-      alt: 'Generalista'
+      alt: 'Generalista',
+      isPro: true
     },
     {
       path: '/vendas',
       image: '/lovable-uploads/1fdec32a-a0f5-4c0c-b655-f206a8d95c1a.png',
-      alt: 'Essencialismo'
+      alt: 'Essencialismo',
+      isPro: true
     }
   ];
+
+  const handleBookClick = (isPro: boolean, path: string) => {
+    if (isPro) {
+      setShowProModal(true);
+    } else {
+      localStorage.removeItem("hasVisited");
+      window.location.href = path;
+    }
+  };
 
   return (
     <div className="w-full max-w-4xl mx-auto bg-white/60 backdrop-blur-md p-4 md:p-8 rounded-2xl shadow-lg border border-white/50 mb-8 md:mb-12 hover:bg-white/70 transition-all duration-300">
@@ -53,11 +69,13 @@ export const BooksCarousel = () => {
               <CarouselItem key={index} className="pl-4 basis-1/3 transition-opacity duration-300">
                 <div className={`w-full max-w-[220px] mx-auto transform transition-all duration-300
                   ${index === 1 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
-                  <BookCard 
-                    imageSrc={book.image}
-                    alt={book.alt}
-                    path={book.path}
-                  />
+                  <div onClick={() => handleBookClick(book.isPro, book.path)}>
+                    <BookCard 
+                      imageSrc={book.image}
+                      alt={book.alt}
+                      path={book.path}
+                    />
+                  </div>
                 </div>
               </CarouselItem>
             ))}
@@ -73,6 +91,11 @@ export const BooksCarousel = () => {
           <CarouselNext className="absolute -right-2 transform scale-125 bg-white/80 hover:bg-white transition-all duration-300 border-2 border-purple-300 hover:border-purple-500 z-20" />
         </Carousel>
       </div>
+
+      <GoProModal 
+        isOpen={showProModal}
+        onClose={() => setShowProModal(false)}
+      />
     </div>
   );
 };

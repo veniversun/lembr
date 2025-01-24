@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface BookCardProps {
   imageSrc: string;
@@ -7,16 +6,9 @@ interface BookCardProps {
   path: string;
 }
 
-export const BookCard = ({ imageSrc, alt, path }: BookCardProps) => {
-  const navigate = useNavigate();
-
-  const handleBookClick = () => {
-    localStorage.removeItem("hasVisited");
-    navigate(path);
-  };
-
+export const BookCard = ({ imageSrc, alt }: BookCardProps) => {
   return (
-    <div onClick={handleBookClick} className="cursor-pointer">
+    <div className="cursor-pointer">
       <div className="relative group transition-all duration-300">
         <div className="overflow-hidden rounded-xl shadow-lg h-[280px]">
           <img 
