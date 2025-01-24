@@ -60,7 +60,7 @@ export const ComparisonTable = () => {
             <p className="text-purple-600 mt-2">Acesso Completo</p>
             <Button 
               className="mt-4 w-full bg-purple-600 hover:bg-purple-700"
-              onClick={() => window.location.href = 'https://pay.hotmart.com/G97646259Y?bid=1737402944600'}
+              onClick={() => navigate('/payment')}
             >
               Obter Plus
             </Button>
