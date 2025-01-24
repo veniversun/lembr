@@ -17,13 +17,10 @@ interface PracticePageProps {
   bookUrl: string;
 }
 
-type TableRow = {
-  q?: string;
-  a?: string;
-  Q?: string;
-  A?: string;
-  id?: number;
-  created_at?: string;
+interface HabatomRow {
+  q: string | null;
+  a: string | null;
+  n: number | null;
 }
 
 interface CardData {
@@ -31,9 +28,9 @@ interface CardData {
   answer: string;
 }
 
-const mapRowToCardData = (row: TableRow): CardData => ({
-  question: row.q || row.Q || '',
-  answer: row.a || row.A || ''
+const mapRowToCardData = (row: HabatomRow): CardData => ({
+  question: row.q || '',
+  answer: row.a || ''
 });
 
 export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
@@ -47,9 +44,9 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       const { data, error } = await supabase
         .from(tableName)
         .select("*")
-        .eq('n', 1)  // Filter for cards where n = 1
-        .limit(10)   // Limit to 10 cards
-        .order('q'); // Optional: order by question for consistency
+        .eq('n', 1)
+        .limit(10)
+        .order('q');
       
       if (error) {
         console.error('Error fetching data:', error);
@@ -57,7 +54,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       }
       
       console.log('Fetched data:', data);
-      return (data as TableRow[]).map(mapRowToCardData);
+      return (data as HabatomRow[]).map(mapRowToCardData);
     },
   });
 
