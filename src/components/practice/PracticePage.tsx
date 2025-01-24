@@ -46,8 +46,8 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
         .from(tableName)
         .select("*")
         .eq('n', 1)
-        .limit(10)
-        .order('q');
+        .order('id', { ascending: true })  // Added ordering by id in ascending order
+        .limit(10);
       
       if (error) {
         console.error('Error fetching data:', error);
