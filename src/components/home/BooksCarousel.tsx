@@ -52,7 +52,7 @@ export const BooksCarousel = () => {
             {books.map((book, index) => (
               <CarouselItem key={index} className="pl-4 basis-1/3 transition-opacity duration-300">
                 <div className={`w-full max-w-[220px] mx-auto transform transition-all duration-300
-                  ${index === 0 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
+                  ${index === 1 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
                   <BookCard 
                     imageSrc={book.image}
                     alt={book.alt}
