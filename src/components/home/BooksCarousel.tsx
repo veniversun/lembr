@@ -44,7 +44,7 @@ export const BooksCarousel = () => {
             align: "center",
             loop: true,
             slidesToScroll: 1,
-            startIndex: 0,
+            startIndex: 1,
           }}
           className="w-full"
         >
