@@ -57,6 +57,10 @@ export const Footer = () => {
             Sobre
           </Link>
 
+          <Link to="/vendas" className="text-white/80 hover:text-white transition-colors">
+            Seja Pro
+          </Link>
+
           <Link to="/" className="text-white/80 hover:text-white transition-colors">
             Termos de Uso
           </Link>
