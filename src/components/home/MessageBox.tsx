@@ -9,7 +9,7 @@ export const MessageBox = () => {
         {/* Section 1: Não li */}
         <div className="flex flex-col items-center text-center">
           <BookOpen className="w-12 h-12 text-[#222222] hover:text-[#f6d964] transition-colors duration-300 mb-4" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-3">Não li...</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-3"> Quero ler</h3>
           <p className="text-gray-600 leading-relaxed">
             Fuja das partes chatas. Com a nossa curadoria você vai direto às ideias mais poderosas do livro de forma prática e divertida!
           </p>
@@ -18,7 +18,7 @@ export const MessageBox = () => {
         {/* Section 2: Já li */}
         <div className="flex flex-col items-center text-center">
           <BookCheck className="w-12 h-12 text-[#222222] hover:text-[#f6d964] transition-colors duration-300 mb-4" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-3">Já li</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-3">Lidos </h3>
           <p className="text-gray-600 leading-relaxed">
             Chega daquela sensação de ler, ler e não levar nada! Aqui você vai revisar os melhores conceitos dos best-seller com foco na prática!
           </p>
@@ -29,7 +29,7 @@ export const MessageBox = () => {
           <Brain className="w-12 h-12 text-[#222222] hover:text-[#f6d964] transition-colors duration-300 mb-4" />
           <h3 className="text-xl font-semibold text-gray-800 mb-3">Livros?</h3>
           <p className="text-gray-600 leading-relaxed">
-            Não se importa com o livro? Vamos direto aos resultados. Nosso sistema classifica as ideias, práticas e conceitos em grandes temas. Agora voce pode estudar e aplicar poderosas ideias sem se perder em historinhas.
+            Não se importa com o livro? Vamos direto aos resultados. Organizamos as melh as ideias e práticas em temas. Aplique o melhor dos livros sem se perder em historinhas.
           </p>
         </div>
 
