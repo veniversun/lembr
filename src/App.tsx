@@ -12,6 +12,7 @@ import Completion from "@/pages/Completion";
 import Cadastro from "@/pages/Cadastro";
 import Profile from "@/pages/Profile";
 import Vendas from "@/pages/Vendas";
+import Payment from "@/pages/Payment";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/vendas" element={<Vendas />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
       <Toaster />
     </Router>
