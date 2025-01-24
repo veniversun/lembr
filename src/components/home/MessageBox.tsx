@@ -1,12 +1,39 @@
 import React from 'react';
+import { BookOpen, BookCheck, Brain } from 'lucide-react';
 
 export const MessageBox = () => {
   return (
     <div className="w-full max-w-4xl bg-white/60 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-xl border border-white/50 mb-8 md:mb-12 hover:bg-white/70 transition-all duration-300">
-          
-      <p className="text-gray-700 text-center leading-loose">
-        Não basta ler os melhores livros. É preciso aprender com eles. Somente praticando é possível crescer de verdade! O Lembr ajuda você a absorver os mais poderosos conceitos dos melhores livros de desenvolvimento pessoal. <br/> Aprenda, cresça e lidere com o Lembr.!
-      </p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        
+        {/* Section 1: Não li */}
+        <div className="flex flex-col items-center text-center">
+          <BookOpen className="w-12 h-12 text-indigo-600 mb-4" />
+          <h3 className="text-xl font-semibold text-gray-800 mb-3">Não li...</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Fuja das partes chatas. Com a nossa curadoria você vai direto às ideias mais poderosas do livro de forma prática e divertida!
+          </p>
+        </div>
+
+        {/* Section 2: Já li */}
+        <div className="flex flex-col items-center text-center">
+          <BookCheck className="w-12 h-12 text-indigo-600 mb-4" />
+          <h3 className="text-xl font-semibold text-gray-800 mb-3">Já li</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Chega daquela sensação de ler, ler e não levar nada! Aqui você vai revisar os melhores conceitos dos best-seller com foco na prática!
+          </p>
+        </div>
+
+        {/* Section 3: Livros? */}
+        <div className="flex flex-col items-center text-center">
+          <Brain className="w-12 h-12 text-indigo-600 mb-4" />
+          <h3 className="text-xl font-semibold text-gray-800 mb-3">Livros?</h3>
+          <p className="text-gray-600 leading-relaxed">
+            Não se importa com o livro? Vamos direto aos resultados. Nosso sistema classifica as ideias, práticas e conceitos em grandes temas. Agora voce pode estudar e aplicar poderosas ideias sem se perder em historinhas.
+          </p>
+        </div>
+
+      </div>
     </div>
   );
 };
