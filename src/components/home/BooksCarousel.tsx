@@ -11,14 +11,14 @@ import { BookCard } from './BookCard';
 export const BooksCarousel = () => {
   const books = [
     {
-      path: '/practice',
-      image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png',
-      alt: 'Hábitos Atômicos'
-    },
-    {
       path: '/vendas',
       image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png',
       alt: 'Generalista'
+    },
+    {
+      path: '/practice',
+      image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png',
+      alt: 'Hábitos Atômicos'
     },
     {
       path: '/vendas',
@@ -44,7 +44,7 @@ export const BooksCarousel = () => {
             align: "center",
             loop: true,
             slidesToScroll: 1,
-            startIndex: 0,
+            startIndex: 1, // Start with Hábitos Atômicos (index 1)
           }}
           className="w-full"
         >
@@ -52,7 +52,7 @@ export const BooksCarousel = () => {
             {books.map((book, index) => (
               <CarouselItem key={index} className="pl-4 basis-1/3 transition-opacity duration-300">
                 <div className={`w-full max-w-[220px] mx-auto transform transition-all duration-300
-                  ${index === 0 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
+                  ${index === 1 ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
                   <BookCard 
                     imageSrc={book.image}
                     alt={book.alt}
