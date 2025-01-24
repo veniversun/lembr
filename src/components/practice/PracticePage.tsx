@@ -45,7 +45,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       console.log('Fetching data from table:', tableName);
       const { data, error } = await supabase
         .from(tableName)
-        .select("*")
+        .select("q, a, n, id")
         .eq('n', 1)
         .order('id', { ascending: true })
         .limit(10);
