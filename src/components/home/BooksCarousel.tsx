@@ -45,7 +45,7 @@ export const BooksCarousel = () => {
     if (isPro) {
       setShowProModal(true);
     } else {
-      localStorage.removeItem("hasVisited");
+      // Ensure we're using window.location.href for consistent navigation
       window.location.href = path;
     }
   };
@@ -61,8 +61,7 @@ export const BooksCarousel = () => {
           opts={{
             align: "center",
             loop: true,
-            slidesToScroll: 1,
-            startIndex: 1,
+            slidesToScroll: isMobile ? 1 : 2,
           }}
           className="w-full"
         >
@@ -70,17 +69,17 @@ export const BooksCarousel = () => {
             {books.map((book, index) => (
               <CarouselItem 
                 key={index} 
-                className={`pl-2 md:pl-4 ${isMobile ? 'basis-full' : 'basis-1/3'} transition-opacity duration-300`}
+                className={`pl-2 md:pl-4 ${isMobile ? 'basis-full' : 'basis-1/3'}`}
               >
-                <div className={`w-full max-w-[280px] mx-auto transform transition-all duration-300
-                  ${!isMobile && index === 1 ? 'scale-110 opacity-100' : isMobile ? 'scale-100 opacity-100' : 'scale-90 opacity-50'}`}>
-                  <div onClick={() => handleBookClick(book.isPro, book.path)}>
-                    <BookCard 
-                      imageSrc={book.image}
-                      alt={book.alt}
-                      path={book.path}
-                    />
-                  </div>
+                <div 
+                  className={`w-full max-w-[280px] mx-auto cursor-pointer`}
+                  onClick={() => handleBookClick(book.isPro, book.path)}
+                >
+                  <BookCard 
+                    imageSrc={book.image}
+                    alt={book.alt}
+                    path={book.path}
+                  />
                 </div>
               </CarouselItem>
             ))}
