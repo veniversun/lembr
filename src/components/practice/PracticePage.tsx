@@ -22,7 +22,7 @@ interface CardData {
   answer: string;
 }
 
-interface DatabaseRow {
+type DatabaseRow = {
   q: string;
   a: string;
   n?: number;
@@ -51,8 +51,8 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       
       console.log('Fetched data:', data);
       return (data || []).map((row: DatabaseRow) => ({
-        question: row.q || '',
-        answer: row.a || ''
+        question: row.q,
+        answer: row.a
       }));
     },
   });
