@@ -17,23 +17,17 @@ interface PracticePageProps {
   bookUrl: string;
 }
 
-// Simplified database row type
-type DatabaseRow = {
-  q: string | null;
-  a: string | null;
-  n?: number | null;
-  id?: number | null;
-};
-
 interface CardData {
   question: string;
   answer: string;
 }
 
-const mapRowToCardData = (row: DatabaseRow): CardData => ({
-  question: row.q || '',
-  answer: row.a || ''
-});
+interface DatabaseRow {
+  q: string;
+  a: string;
+  n?: number;
+  id?: number;
+}
 
 export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
   const navigate = useNavigate();
@@ -56,7 +50,10 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       }
       
       console.log('Fetched data:', data);
-      return (data as DatabaseRow[]).map(mapRowToCardData);
+      return (data || []).map((row: DatabaseRow) => ({
+        question: row.q || '',
+        answer: row.a || ''
+      }));
     },
   });
 

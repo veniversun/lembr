@@ -22,7 +22,7 @@ export const BooksCarousel = () => {
       isPro: true
     },
     {
-      path: '/practice',
+      path: '/practice1',
       image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png',
       alt: 'Hábitos Atômicos',
       isPro: false
@@ -45,7 +45,6 @@ export const BooksCarousel = () => {
     if (isPro) {
       setShowProModal(true);
     } else {
-      // Ensure we're using window.location.href for consistent navigation
       window.location.href = path;
     }
   };

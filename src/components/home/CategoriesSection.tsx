@@ -7,7 +7,7 @@ export const CategoriesSection = () => {
   const [showProModal, setShowProModal] = useState(false);
 
   const categories = [
-    { Icon: Atom, title: 'Disciplina', path: '/practice' },
+    { Icon: Atom, title: 'Disciplina', path: '/practice1' },
     { Icon: Brain, title: 'Psicologia', path: '/vendas' },
     { Icon: Coins, title: 'Finanças', path: '/vendas' },
     { Icon: GraduationCap, title: 'Liderança', path: '/vendas' }

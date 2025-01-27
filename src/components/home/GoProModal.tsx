@@ -32,7 +32,7 @@ export const GoProModal = ({ isOpen, onClose }: GoProModalProps) => {
           <Button 
             onClick={() => {
               onClose();
-              navigate('/practice');
+              navigate('/practice1');
             }}
             variant="outline"
             className="w-full"
