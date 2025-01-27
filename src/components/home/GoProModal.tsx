@@ -15,6 +15,16 @@ interface GoProModalProps {
 export const GoProModal = ({ isOpen, onClose }: GoProModalProps) => {
   const navigate = useNavigate();
 
+  const handleTestClick = () => {
+    onClose();
+    navigate('/practice1');
+  };
+
+  const handleProClick = () => {
+    onClose();
+    navigate('/vendas');
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
@@ -30,20 +40,14 @@ export const GoProModal = ({ isOpen, onClose }: GoProModalProps) => {
         </div>
         <div className="flex flex-col gap-3">
           <Button 
-            onClick={() => {
-              onClose();
-              navigate('/practice1');
-            }}
+            onClick={handleTestClick}
             variant="outline"
             className="w-full"
           >
             Testar Grátis
           </Button>
           <Button 
-            onClick={() => {
-              onClose();
-              navigate('/vendas');
-            }}
+            onClick={handleProClick}
             className="w-full bg-purple-600 hover:bg-purple-700"
           >
             Quero PRO!

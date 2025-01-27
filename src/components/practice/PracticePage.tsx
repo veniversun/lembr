@@ -22,7 +22,7 @@ interface CardData {
   answer: string;
 }
 
-type DatabaseRow = {
+interface DatabaseRow {
   q: string;
   a: string;
   n?: number;
@@ -50,7 +50,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
       }
       
       console.log('Fetched data:', data);
-      return (data || []).map((row: DatabaseRow) => ({
+      return (data as DatabaseRow[]).map(row => ({
         question: row.q,
         answer: row.a
       }));

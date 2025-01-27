@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Carousel,
   CarouselContent,
@@ -13,6 +14,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 export const BooksCarousel = () => {
   const [showProModal, setShowProModal] = useState(false);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   
   const books = [
     {
@@ -45,7 +47,7 @@ export const BooksCarousel = () => {
     if (isPro) {
       setShowProModal(true);
     } else {
-      window.location.href = path;
+      navigate(path);
     }
   };
 

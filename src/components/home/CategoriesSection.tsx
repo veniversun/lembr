@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Brain, Coins, GraduationCap, Atom } from 'lucide-react';
 import { CategoryCard } from './CategoryCard';
 import { GoProModal } from './GoProModal';
 
 export const CategoriesSection = () => {
   const [showProModal, setShowProModal] = useState(false);
+  const navigate = useNavigate();
 
   const categories = [
     { Icon: Atom, title: 'Disciplina', path: '/practice1' },
@@ -15,7 +17,7 @@ export const CategoriesSection = () => {
 
   const handleCategoryClick = (title: string, path: string) => {
     if (title === 'Disciplina') {
-      window.location.href = path;
+      navigate(path);
     } else {
       setShowProModal(true);
     }
