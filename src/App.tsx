@@ -4,7 +4,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 
 // Pages
 import Index from "@/pages/Index";
-import Practice from "@/pages/Practice";
+import Practice1 from "@/pages/Practice1";
 import Practice2 from "@/pages/Practice2";
 import Practice3 from "@/pages/Practice3";
 import Practice4 from "@/pages/Practice4";
@@ -20,7 +20,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/practice" element={<Practice />} />
+        <Route path="/practice1" element={<Practice1 />} />
         <Route path="/practice2" element={<Practice2 />} />
         <Route path="/practice3" element={<Practice3 />} />
         <Route path="/practice4" element={<Practice4 />} />
