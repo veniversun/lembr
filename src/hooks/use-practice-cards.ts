@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { CardData, DatabaseRow } from "@/types/practice";
+import { CardData } from "@/types/practice";
 
-export const usePracticeCards = (tableName: "essen" | "psifin" | "habatom" | "generalista") => {
+type TableName = "essen" | "psifin" | "habatom" | "generalista";
+
+export const usePracticeCards = (tableName: TableName) => {
   return useQuery<CardData[]>({
     queryKey: [tableName],
     queryFn: async () => {
