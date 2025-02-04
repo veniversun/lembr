@@ -6,7 +6,6 @@ export interface CardData {
 export interface DatabaseRow {
   q: string;
   a: string;
-  n?: number;
   id?: number;
 }
 

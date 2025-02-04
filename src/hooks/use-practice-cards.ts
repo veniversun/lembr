@@ -7,10 +7,17 @@ export const usePracticeCards = (tableName: "essen" | "psifin" | "habatom" | "ge
     queryKey: [tableName],
     queryFn: async () => {
       console.log('Fetching data from table:', tableName);
-      const { data, error } = await supabase
+      
+      let query = supabase
         .from(tableName)
-        .select("q, a, n, id")
-        .eq('n', 1)
+        .select("q, a, id");
+
+      // Only add n filter for habatom table
+      if (tableName === 'habatom') {
+        query = query.eq('n', 1);
+      }
+
+      const { data, error } = await query
         .order('id', { ascending: true })
         .limit(10);
       
@@ -20,7 +27,7 @@ export const usePracticeCards = (tableName: "essen" | "psifin" | "habatom" | "ge
       }
       
       console.log('Fetched data:', data);
-      return (data as DatabaseRow[]).map(row => ({
+      return (data as any[]).map(row => ({
         question: row.q,
         answer: row.a
       }));
