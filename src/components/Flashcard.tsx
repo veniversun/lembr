@@ -30,7 +30,7 @@ export const Flashcard = ({
             isError ? "bg-red-50" : "bg-white"
           }`}
         >
-          <div className="flex items-center justify-center h-full p-6 text-xl font-bold">
+          <div className="flex items-center justify-center h-full p-6 text-base sm:text-lg md:text-xl font-bold break-words">
             {question}
           </div>
         </Card>
@@ -40,7 +40,7 @@ export const Flashcard = ({
             isError ? "bg-red-50" : "bg-white"
           }`}
         >
-          <div className="flex items-center justify-center h-full p-6 text-xl">
+          <div className="flex items-center justify-center h-full p-6 text-base sm:text-lg md:text-xl break-words">
             {answer}
           </div>
         </Card>
