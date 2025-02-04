@@ -21,25 +21,29 @@ export const BooksCarousel = () => {
       path: '/vendas',
       image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png',
       alt: 'Psicologia Financeira',
-      isPro: true
+      isPro: true,
+      isAvailable: false
     },
     {
       path: '/practice1',
       image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png',
       alt: 'Hábitos Atômicos',
-      isPro: false
+      isPro: false,
+      isAvailable: true
     },
     {
       path: '/vendas',
       image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png',
       alt: 'Generalista',
-      isPro: true
+      isPro: true,
+      isAvailable: false
     },
     {
       path: '/vendas',
       image: '/lovable-uploads/1fdec32a-a0f5-4c0c-b655-f206a8d95c1a.png',
       alt: 'Essencialismo',
-      isPro: true
+      isPro: true,
+      isAvailable: false
     }
   ];
 
@@ -73,7 +77,7 @@ export const BooksCarousel = () => {
                 className={`pl-2 md:pl-4 ${isMobile ? 'basis-full' : 'basis-1/3'}`}
               >
                 <div 
-                  className={`w-full max-w-[280px] mx-auto cursor-pointer`}
+                  className={`w-full max-w-[280px] mx-auto cursor-pointer ${!book.isAvailable ? 'opacity-50' : ''}`}
                   onClick={() => handleBookClick(book.isPro, book.path)}
                 >
                   <BookCard 
