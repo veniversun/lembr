@@ -37,7 +37,7 @@ export const ComparisonTable = () => {
             <p className="text-gray-600 mt-2">Comece Agora</p>
             <Button 
               className="mt-4 w-full bg-gray-600 hover:bg-gray-700"
-              onClick={() => navigate('/practice')}
+              onClick={() => navigate('/practice1')}
             >
               Começar Grátis
             </Button>
