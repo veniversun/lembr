@@ -62,6 +62,10 @@ export const Footer = () => {
             Seja Pro
           </Link>
 
+          <Link to="/" className="text-white/80 hover:text-white transition-colors">
+            Termos de Uso
+          </Link>
+
           <a 
             href="https://www.instagram.com/lembr_livros/" 
             target="_blank" 
@@ -70,10 +74,6 @@ export const Footer = () => {
           >
             <Instagram className="w-5 h-5" />
           </a>
-
-          <Link to="/" className="text-white/80 hover:text-white transition-colors">
-            Termos de Uso
-          </Link>
 
           <Link to="/" className="text-white/80 hover:text-white transition-colors">
             Política de Privacidade
