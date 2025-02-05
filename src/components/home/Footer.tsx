@@ -62,6 +62,15 @@ export const Footer = () => {
             Seja Pro
           </Link>
 
+          <a 
+            href="https://www.instagram.com/lembr_livros/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-white/80 hover:text-white transition-colors"
+          >
+            <Instagram className="w-5 h-5" />
+          </a>
+
           <Link to="/" className="text-white/80 hover:text-white transition-colors">
             Termos de Uso
           </Link>
@@ -76,15 +85,6 @@ export const Footer = () => {
           >
             Fale Conosco
           </button>
-
-          <a 
-            href="https://www.instagram.com/lembr_livros/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-white/80 hover:text-white transition-colors"
-          >
-            <Instagram className="w-5 h-5" />
-          </a>
         </nav>
         <p className="text-white/70 text-sm">
           Made in Brazil 🇧🇷
