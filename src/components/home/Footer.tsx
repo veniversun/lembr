@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Instagram } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -75,6 +76,15 @@ export const Footer = () => {
           >
             Fale Conosco
           </button>
+
+          <a 
+            href="https://www.instagram.com/lembr_livros/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-white/80 hover:text-white transition-colors"
+          >
+            <Instagram className="w-5 h-5" />
+          </a>
         </nav>
         <p className="text-white/70 text-sm">
           Made in Brazil 🇧🇷
