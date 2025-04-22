@@ -10,7 +10,15 @@ import { usePracticeShortcuts } from "@/hooks/use-practice-shortcuts";
 import { usePracticeCards } from "@/hooks/use-practice-cards";
 import { PracticePageProps } from "@/types/practice";
 
-export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePageProps) => {
+export interface PracticePageProps {
+  title: string;
+  bookType: string;
+  tableName: string;
+  bookUrl: string;
+  podcastUrl: string;
+}
+
+export const PracticePage = ({ title, bookType, tableName, bookUrl, podcastUrl }: PracticePageProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { data: cards = [], isLoading } = usePracticeCards(tableName);
@@ -82,7 +90,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-2xl mx-auto">
-        <PracticeHeader title={title} dbKey={dbKey} />
+        <PracticeHeader title={title} dbKey={dbKey} podcastUrl={podcastUrl} />
 
         <ProgressBar 
           correctCount={correctCount}

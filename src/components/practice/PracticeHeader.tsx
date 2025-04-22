@@ -8,14 +8,17 @@ import { SummaryModal } from "./SummaryModal";
 interface PracticeHeaderProps {
   title: string;
   dbKey: string;
+  podcastUrl: string;
 }
 
-export const PracticeHeader = ({ title, dbKey }: PracticeHeaderProps) => {
+export const PracticeHeader = ({ title, dbKey, podcastUrl }: PracticeHeaderProps) => {
   const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
   const updatedTitle = title.replace("Pratique", "Treine");
 
   const handlePodcastClick = () => {
-    window.open('https://www.youtube.com/watch?v=4F-NbrqWF3k&t=538s', '_blank');
+    if (podcastUrl) {
+      window.open(podcastUrl, '_blank');
+    }
   };
 
   return (
