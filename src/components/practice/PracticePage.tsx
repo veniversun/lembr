@@ -46,6 +46,24 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
     isFlipped,
   });
 
+  let dbKey = "";
+  switch (tableName) {
+    case "habatom":
+      dbKey = "habatom";
+      break;
+    case "psifin":
+      dbKey = "psifin";
+      break;
+    case "essen":
+      dbKey = "essen";
+      break;
+    case "generalista":
+      dbKey = "generalista";
+      break;
+    default:
+      dbKey = tableName;
+  }
+
   if (isLoading) return <div className="flex items-center justify-center min-h-screen"><p>Loading cards...</p></div>;
   if (!cards.length) return <div className="flex items-center justify-center min-h-screen"><p>No flashcards available.</p></div>;
   
@@ -64,7 +82,7 @@ export const PracticePage = ({ title, bookType, tableName, bookUrl }: PracticePa
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-2xl mx-auto">
-        <PracticeHeader title={title} />
+        <PracticeHeader title={title} dbKey={dbKey} />
 
         <ProgressBar 
           correctCount={correctCount}

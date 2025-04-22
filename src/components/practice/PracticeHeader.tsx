@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Home, BookOpen, Headphones } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -6,9 +7,10 @@ import { SummaryModal } from "./SummaryModal";
 
 interface PracticeHeaderProps {
   title: string;
+  dbKey: string;
 }
 
-export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
+export const PracticeHeader = ({ title, dbKey }: PracticeHeaderProps) => {
   const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
   const updatedTitle = title.replace("Pratique", "Treine");
 
@@ -47,6 +49,7 @@ export const PracticeHeader = ({ title }: PracticeHeaderProps) => {
       <SummaryModal 
         isOpen={isSummaryModalOpen}
         onClose={() => setIsSummaryModalOpen(false)}
+        dbKey={dbKey}
       />
     </div>
   );
