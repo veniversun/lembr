@@ -11,25 +11,25 @@ import {
 const books = [
   {
     title: "Psicologia Financeira",
-    route: "/vendas",
+    route: "/practice2",
     description: "Aprenda sobre os vieses cognitivos que afetam suas decisões financeiras",
     image: "/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png"
   },
   {
     title: "Hábitos Atômicos",
-    route: "/vendas",
+    route: "/practice1",
     description: "Desenvolva hábitos positivos e transforme sua vida",
     image: "/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png"
   },
   {
     title: "Generalista",
-    route: "/vendas",
+    route: "/practice4",
     description: "Domine os conceitos fundamentais de diversas áreas",
     image: "/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png"
   },
   {
     title: "Essencialismo",
-    route: "/vendas",
+    route: "/practice3",
     description: "Aprenda a focar no que realmente importa",
     image: "/lovable-uploads/1fdec32a-a0f5-4c0c-b655-f206a8d95c1a.png"
   }
