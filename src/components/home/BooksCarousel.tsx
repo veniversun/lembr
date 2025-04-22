@@ -18,28 +18,28 @@ export const BooksCarousel = () => {
   
   const books = [
     {
-      path: '/vendas',
+      path: '/practice2', // Psicologia Financeira
       image: '/lovable-uploads/9f6375ff-2f40-4c84-b108-d2251eb21364.png',
       alt: 'Psicologia Financeira',
       isPro: true,
       isAvailable: false
     },
     {
-      path: '/practice1',
+      path: '/practice1', // Hábitos Atômicos
       image: '/lovable-uploads/7f1096dd-a6ef-47b5-92ba-6243ac09360d.png',
       alt: 'Hábitos Atômicos',
       isPro: false,
       isAvailable: true
     },
     {
-      path: '/vendas',
+      path: '/practice4', // Generalista
       image: '/lovable-uploads/e687d43b-0677-4795-907f-fed3566ebdcf.png',
       alt: 'Generalista',
       isPro: true,
       isAvailable: false
     },
     {
-      path: '/vendas',
+      path: '/practice3', // Essencialismo
       image: '/lovable-uploads/1fdec32a-a0f5-4c0c-b655-f206a8d95c1a.png',
       alt: 'Essencialismo',
       isPro: true,
@@ -48,12 +48,8 @@ export const BooksCarousel = () => {
   ];
 
   const handleBookClick = (isPro: boolean, path: string) => {
-    if (isPro) {
-      // Redireciona direto ou talvez mostre disabled visualmente, mas não abre mais modal
-      navigate(path);
-    } else {
-      navigate(path);
-    }
+    // Agora todos levam para a página correta de prática
+    navigate(path);
   };
 
   return (
@@ -103,3 +99,4 @@ export const BooksCarousel = () => {
     </div>
   );
 };
+
