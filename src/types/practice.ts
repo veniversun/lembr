@@ -1,3 +1,4 @@
+
 export interface CardData {
   question: string;
   answer: string;
@@ -14,4 +15,5 @@ export interface PracticePageProps {
   bookType: string;
   tableName: "essen" | "psifin" | "habatom" | "generalista";
   bookUrl: string;
+  podcastUrl: string; // <-- Added to fix interface mismatch
 }
