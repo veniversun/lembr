@@ -11,7 +11,7 @@ export const YouTubeSection = () => {
           Para ir além, ouça nosso podcast com análise em detalhes do livros:
         </p>
         <a 
-          href="https://www.youtube.com/@inSummaPodCast" 
+          href="https://www.youtube.com/@lembr.podCast" 
           target="_blank" 
           rel="noopener noreferrer"
         >
