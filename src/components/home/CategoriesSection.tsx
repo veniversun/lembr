@@ -1,11 +1,11 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Brain, Coins, GraduationCap, Atom } from 'lucide-react';
 import { CategoryCard } from './CategoryCard';
-import { GoProModal } from './GoProModal';
 
 export const CategoriesSection = () => {
-  const [showProModal, setShowProModal] = useState(false);
+  const [showProModal, setShowProModal] = useState(false); // Mantém só por compatibilidade.
   const navigate = useNavigate();
 
   const categories = [
@@ -19,7 +19,8 @@ export const CategoriesSection = () => {
     if (title === 'Disciplina') {
       navigate(path);
     } else {
-      setShowProModal(true);
+      // Antes abria GoProModal, agora apenas navega para a rota pro
+      navigate(path);
     }
   };
 
@@ -37,11 +38,7 @@ export const CategoriesSection = () => {
           />
         ))}
       </div>
-
-      <GoProModal 
-        isOpen={showProModal}
-        onClose={() => setShowProModal(false)}
-      />
+      {/* GoProModal removido */}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -8,11 +9,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { BookCard } from './BookCard';
-import { GoProModal } from './GoProModal';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export const BooksCarousel = () => {
-  const [showProModal, setShowProModal] = useState(false);
+  const [showProModal, setShowProModal] = useState(false); // Mantém por compatibilidade, mas não usaremos mais
   const isMobile = useIsMobile();
   const navigate = useNavigate();
   
@@ -49,7 +49,8 @@ export const BooksCarousel = () => {
 
   const handleBookClick = (isPro: boolean, path: string) => {
     if (isPro) {
-      setShowProModal(true);
+      // Redireciona direto ou talvez mostre disabled visualmente, mas não abre mais modal
+      navigate(path);
     } else {
       navigate(path);
     }
@@ -98,10 +99,7 @@ export const BooksCarousel = () => {
         </Carousel>
       </div>
 
-      <GoProModal 
-        isOpen={showProModal}
-        onClose={() => setShowProModal(false)}
-      />
+      {/* GoProModal removido */}
     </div>
   );
 };
