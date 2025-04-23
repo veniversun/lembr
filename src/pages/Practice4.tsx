@@ -5,7 +5,7 @@ import { Header } from "@/components/home/Header";
 const GENERALISTA_BOOK_URL = "https://www.amazon.com.br/Por-generalistas-vencem-mundo-especialistas/dp/6580634340";
 const GENERALISTA_PODCAST = "https://www.youtube.com/watch?v=BKXj3wmBC2Y&t=19s";
 
-const Generalista = () => (
+const Practice4 = () => (
   <>
     <Header />
     <PracticePage
@@ -18,4 +18,4 @@ const Generalista = () => (
   </>
 );
 
-export default Generalista;
+export default Practice4;
