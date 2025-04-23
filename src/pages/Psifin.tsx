@@ -5,7 +5,7 @@ import { Header } from "@/components/home/Header";
 const PSIFIN_BOOK_URL = "https://www.amazon.com.br/psicologia-financeira-atemporais-gan%C3%A2ncia-felicidade/dp/6555111100";
 const PSIFIN_PODCAST = "https://www.youtube.com/watch?v=BKXj3wmBC2Y&t=19s";
 
-const Practice2 = () => (
+const Psifin = () => (
   <>
     <Header />
     <PracticePage
@@ -18,4 +18,4 @@ const Practice2 = () => (
   </>
 );
 
-export default Practice2;
+export default Psifin;
